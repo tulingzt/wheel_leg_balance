@@ -11,7 +11,7 @@
 #include "string.h"
 #include "func_generator.h"
 
-float yaw_fc = 0;
+float yaw_fc = 250;
 
 FGT_agl_t yaw_test = {
     .Td = 2,
@@ -40,7 +40,7 @@ static void gimbal_init(void)
     pid_init(&gimbal.pit_spd.pid, NONE, -0.2f, -0.003f, 0, 0.3f, 2.2f);
     pid_init(&gimbal.yaw_angle.pid, NONE, 20, 0, 200, 0, 15);
     pid_init(&gimbal.yaw_spd.pid, NONE, 1.0f, 0.006f, 0, 0.6f, 2.2f);
-    float yaw_feed_c[3] = {200, 0, 0};
+    float yaw_feed_c[3] = {250, 0, 0};
     feed_forward_init(&gimbal.yaw_feedforward, 0.002f, 2, yaw_feed_c, 0);
 }
 
@@ -69,6 +69,7 @@ static void gimbal_pid_calc(void)
     //视觉测试
 //    gimbal.yaw_angle.ref = FGT_agl_calc(&yaw_test);
     gimbal.yaw_angle.fdb = gimbal_imu.yaw;
+    float temp = gimbal.yaw_angle.ref - gimbal.last_yaw_ref;
     //此yaw_err用于云台yaw环形控制
     yaw_err = circle_error(gimbal.yaw_angle.ref, gimbal.yaw_angle.fdb, 2*PI);
     if (fabs(yaw_err) > 0.8)
@@ -77,7 +78,13 @@ static void gimbal_pid_calc(void)
         gimbal.yaw_angle.pid.out_max = 15;
     gimbal.yaw_spd.ref = pid_calc(&gimbal.yaw_angle.pid, gimbal.yaw_angle.fdb + yaw_err, gimbal.yaw_angle.fdb);
     gimbal.yaw_spd.fdb = gimbal_imu.wz + 0.4f * chassis_imu.wz;
-    gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb);
+    if(temp>0.030f||temp<-0.030f&&vision.aim_status==AIMING)
+    {
+	      gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb)+ temp*yaw_fc;
+    }
+    else
+        gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb);
+
     gimbal.last_yaw_ref = gimbal.yaw_angle.ref;
 }
 

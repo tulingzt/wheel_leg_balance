@@ -34,12 +34,12 @@ const float LegLengthHigh = 0.20f;//长腿 0.23
 const float LegLengthNormal = 0.15f;//正常
 
 //上台阶参数设定
-float jump_vset  = 1.8f;
-float jump_theta = 0.03f;
-float jump_pitch = 0.32f;
+float jump_vset  = 2.0f;
+float jump_theta = 0.0f;
+float jump_pitch = 0.26f;
 float jump_highset1 = 0.30f;
 float jump_highset2 = 0.17f;
-float jump_highset3 = 0.15f;
+float jump_highset3 = 0.20f;
 
 float x3_balance_zero = 0.00f, x5_balance_zero = 0.00f;//腿摆角角度偏置 机体俯仰角度偏置
 float x3_fight_zero = -0.01f;
@@ -251,7 +251,7 @@ void wlr_control(void)
         pid_leg_length[0].kp = pid_leg_length[1].kp = 500;
         pid_leg_length[0].kd = pid_leg_length[1].kd = 10000;
         if (wlr.side[0].fly_flag && wlr.side[1].fly_flag) {//腾空
-            wlr.high_set = LegLengthHightFly;
+            wlr.high_set = LegLengthHigh;
         } else {
             wlr.high_set = LegLengthHigh;
         }
@@ -259,7 +259,7 @@ void wlr_control(void)
         pid_leg_length[0].kp = pid_leg_length[1].kp = 500;
         pid_leg_length[0].kd = pid_leg_length[1].kd = 10000;
         if (wlr.side[0].fly_flag && wlr.side[1].fly_flag) {//腾空
-            wlr.high_set = LegLengthFly;
+            wlr.high_set = LegLengthNormal;
         } else {
             wlr.high_set = LegLengthNormal;
         }
@@ -347,17 +347,22 @@ void wlr_control(void)
     //预测下一个时刻的状态
     p_array_fit(P_Array, vmc[0].L_fdb, vmc[1].L_fdb);
     state_predict();
-    //虚拟力映射
-    for (int i = 0; i < 2; i++) {
-        if (wlr.side[0].fly_flag && wlr.side[1].fly_flag) {            //浮空收腿 响应不用那么大
-            wlr.side[i].Fy = pid_calc(&pid_leg_length_fast[i], tlm.l_ref[i], vmc[i].L_fdb);
-        } else																//常态 跳跃压腿阶段 跳跃落地阶段
+	//虚拟力映射
+	for (int i = 0; i < 2; i++) {
+        if (wlr.side[0].fly_flag && wlr.side[1].fly_flag && wlr.jump_flag==0) {            //浮空收腿 响应不用那么大
+			wlr.side[i].Fy = pid_calc(&pid_leg_length_fast[i], tlm.l_ref[i], vmc[i].L_fdb);
+		} else if (wlr.jump_flag == 2){
+			wlr.side[i].Fy = pid_calc(&pid_leg_length_fast[i], tlm.l_ref[i], vmc[i].L_fdb);
+		} else if (wlr.jump_flag == 3){
+			wlr.side[i].Fy = pid_calc(&pid_leg_length_fast[i], tlm.l_ref[i], vmc[i].L_fdb)
+                                 + mb*GRAVITY/2 + WLR_SIGN(i) * (wlr.roll_offs - wlr.inertial_offs);			
+		} else														                       //常态 跳跃压腿阶段 跳跃落地阶段
             wlr.side[i].Fy = pid_calc(&pid_leg_length[i], tlm.l_ref[i], vmc[i].L_fdb)\
-                                + mb*GRAVITY/2 + WLR_SIGN(i) * (wlr.roll_offs - wlr.inertial_offs);
-    
-        wlr.side[i].T0 = -lqr.U_ref[2+i];
-        vmc_inverse_solution(&vmc[i], wlr.high_set, PI / 2 + x3_balance_zero, wlr.side[i].T0, wlr.side[i].Fy);
-    }
+                                 + mb*GRAVITY/2 + WLR_SIGN(i) * (wlr.roll_offs - wlr.inertial_offs);
+
+		wlr.side[i].T0 = -lqr.U_ref[2+i];
+		vmc_inverse_solution(&vmc[i], wlr.high_set, PI / 2 + x3_balance_zero, wlr.side[i].T0, wlr.side[i].Fy);
+	}
     //------------------------控制数据输出------------------------//
     for (int i = 0; i < 2; i++) {
         wlr.side[i].T1 =  vmc[i].T_ref.e.T1_ref;
@@ -365,10 +370,5 @@ void wlr_control(void)
         wlr.side[i].Tw = -lqr.U_ref[i] - wlr.side[i].T_adapt;
         wlr.side[i].P1 =  vmc[i].q_ref[1];
         wlr.side[i].P4 =  vmc[i].q_ref[4];
-        //跳跃控速->浮空限制驱动轮转速
-        if((wlr.jump_flag==1&&((fabs(lqr.X_fdb[1])>2.2)||(fabs(lqr.X_fdb[1])>2.2)))//撞击后轮子浮空->输出为零
-            ||wlr.jump_flag==2//收腿阶段限制驱动轮输出
-            ||(wlr.jump_flag==3&&((fabs(lqr.X_fdb[1])>2.2)||(fabs(lqr.X_fdb[1])>2.2))))//收腿至落地阶段限制轮速
-        wlr.side[i].Tw = 0;
     }
 }
