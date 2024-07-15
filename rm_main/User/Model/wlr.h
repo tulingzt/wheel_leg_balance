@@ -25,7 +25,7 @@ typedef struct
     float s_fdb, v_fdb, yaw_fdb, wz_fdb;
     float roll_fdb, pit_fdb, wy_fdb, az_fdb;
     //中间变量
-    float yaw_err;
+    float yaw_err, s_adapt;
     //补偿
     float K_adapt;//状态预测补偿系数
     float roll_offs, inertial_offs;//roll补偿 惯性力补偿

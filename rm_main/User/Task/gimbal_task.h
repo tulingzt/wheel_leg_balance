@@ -23,6 +23,7 @@ typedef struct
     feed_forward_t yaw_feedforward;
     float yaw_output, pit_output;
     float last_yaw_ref;
+    float yaw_angle_temp;
 } gimbal_t;
 
 extern gimbal_t gimbal;

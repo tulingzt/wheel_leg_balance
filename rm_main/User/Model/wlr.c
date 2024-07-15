@@ -96,8 +96,6 @@ kalman_filter_t kal_fn[2];
 pid_t pid_leg_length[2];
 pid_t pid_leg_length_fast[2];
 pid_t pid_roll;
-float check_flag1 = 0;
-float s_adapt     = 0;
 
 static float wlr_fn_calc(float az, float Fy_fdb, float T0_fdb, float L0[3], float theta[3])
 {
@@ -183,7 +181,7 @@ void wlr_protest(void)
 	pid_leg_length[0].i_out = 0;
 	pid_leg_length[1].i_out = 0;
     wlr.s_ref = wlr.s_fdb;
-	s_adapt   = wlr.s_fdb;
+	wlr.s_adapt = wlr.s_fdb;
 }
 
 //轮子：位移、速度   摆角：角度、角速度   机体俯仰：角度、角速度
@@ -247,25 +245,19 @@ void wlr_control(void)
 	//高度选择
 	if (wlr.high_flag == 2) {
         wlr.high_set = LegLengthHigh2;
-        pid_leg_length[0].kp = 800;
-        pid_leg_length[1].kp = 800;
-        pid_leg_length[0].kd = 30000;
-        pid_leg_length[1].kd = 30000;
+        pid_leg_length[0].kp = pid_leg_length[1].kp = 800;
+        pid_leg_length[0].kd = pid_leg_length[1].kd = 30000;
     } else if (wlr.high_flag == 1) { //长腿长
-        pid_leg_length[0].kp = 500;
-        pid_leg_length[1].kp = 500;
-        pid_leg_length[0].kd = 10000;
-        pid_leg_length[1].kd = 10000;
+        pid_leg_length[0].kp = pid_leg_length[1].kp = 500;
+        pid_leg_length[0].kd = pid_leg_length[1].kd = 10000;
         if (wlr.side[0].fly_flag && wlr.side[1].fly_flag) {//腾空
             wlr.high_set = LegLengthHightFly;
         } else {
             wlr.high_set = LegLengthHigh;
         }
     } else { //正常腿长
-        pid_leg_length[0].kp = 500;
-        pid_leg_length[1].kp = 500;
-        pid_leg_length[0].kd = 10000;
-        pid_leg_length[1].kd = 10000;
+        pid_leg_length[0].kp = pid_leg_length[1].kp = 500;
+        pid_leg_length[0].kd = pid_leg_length[1].kd = 10000;
         if (wlr.side[0].fly_flag && wlr.side[1].fly_flag) {//腾空
             wlr.high_set = LegLengthFly;
         } else {
@@ -273,32 +265,30 @@ void wlr_control(void)
         }
     }
     //上台阶
-	for (int i = 0; i < 2; i++) {
-		if(wlr.jump_flag == 1){
-			wlr.high_set = jump_highset1;
-			wlr.v_ref = jump_vset;
-			lqr.X_ref[4] = jump_theta;
-			lqr.X_ref[6] = jump_theta;
-			if (fabs(chassis_imu.pit)>jump_pitch){
-				wlr.jump_flag = 2;
-				lqr.X_ref[4]  = 0;
-				lqr.X_ref[6]  = 0;
-			}
-		}else if (wlr.jump_flag == 2){
-			wlr.high_set = jump_highset2;
-			if (fabs(wlr.high_set - vmc[0].L_fdb) < 0.02f && fabs(wlr.high_set - vmc[1].L_fdb) < 0.02f)
-				wlr.jump_flag = 3;
-		}else if (wlr.jump_flag == 3){
-			wlr.high_set = jump_highset3;
-			wlr.jump_cnt ++;
-			if (wlr.jump_cnt > 200){
-				wlr.jump_cnt = 0;
-				wlr.jump_flag = 4;
-			}				
-		}
-	}
-    
-	//更新两腿模型
+    for (int i = 0; i < 2; i++) {
+        if (wlr.jump_flag == 1) {
+            wlr.high_set = jump_highset1;
+            wlr.v_ref = jump_vset;
+            lqr.X_ref[4] = lqr.X_ref[6] = jump_theta;
+            if (fabs(chassis_imu.pit) > jump_pitch){
+                wlr.jump_flag = 2;
+                lqr.X_ref[4]  = 0;
+                lqr.X_ref[6]  = 0;
+            }
+        } else if (wlr.jump_flag == 2) {
+            wlr.high_set = jump_highset2;
+            if (fabs(wlr.high_set - vmc[0].L_fdb) < 0.02f && fabs(wlr.high_set - vmc[1].L_fdb) < 0.02f)
+                wlr.jump_flag = 3;
+        } else if (wlr.jump_flag == 3) {
+            wlr.high_set = jump_highset3;
+            wlr.jump_cnt++;
+            if (wlr.jump_cnt > 200) {
+                wlr.jump_cnt = 0;
+                wlr.jump_flag = 4;
+            }				
+        }
+    }
+    //更新两腿模型
 	tlm_gnd_roll_calc(&tlm, -wlr.roll_fdb, vmc[0].L_fdb, vmc[1].L_fdb);//计算地形倾角
     if (wlr.jump_flag != 0 || (wlr.side[0].fly_flag && wlr.side[1].fly_flag))
 		tlm.l_ref[0] = tlm.l_ref[1] = wlr.high_set;
@@ -326,14 +316,12 @@ void wlr_control(void)
 	//全身运动控制
 	wlr.roll_offs = pid_calc(&pid_roll, 0, wlr.roll_fdb);
     wlr.inertial_offs = (mb/2) * wlr.high_set * lqr.X_fdb[3] * lqr.X_fdb[1] / (BodyWidth/2) / 2;//惯性力补偿
-//    lqr.X_ref[0] = wlr.s_ref;
-//    data_limit(&lqr.X_ref[0], lqr.X_fdb[0]-1.0f, lqr.X_fdb[0]+1.0f);
     if (wlr.v_ref == 0 && wlr.jump_flag == 0)
     {
-        lqr.X_ref[0] = s_adapt;
+        lqr.X_ref[0] = wlr.s_adapt;
     } else {
         lqr.X_ref[0] = wlr.s_fdb;
-        s_adapt      = wlr.s_fdb;
+        wlr.s_adapt = wlr.s_fdb;
     }
     lqr.X_ref[1] = wlr.v_ref;
     lqr.X_ref[2] = -wlr.yaw_ref;

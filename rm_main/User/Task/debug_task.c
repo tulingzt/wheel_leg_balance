@@ -20,7 +20,7 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 10;
+uint8_t debug_wave = 11;
 
 void log_scope_data_pkg(void)
 {
@@ -112,7 +112,9 @@ void log_scope_data_pkg(void)
             break;
         } case 11: {
             log_scope_get_data(driver_motor[0].tx_current);
+            log_scope_get_data(driver_motor[0].rx_current);
             log_scope_get_data(driver_motor[1].tx_current);
+            log_scope_get_data(driver_motor[1].rx_current);
             break;
         }
         default:break;
