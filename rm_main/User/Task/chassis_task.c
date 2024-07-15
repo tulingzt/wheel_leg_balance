@@ -259,10 +259,11 @@ static void chassis_data_input(void)
                 wlr.ctrl_mode = 1; //锁腿开轮
            //高度模式
            if (wlr.ctrl_mode == 2) {  //轮腿模式下才可控制腿长
-               if(rc.sw2 == RC_MI)
+               if(rc.sw2 == RC_MI){
+				   wlr.jump_flag = 0;
                    wlr.high_flag = 0;
-               else if(rc.sw2 == RC_DN)
-                   wlr.high_flag = 1;
+               }else if(rc.sw2 == RC_DN && wlr.jump_flag == 0)
+                   wlr.jump_flag = 1;
            } else {
                wlr.high_flag = 0;
            }
@@ -351,10 +352,10 @@ static void chassis_data_input(void)
             wlr.yaw_fdb = (float)yaw_motor.ecd / 8192 * 2 * PI;
             wlr.wz_ref = 0;
             //此yaw_err用于底盘前后都可跟随
-            wlr.yaw_err = circle_error(wlr.yaw_ref, wlr.yaw_fdb, 2 * PI);
-            if (wlr.yaw_err > PI / 2 || wlr.yaw_err < - PI / 2) {
-                wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI - PI;
-            }
+//            wlr.yaw_err = circle_error(wlr.yaw_ref, wlr.yaw_fdb, 2 * PI);
+//            if (wlr.yaw_err > PI / 2 || wlr.yaw_err < - PI / 2) {
+//                wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI - PI;
+//            }
             break;
         }
         case CHASSIS_MODE_KEYBOARD_FIGHT: {
