@@ -20,7 +20,7 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 11;
+uint8_t debug_wave = 7;
 
 void log_scope_data_pkg(void)
 {
@@ -78,8 +78,8 @@ void log_scope_data_pkg(void)
             break;
         } case 7: {
 //            log_scope_get_data(vmc[0].L_fdb);
-//            log_scope_get_data(vmc[1].L_fdb);
-            log_scope_get_data(wlr.high_set);
+              log_scope_get_data(wlr.v_ref);
+              log_scope_get_data(lqr.X_fdb[1]);
             break;
         } case 8: {//腿部力
             log_scope_get_data(wlr.side[0].Fy);

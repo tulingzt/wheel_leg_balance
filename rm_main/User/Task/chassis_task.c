@@ -263,7 +263,8 @@ static void chassis_data_input(void)
 				   wlr.jump_flag = 0;
                    wlr.high_flag = 0;
                }else if(rc.sw2 == RC_DN && wlr.jump_flag == 0)
-                   wlr.jump_flag = 1;
+//                   wlr.jump_flag = 1;
+				   wlr.high_flag = 1;
            } else {
                wlr.high_flag = 0;
            }
