@@ -1,2 +1,6 @@
 /rm_main/MDK-ARM/rm_main/
-/rm_main/MDK-ARM
+/rm_main/MDK-ARM/*.uvguix.*
+/rm_main/MDK-ARM/.scvd
+/rm_main/MDK-ARM/DebugConfig/
+/rm_main/MDK-ARM/RTE/
+
