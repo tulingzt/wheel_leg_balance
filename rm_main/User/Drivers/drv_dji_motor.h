@@ -9,7 +9,7 @@
 型号以及对应电调    发送控制数据范围    对应物理量   转矩常数    力矩范围
 2006(C610)          -10000~10000        +-10A       0.18N*m/A   +-1.8N*m
 3508(C620)          -16384~16384        +-20A       0.3N*m/A    +-6N*m
-6020                -30000~30000        ?           0.741N*m/A  ?
+6020(电流)          -16384~16384        +-3A        0.741N*m/A  +-2.223N*m
 -----------------------------------------*/
 
 //电机类型定义
@@ -20,12 +20,12 @@
 //发送数据范围
 #define DJI_2006_MOTOR_DATA_RANGE 10000
 #define DJI_3508_MOTOR_DATA_RANGE 16384
-#define DJI_6020_MOTOR_DATA_RANGE 29000
+#define DJI_6020_MOTOR_DATA_RANGE 16384
 
 //发送数据所代表的物理量范围
 #define DJI_2006_MOTOR_CURRENT_RANGE 10
 #define DJI_3508_MOTOR_CURRENT_RANGE 20
-#define DJI_6020_MOTOR_CURRENT_RANGE 3.0f
+#define DJI_6020_MOTOR_CURRENT_RANGE 3
 
 //力矩常数
 #define DJI_2006_MOTOR_TORQUE_CONSTANT 0.18f
@@ -60,7 +60,7 @@ typedef struct
     //中间数据
     uint16_t ecd;                       //当前编码值         单位：ecd 0~8191
     int16_t  speed_rpm;                 //转速               单位：rpm
-    int16_t  rx_current, tx_current;    //实际转矩电流值     单位：A
+    int16_t  rx_current, tx_current;    //实际转矩电流值     单位：
     uint8_t	 temperature;               //电机温度           单位：摄氏度
     uint16_t offset_ecd;                //刚上电时的编码值
     uint16_t last_ecd;                  //上次接收的编码值

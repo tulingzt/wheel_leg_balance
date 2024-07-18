@@ -140,7 +140,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 //            imu_get_data(&chassis_imu, rx_fifo0_message.Identifier, rx_fifo0_data);
         } else if (hfdcan->Instance == FDCAN2) {
 //            power_get_data(rx_fifo0_data);
-            if (rx_fifo0_message.Identifier == 0x020) {
+            if (rx_fifo0_message.Identifier == 0x100) {
                 power_get_data(rx_fifo0_data);
             } else {
                 imu_get_data(&chassis_imu, rx_fifo0_message.Identifier, rx_fifo0_data);
