@@ -263,18 +263,18 @@ static void chassis_data_input(void)
 				   wlr.jump_flag = 0;
                    wlr.high_flag = 0;
                }else if(rc.sw2 == RC_DN && wlr.jump_flag == 0)
-//                   wlr.jump_flag = 1;
-				   wlr.high_flag = 1;
+                   wlr.jump_flag = 1;
+//				   wlr.high_flag = 1;
            } else {
                wlr.high_flag = 0;
            }
             break;
         }
         case CHASSIS_MODE_KEYBOARD_FOLLOW:  //跟随模式可以跳跃  底盘键盘跟随/陀螺/迎敌模式
-//            if (rc.kb.bit.CTRL && wlr.jump_flag == 0)
-//                wlr.jump_flag = 1;
-//            else if (!rc.kb.bit.CTRL)
-//                wlr.jump_flag = 0;
+            if (rc.kb.bit.CTRL && wlr.jump_flag == 0)
+                wlr.jump_flag = 1;
+            else if (!rc.kb.bit.CTRL)
+                wlr.jump_flag = 0;
         case CHASSIS_MODE_KEYBOARD_ROTATE:
         case CHASSIS_MODE_KEYBOARD_FIGHT:
         case CHASSIS_MODE_KEYBOARD_UNFOLLOW:
@@ -487,7 +487,7 @@ void chassis_task(void const *argu)
         thread_wake_time = osKernelSysTick();
 //        taskENTER_CRITICAL();
         chassis_mode_switch();
-        supercap_mode_update();
+//        supercap_mode_update();
         supercap_control();
         chassis_data_input();
         wlr_control();
