@@ -20,7 +20,7 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 7;
+uint8_t debug_wave = 9;
 
 void log_scope_data_pkg(void)
 {

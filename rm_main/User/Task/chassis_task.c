@@ -105,7 +105,7 @@ static void chassis_init()
     ramp_init(&chassis_x_ramp, 0.02f, -chassis_scale.keyboard, chassis_scale.keyboard);//0.02 0.1s达到最大
     ramp_init(&chassis_y_ramp, 0.02f, -chassis_scale.keyboard, chassis_scale.keyboard);
     wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI;
-    wlr.yaw_offset = 3.7f;
+    wlr.yaw_offset = 0.0f;//3.7f
 }
 
 static void chassis_mode_switch(void)

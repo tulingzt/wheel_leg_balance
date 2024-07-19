@@ -10,7 +10,7 @@
 
 #define SHOOT_SPEED_NUM 15
 #define ABS(x) ((x>0)? (x): (-(x)))
-#define TRIGGER_MOTOR_ECD_SINGLE   (0.7f*32818.0f)  //拨盘一颗子弹转过的编码值 8191 * 36 / 8 = 36859.5f
+#define TRIGGER_MOTOR_ECD_SINGLE   (32818.0f)  //拨盘一颗子弹转过的编码值 8191 * 36 / 8 = 36859.5f
 #define TRIGGER_MOTOR_ECD_SERIES   (32818.0f)  //拨盘一颗子弹转过的编码值 8191 * 36 / 8 = 36859.5f
 
 float MIN_HEAT = 40;        //热量控制裕量
@@ -47,7 +47,7 @@ static uint8_t series_shoot_enable(void)
         ((ctrl_mode == REMOTER_MODE)
 //        ((ctrl_mode == REMOTER_MODE && vision.shoot_enable)// && vision.shoot_enable
 //            || (ctrl_mode == PROTECT_MODE && rc.sw2 == RC_DN)
-            || (ctrl_mode == PROTECT_MODE && rc.sw2 == RC_DN && vision.shoot_enable)
+            || (ctrl_mode == PROTECT_MODE && rc.sw2 == RC_DN && vision.shoot_enable)//视觉调试用
             || (ctrl_mode == KEYBOARD_MODE && rc.mouse.l && rc.mouse.r && vision.shoot_enable)
             || (ctrl_mode == KEYBOARD_MODE && rc.mouse.l && rc.mouse.r == 0)
         )
