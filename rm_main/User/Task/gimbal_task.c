@@ -11,7 +11,7 @@
 #include "string.h"
 #include "func_generator.h"
 
-float yaw_fc = 250;
+float yaw_fc = 350;
 
 FGT_agl_t yaw_test = {
     .Td = 2,
@@ -78,9 +78,9 @@ static void gimbal_pid_calc(void)
 //        gimbal.yaw_angle.pid.out_max = 15;
     gimbal.yaw_spd.ref = pid_calc(&gimbal.yaw_angle.pid, gimbal.yaw_angle.fdb + yaw_err, gimbal.yaw_angle.fdb);
     gimbal.yaw_spd.fdb = gimbal_imu.wz + 0.4f * chassis_imu.wz;
-    if(temp>0.030f||temp<-0.030f&&vision.aim_status==AIMING)
+    if(temp<0.030f&&temp>-0.030f&&vision.aim_status==AIMING)
     {
-	      gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb)+ temp*yaw_fc;
+	      gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb) + temp*yaw_fc;
     }
     else
         gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb);

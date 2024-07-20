@@ -168,6 +168,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>shoot</ItemText>
         </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>yaw_fc</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>
