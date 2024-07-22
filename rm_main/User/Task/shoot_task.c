@@ -121,8 +121,8 @@ static void shoot_init(void)
 {
     memset(&shoot, 0, sizeof(shoot_t));
     //发射器底层初始化
-    pid_init(&shoot.fric_spd[0].pid, NONE, 0.0005f, 0, 0, 0, 1);
-    pid_init(&shoot.fric_spd[1].pid, NONE, 0.0005f, 0, 0, 0, 1);
+    pid_init(&shoot.fric_spd[0].pid, NONE, 0.0005f, 0, 0, 0, 0.8);
+    pid_init(&shoot.fric_spd[1].pid, NONE, 0.0005f, 0, 0, 0, 0.8);
     pid_init(&shoot.trigger_ecd.pid, NONE, 0.3f, 0, 0.3f, 0, 5000);
     pid_init(&shoot.trigger_spd.pid, NONE, 0.0015f, 0, 0, 0, 1);
     //发射器模式初始化
@@ -130,7 +130,7 @@ static void shoot_init(void)
     shoot.fric_mode     = FRIC_MODE_PROTECT;
     //枪管参数初始化
     shoot.trigger_period = TRIGGER_PERIOD;
-    shoot.fric_speed_set = 900;
+    shoot.fric_speed_set = 700;
     shoot.barrel.cooling_rate   = 10;
     shoot.barrel.heat_max       = 50;
     //历史射速反馈缓存区

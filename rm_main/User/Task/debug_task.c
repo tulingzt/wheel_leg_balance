@@ -20,23 +20,23 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 1;
+uint8_t debug_wave = 7;
 
 void log_scope_data_pkg(void)
 {
     switch(debug_wave) {
         case 1: {//云台pid调试
-            log_scope_get_data(gimbal.yaw_spd.ref);
-            log_scope_get_data(gimbal.yaw_spd.fdb);
-            log_scope_get_data(gimbal.yaw_angle.ref);
-            log_scope_get_data(gimbal.yaw_angle.fdb);
+//            log_scope_get_data(gimbal.yaw_spd.ref);
+//            log_scope_get_data(gimbal.yaw_spd.fdb);
+//            log_scope_get_data(gimbal.yaw_angle.ref);
+//            log_scope_get_data(gimbal.yaw_angle.fdb);
 //            log_scope_get_data(gimbal.yaw_output);
 //            log_scope_get_data(yaw_motor.tx_current);
             
-//            log_scope_get_data(gimbal.pit_spd.ref);
-//            log_scope_get_data(gimbal.pit_spd.fdb);
-//            log_scope_get_data(gimbal.pit_angle.ref);
-//            log_scope_get_data(gimbal.pit_angle.fdb);
+            log_scope_get_data(gimbal.pit_spd.ref);
+            log_scope_get_data(gimbal.pit_spd.fdb);
+            log_scope_get_data(gimbal.pit_angle.ref);
+            log_scope_get_data(gimbal.pit_angle.fdb);
 //            log_scope_get_data(gimbal.pit_output);
 //            log_scope_get_data(pit_motor.tx_current);
             break;
@@ -77,9 +77,10 @@ void log_scope_data_pkg(void)
             log_scope_get_data(shoot.fric_spd[1].ref);
             break;
         } case 7: {
-//            log_scope_get_data(vmc[0].L_fdb);
+              log_scope_get_data(wlr.side[0].fly_flag);
+              log_scope_get_data(wlr.side[1].fly_flag);
               log_scope_get_data(wlr.v_ref);
-              log_scope_get_data(lqr.X_fdb[1]);
+              log_scope_get_data(wlr.v_fdb);
             break;
         } case 8: {//腿部力
             log_scope_get_data(wlr.side[0].Fy);

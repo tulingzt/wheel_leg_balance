@@ -113,15 +113,15 @@ void can_comm_init(void)
     tx_message.MessageMarker = 0;
     
     //各驱动初始化
-    ht_motor_init(&joint_motor[0], CAN_CHANNEL_1, 0x01, 0.808f);
-    ht_motor_init(&joint_motor[1], CAN_CHANNEL_1, 0x02, 0.815f);
-    ht_motor_init(&joint_motor[2], CAN_CHANNEL_1, 0x03, 0.773f);
-    ht_motor_init(&joint_motor[3], CAN_CHANNEL_1, 0x04, 0.790f);
+    ht_motor_init(&joint_motor[0], CAN_CHANNEL_1, 0x01, 0.765f);//0.765
+    ht_motor_init(&joint_motor[1], CAN_CHANNEL_1, 0x02, 0.765f);//0.765
+    ht_motor_init(&joint_motor[2], CAN_CHANNEL_1, 0x03, 0.730f);//0.730
+    ht_motor_init(&joint_motor[3], CAN_CHANNEL_1, 0x04, 0.750f);//0.750
 
     dji_motor_init(&fric_motor[0], DJI_3508_MOTOR, CAN_CHANNEL_3, 0x201, 1.0f);
     dji_motor_init(&fric_motor[1], DJI_3508_MOTOR, CAN_CHANNEL_3, 0x202, 1.0f);
-    dji_motor_init(&driver_motor[0], DJI_3508_MOTOR, CAN_CHANNEL_2, 0x203, 19.0f);
-    dji_motor_init(&driver_motor[1], DJI_3508_MOTOR, CAN_CHANNEL_2, 0x204, 19.0f);
+    dji_motor_init(&driver_motor[0], DJI_3508_MOTOR, CAN_CHANNEL_2, 0x204, 19.0f);
+    dji_motor_init(&driver_motor[1], DJI_3508_MOTOR, CAN_CHANNEL_2, 0x203, 19.0f);
     dji_motor_init(&yaw_motor, DJI_6020_MOTOR, CAN_CHANNEL_2, 0x205, 1.0f);
     dji_motor_init(&pit_motor, DJI_6020_MOTOR, CAN_CHANNEL_3, 0x206, 1.0f);
     dji_motor_init(&trigger_motor, DJI_2006_MOTOR, CAN_CHANNEL_3, 0x203, 36.0f);

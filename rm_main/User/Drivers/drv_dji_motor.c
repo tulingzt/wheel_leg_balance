@@ -90,7 +90,7 @@ void dji_motor_get_data(can_channel_e can_periph, uint32_t id, uint8_t *data)
 {
     list_t *node = NULL;
     dji_motor_t *object;
-    memset(&motor_msg, 0, sizeof(motor_msg));
+//    memset(&motor_msg, 0, sizeof(motor_msg));
     for (node = object_list.next; node != &(object_list); node = node->next) {
         object = list_entry(node, dji_motor_t, list);
         if (object->can_id == id && object->can_channel == can_periph) {

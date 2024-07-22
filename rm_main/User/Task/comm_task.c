@@ -15,7 +15,7 @@ void comm_task(void const* argument)
         ht_motor_output_single_data(&joint_motor[0]);
         ht_motor_output_single_data(&joint_motor[1]);
         vision_output_data();
-        power_output_data();
+//        power_output_data();
         taskEXIT_CRITICAL();
         osDelayUntil(&thread_wake_time, 1);
         taskENTER_CRITICAL();
