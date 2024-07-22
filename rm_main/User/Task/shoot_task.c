@@ -26,8 +26,7 @@ static uint8_t single_shoot_reset(void)
 {
     return (
         (rc.mouse.l == 0 && ctrl_mode == KEYBOARD_MODE)
-        || (ABS(rc.ch5) < 10 && ctrl_mode != KEYBOARD_MODE)
-//        || (ABS(rc.ch5) < 10)
+        || (ABS(rc.ch5) < 10 && ctrl_mode == REMOTER_MODE)
     );
 }
 
@@ -36,7 +35,7 @@ static uint8_t single_shoot_enable(void)
     return (
         shoot_enable
         && shoot.barrel.heat_remain >= MIN_HEAT
-        && ((rc.mouse.l && ctrl_mode == KEYBOARD_MODE) || (rc.ch5 > 500 && ctrl_mode != KEYBOARD_MODE))
+        && ((rc.mouse.l && ctrl_mode == KEYBOARD_MODE) || (rc.ch5 > 500 && ctrl_mode == REMOTER_MODE))
         && ABS(trigger_ecd_error) < TRIGGER_MOTOR_ECD_SINGLE
     );
 }
@@ -44,10 +43,8 @@ static uint8_t single_shoot_enable(void)
 static uint8_t series_shoot_enable(void)
 {
     return (
-        ((ctrl_mode == REMOTER_MODE)
-//        ((ctrl_mode == REMOTER_MODE && vision.shoot_enable)// && vision.shoot_enable
-//            || (ctrl_mode == PROTECT_MODE && rc.sw2 == RC_DN)
-            || (ctrl_mode == PROTECT_MODE && rc.sw2 == RC_DN && vision.shoot_enable)//视觉调试用
+        (      (ctrl_mode == REMOTER_MODE && vision.shoot_enable && (rc_fsm_check(RC_LEFT_RU) || rc_fsm_check(RC_RIGHT_RU))) //开启视觉连发
+            || (ctrl_mode == REMOTER_MODE && rc.sw2 == RC_DN && !(rc_fsm_check(RC_LEFT_RU) || rc_fsm_check(RC_RIGHT_RU))) //开启遥控连发
             || (ctrl_mode == KEYBOARD_MODE && rc.mouse.l && rc.mouse.r && vision.shoot_enable)
             || (ctrl_mode == KEYBOARD_MODE && rc.mouse.l && rc.mouse.r == 0)
         )
@@ -198,19 +195,19 @@ static void shoot_mode_switch(void)
     shoot_param_update();
     /* 模式切换 */
     switch (ctrl_mode) {
-        case PROTECT_MODE: 
+        case PROTECT_MODE: {
+            shoot.trigger_period = TRIGGER_PERIOD;
+            shoot.fric_mode = FRIC_MODE_STOP;
+            shoot.trigger_mode = TRIGGER_MODE_PROTECT;
+            break;
+        }
         case REMOTER_MODE: {
             shoot.trigger_period = TRIGGER_PERIOD;
             /* 摩擦轮和拨盘模式切换 */
             switch (rc.sw2) {
                 case RC_UP: {
-                    if (ctrl_mode == PROTECT_MODE) {
-                        shoot.fric_mode = FRIC_MODE_STOP;
-                        shoot.trigger_mode = TRIGGER_MODE_PROTECT;
-                    } else {
-                        shoot.fric_mode = FRIC_MODE_STOP;
-                        shoot.trigger_mode = TRIGGER_MODE_STOP;
-                    }
+                    shoot.fric_mode = FRIC_MODE_STOP;
+                    shoot.trigger_mode = TRIGGER_MODE_STOP;
                     break;
                 }
                 case RC_MI: {
@@ -224,6 +221,10 @@ static void shoot_mode_switch(void)
                     break;
                 }
                 default: break;
+            }
+            if (rc_fsm_check(RC_LEFT_RD) || rc_fsm_check(RC_RIGHT_RD)) { //遥控器注释发射
+                shoot.fric_mode = FRIC_MODE_STOP;
+                shoot.trigger_mode = TRIGGER_MODE_PROTECT;
             }
             break;
         }

@@ -157,7 +157,7 @@ static void chassis_mode_switch(void)
 //            wlr.jump_flag = 1;
 //        }
         /* 遥控器注释底盘 */
-        if (rc_fsm_check(RC_RIGHT_RD) || rc_fsm_check(RC_LEFT_LD) || rc_fsm_check(RC_LEFT_RD)) { //遥控器注释底盘
+        if (rc_fsm_check(RC_LEFT_RU) || rc_fsm_check(RC_RIGHT_RU)) { //遥控器注释底盘
             chassis.mode = CHASSIS_MODE_PROTECT;
         }
         break;

@@ -5,14 +5,14 @@
 
 #define DR16_DATA_LEN 18
 
-#define RC_LEFT_LU  ( 1<<0 ) //居左上
-#define RC_LEFT_RU  ( 1<<1 ) //居右上
-#define RC_LEFT_RD  ( 1<<2 ) //居右下
-#define RC_LEFT_LD  ( 1<<3 ) //居左下
-#define RC_RIGHT_LU ( 1<<4 ) //居左上
-#define RC_RIGHT_RU ( 1<<5 ) //居右上
-#define RC_RIGHT_RD ( 1<<6 ) //居右下
-#define RC_RIGHT_LD ( 1<<7 ) //居左下
+#define RC_LEFT_LU  ( 1<<0 ) //居左上 遥控器切换DEBUG灯板
+#define RC_LEFT_RU  ( 1<<1 ) //居右上 遥控器注释底盘
+#define RC_LEFT_RD  ( 1<<2 ) //居右下 遥控器注释发射
+#define RC_LEFT_LD  ( 1<<3 ) //居左下 遥控器开启视觉
+#define RC_RIGHT_LU ( 1<<4 ) //居左上 遥控器切换DEBUG灯板
+#define RC_RIGHT_RU ( 1<<5 ) //居右上 遥控器注释底盘
+#define RC_RIGHT_RD ( 1<<6 ) //居右下 遥控器注释发射
+#define RC_RIGHT_LD ( 1<<7 ) //居左下 遥控器开启视觉
 
 typedef __packed struct
 {

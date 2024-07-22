@@ -916,11 +916,6 @@
               <FilePath>..\User\Task\shoot_task.c</FilePath>
             </File>
             <File>
-              <FileName>rgb_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Task\rgb_task.c</FilePath>
-            </File>
-            <File>
               <FileName>ui_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Task\ui_task.c</FilePath>

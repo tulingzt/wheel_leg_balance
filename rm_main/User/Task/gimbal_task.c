@@ -78,11 +78,9 @@ static void gimbal_pid_calc(void)
         gimbal.yaw_angle.pid.out_max = 15;
     gimbal.yaw_spd.ref = pid_calc(&gimbal.yaw_angle.pid, gimbal.yaw_angle.fdb + yaw_err, gimbal.yaw_angle.fdb);
     gimbal.yaw_spd.fdb = gimbal_imu.wz + 0.4f * chassis_imu.wz;
-    if(temp<0.030f&&temp>-0.030f&&vision.aim_status==AIMING)
-    {
-	      gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb) + temp*yaw_fc;
-    }
-    else
+    if(temp<0.030f && temp>-0.030f && vision.aim_status==AIMING) {
+        gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb) + temp*yaw_fc;
+    } else
         gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb);
 
     gimbal.last_yaw_ref = gimbal.yaw_angle.ref;
@@ -112,10 +110,10 @@ static void gimbal_get_vision_data(void)
             break;
         }
         case UNAIMING: {//未识别到目标
-            if (rc.sw1 == RC_MI || rc.sw1 == RC_UP) {
+            if (ctrl_mode == REMOTER_MODE) {
                 gimbal.pit_angle.ref -= rc.ch2 * gimbal_scale.angle_remote;
                 gimbal.yaw_angle.ref -= rc.ch1 * gimbal_scale.angle_remote;
-            } else if (rc.sw1 == RC_DN) {
+            } else if (ctrl_mode == KEYBOARD_MODE) {
                 gimbal.pit_angle.ref += rc.mouse.y * gimbal_scale.angle_keyboard * 0.5f;
                 gimbal.yaw_angle.ref -= rc.mouse.x * gimbal_scale.angle_keyboard;
             }
@@ -134,20 +132,20 @@ void gimbal_task(void const *argu)
 //        taskENTER_CRITICAL();
         switch (ctrl_mode) {
             case PROTECT_MODE: {
-                if (rc.sw2 == RC_MI || rc.sw2 == RC_DN) {
-                    gimbal_get_vision_data();
-                    gimbal_pid_calc();
-                } else {
-                    gimbal.yaw_angle.ref = gimbal_imu.yaw;
-                    gimbal.last_yaw_ref = gimbal.yaw_angle.ref;
-                    gimbal.pit_angle.ref = 0;
-                    gimbal.pit_output = 0;
-                    gimbal.yaw_output = 0;
-                }
+                gimbal.yaw_angle.ref = gimbal_imu.yaw;
+                gimbal.last_yaw_ref = gimbal.yaw_angle.ref;
+                gimbal.pit_angle.ref = 0;
+                gimbal.pit_output = 0;
+                gimbal.yaw_output = 0;
                 break;
             }
             case REMOTER_MODE: {
-                gimbal_get_vision_data();
+                if (rc_fsm_check(RC_LEFT_RU) || rc_fsm_check(RC_RIGHT_RU)) { //遥控器开启视觉
+                    gimbal_get_vision_data();
+                } else {
+                    gimbal.pit_angle.ref -= rc.ch2 * gimbal_scale.angle_remote;
+                    gimbal.yaw_angle.ref -= rc.ch1 * gimbal_scale.angle_remote;
+                }
                 gimbal_pid_calc();
                 break;
             }

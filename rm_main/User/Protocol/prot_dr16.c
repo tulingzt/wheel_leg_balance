@@ -23,7 +23,6 @@ int kb_status[13] = {0};
  */
 uint8_t dr16_get_data(dr16_t *rc, uint8_t *data)
 {
-    rc->online = 1;
     rc->ch1 = (data[0]      | data[1]  << 8) & 0x07FF;
     rc->ch1 -= 1024;
     rc->ch2 = (data[1] >> 3 | data[2]  << 5) & 0x07FF;
@@ -48,6 +47,8 @@ uint8_t dr16_get_data(dr16_t *rc, uint8_t *data)
     rc->mouse.l = data[12];
     rc->mouse.r = data[13];
     rc->kb.key_code = data[14] | data[15] << 8;
+    
+    rc->online = 1;
     return 0;
 }
 
@@ -109,7 +110,8 @@ uint8_t key_scan_clear(key_index_e key_index)
     return res;
 }
 
-void rc_fsm_init(uint8_t trig_flag) {
+void rc_fsm_init(uint8_t trig_flag)
+{
     static uint8_t last_trig_flag;
     static uint8_t state;
     if (trig_flag == 1 && last_trig_flag == 0) {  //检测到触发信号上升沿
@@ -131,13 +133,13 @@ void rc_fsm_init(uint8_t trig_flag) {
     }
 }
 
-uint8_t rc_fsm_check(uint8_t target_status) {
-//    uint8_t res = 0;
-//    if (rc.init_status & target_status) {
-//        res = 1;
-//    }
-//    return res;
-    return 0;
+uint8_t rc_fsm_check(uint8_t target_status)
+{
+    uint8_t res = 0;
+    if (rc.init_status & target_status) {
+        res = 1;
+    }
+    return res;
 }
 
 uint8_t rc_check_offline(void)
