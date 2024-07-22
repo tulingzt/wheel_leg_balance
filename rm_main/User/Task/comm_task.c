@@ -10,6 +10,7 @@ void comm_task(void const* argument)
     uint32_t thread_wake_time = osKernelSysTick();
     for(;;)
     {
+        thread_wake_time = osKernelSysTick();
         taskENTER_CRITICAL();
         dji_motor_output_data();
         ht_motor_output_single_data(&joint_motor[0]);

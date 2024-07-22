@@ -55,6 +55,7 @@ static void ht_motor_get_single_data(ht_motor_t *motor, uint8_t *data)
 {
     uint16_t tmp_value;
     motor->receive_cnt++;
+    motor->online = 1;
     motor->err_percent = ((float)motor->send_cnt - (float)motor->receive_cnt) / (float)motor->send_cnt;
     //根据协议，对uint参数进行转换
     tmp_value = (data[1] << 8) | data[2];
@@ -154,4 +155,21 @@ void ht_motor_output_data(void)
         object = list_entry(node, ht_motor_t, list);
         ht_motor_output_single_data(object);
     }
+}
+
+uint8_t ht_motor_check_offline(void)
+{
+    uint8_t index = 0;
+    list_t *node = NULL;
+    ht_motor_t *object;
+    for (node = object_list.next; node != &(object_list); node = node->next) {
+        object = list_entry(node, ht_motor_t, list);
+        index++;
+        if (object->online == 1) {
+            object->online = 0;
+        } else {
+            return index;
+        }
+    }
+    return 0;
 }

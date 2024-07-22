@@ -267,6 +267,7 @@ void shoot_task(void const *argu)
     shoot_init();
     for(;;)
     {
+        thread_wake_time = osKernelSysTick();
 //        taskENTER_CRITICAL();
         shoot_mode_switch();    /* 发射器模式切换 */
         shoot_control();

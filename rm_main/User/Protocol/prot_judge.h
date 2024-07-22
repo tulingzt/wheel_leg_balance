@@ -430,5 +430,6 @@ extern power_heat_data_t power_heat_data;
 void judge_init(UART_HandleTypeDef *huart);
 uint8_t judge_get_data(uint8_t *data);
 void judge_send_data(uint8_t* message, int length);
+uint8_t judge_check_offline(void);
 
 #endif

@@ -40,4 +40,20 @@ void imu_get_data(imu_t *imu, uint32_t id, uint8_t *data)
     }
     default:break;
     }
+    imu->online = 1;
+}
+
+uint8_t imu_check_offline(void)
+{
+    if (gimbal_imu.online == 0) {
+        chassis_imu.online = 0;
+        return 1;
+    } else if (chassis_imu.online == 0) {
+        gimbal_imu.online = 0;
+        return 2;
+    } else {
+        gimbal_imu.online = 0;
+        chassis_imu.online = 0;
+        return 0;
+    }
 }

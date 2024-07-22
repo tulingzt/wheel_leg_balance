@@ -54,6 +54,7 @@ void dji_motor_init(dji_motor_t *motor, uint8_t motor_type, can_channel_e can_ch
 static void dji_motor_get_single_data(dji_motor_t * motor, uint8_t *data)
 {
     motor->receive_cnt++;
+    motor->online = 1;
     motor->err_percent  = ((float)motor->send_cnt - (float)motor->receive_cnt) / (float)motor->send_cnt;
     motor->last_ecd     = motor->ecd;
     motor->ecd          = (uint16_t)(data[0] << 8 | data[1]);
@@ -82,6 +83,7 @@ static void dji_motor_get_single_data(dji_motor_t * motor, uint8_t *data)
 
 /*
  * @brief     根据id查找对应电机并接收数据
+ * @param[in] can_periph  : 对应id
  * @param[in] id  : 对应id
  * @param[in] data: 数据指针
  * @retval    void
@@ -90,7 +92,6 @@ void dji_motor_get_data(can_channel_e can_periph, uint32_t id, uint8_t *data)
 {
     list_t *node = NULL;
     dji_motor_t *object;
-//    memset(&motor_msg, 0, sizeof(motor_msg));
     for (node = object_list.next; node != &(object_list); node = node->next) {
         object = list_entry(node, dji_motor_t, list);
         if (object->can_id == id && object->can_channel == can_periph) {
@@ -175,4 +176,25 @@ void dji_motor_output_data(void)
                 }
         }
     }
+}
+
+/*
+ * @brief     遍历链表找离线的电机
+ * @retval    uint8_t 若存在离线电机，返回离线电机注册时的序号，否则返回0
+ */
+uint8_t dji_motor_check_offline(void)
+{
+    uint8_t index = 0;
+    list_t *node = NULL;
+    dji_motor_t *object;
+    for (node = object_list.next; node != &(object_list); node = node->next) {
+        object = list_entry(node, dji_motor_t, list);
+        index++;
+        if (object->online == 1) {
+            object->online = 0;
+        } else {
+            return index;
+        }
+    }
+    return 0;
 }

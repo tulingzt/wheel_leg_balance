@@ -28,6 +28,7 @@
 /* USER CODE BEGIN Includes */
 #include "comm_task.h"
 #include "mode_switch_task.h"
+#include "status_task.h"
 #include "gimbal_task.h"
 #include "chassis_task.h"
 #include "shoot_task.h"
@@ -57,6 +58,7 @@
 /* USER CODE BEGIN Variables */
 osThreadId CommTaskHandle;
 osThreadId ModeSwitchTaskHandle;
+osThreadId StatusTaskHandle;
 osThreadId ChassisTaskHandle;
 osThreadId GimbalTaskHandle;
 osThreadId ShootTaskHandle;
@@ -157,6 +159,8 @@ void MX_FREERTOS_Init(void) {
   RGBTaskHandle = osThreadCreate(osThread(RGBTask), NULL);
   osThreadDef(DebugTask, debug_task, osPriorityLow, 0, 128);
   DebugTaskHandle = osThreadCreate(osThread(DebugTask), NULL);
+  osThreadDef(STATUSTask, status_task, osPriorityLow, 0, 128);
+  StatusTaskHandle = osThreadCreate(osThread(STATUSTask), NULL);
   osThreadDef(UITask, ui_task, osPriorityLow, 0, 128);
   DebugTaskHandle = osThreadCreate(osThread(UITask), NULL);
   /* USER CODE END RTOS_THREADS */

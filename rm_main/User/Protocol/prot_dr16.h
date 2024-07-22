@@ -55,6 +55,7 @@ typedef __packed struct
 		} bit;
 	} kb;
     uint8_t init_status;//遥控器上电拨杆状态机
+    uint8_t online;
 } dr16_t;
 
 typedef enum
@@ -96,5 +97,7 @@ void key_status_clear(key_index_e key_index);
 uint8_t key_scan_clear(key_index_e key_index);
 void rc_fsm_init(uint8_t trig_flag);
 uint8_t rc_fsm_check(uint8_t target_status);
+
+uint8_t rc_check_offline(void);
 
 #endif

@@ -22,6 +22,7 @@ void vision_get_data(uint8_t *data)
             return;
         }
     }
+    vision.online = 1;
     vision.rx_status = NORMAL;
     vision.rx_repeat_cnt = 0;
     vision.rx[1].data.cnt = vision.rx[0].data.cnt;
@@ -82,4 +83,14 @@ void vision_output_data(void)
     vision.tx.data.eof2 = 0x33;
     
     CDC_Transmit_HS(vision.tx.buff, 23);
+}
+
+uint8_t vision_check_offline(void)
+{
+    if (vision.online == 0) {
+        return 1;
+    } else {
+        vision.online = 0;
+        return 0;
+    }
 }

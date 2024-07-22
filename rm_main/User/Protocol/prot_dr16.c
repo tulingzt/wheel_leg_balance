@@ -23,6 +23,7 @@ int kb_status[13] = {0};
  */
 uint8_t dr16_get_data(dr16_t *rc, uint8_t *data)
 {
+    rc->online = 1;
     rc->ch1 = (data[0]      | data[1]  << 8) & 0x07FF;
     rc->ch1 -= 1024;
     rc->ch2 = (data[1] >> 3 | data[2]  << 5) & 0x07FF;
@@ -137,4 +138,14 @@ uint8_t rc_fsm_check(uint8_t target_status) {
 //    }
 //    return res;
     return 0;
+}
+
+uint8_t rc_check_offline(void)
+{
+    if (rc.online == 0) {
+        return 1;
+    } else {
+        rc.online = 0;
+        return 0;
+    }
 }

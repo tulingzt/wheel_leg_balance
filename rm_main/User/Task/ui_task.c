@@ -34,6 +34,7 @@ void ui_task(void const* argument)
     ui_init();
     for(;;)
     {
+        thread_wake_time = osKernelSysTick();
 //        ui_init();
         if (game_status.game_progress == 0 || game_status.game_progress == 1 || game_status.game_progress == 5) {
             ui_init();

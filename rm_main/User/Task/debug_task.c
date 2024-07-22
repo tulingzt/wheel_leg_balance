@@ -20,7 +20,7 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 7;
+uint8_t debug_wave = 4;
 
 void log_scope_data_pkg(void)
 {
@@ -128,6 +128,7 @@ void debug_task(void const* argument)
     uint32_t thread_wake_time = osKernelSysTick();
     for(;;)
     {
+        thread_wake_time = osKernelSysTick();
         log_scope_data_output();
         osDelayUntil(&thread_wake_time, 5);
     }

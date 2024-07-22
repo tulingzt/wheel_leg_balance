@@ -38,6 +38,7 @@ typedef struct
     float target_yaw_angle, target_pit_angle;
     float min_err;
     uint32_t shoot_enable;
+    uint8_t online;
     union
     {
         uint8_t buff[VISION_DATA_LEN];
@@ -81,5 +82,6 @@ extern vision_t vision;
 
 void vision_get_data(uint8_t *data);
 void vision_output_data(void);
+uint8_t vision_check_offline(void);
 
 #endif

@@ -29,6 +29,7 @@ typedef struct
     uint32_t can_id;
     uint32_t send_cnt, receive_cnt;
     float err_percent;
+    uint8_t online;
     //安装角度补偿
     float zero_point;
     //控制数据
@@ -46,5 +47,6 @@ void ht_motor_get_data(uint8_t id, uint8_t *data);
 void ht_motor_output_data(void);
 
 void ht_motor_output_single_data(ht_motor_t *motor);
+uint8_t ht_motor_check_offline(void);
 
 #endif

@@ -53,6 +53,7 @@ typedef struct
     float reduction_ratio;              //当前减速比
     uint32_t send_cnt, receive_cnt;
     float err_percent;
+    uint8_t online;
     //控制数据
     float t;
     //反馈数据
@@ -77,5 +78,7 @@ void dji_motor_init(dji_motor_t *motor, uint8_t motor_type, can_channel_e can_pe
 void dji_motor_get_data(can_channel_e can_periph, uint32_t id, uint8_t *data);
 void dji_motor_set_torque(dji_motor_t *motor, float t);
 void dji_motor_output_data(void);
+
+uint8_t dji_motor_check_offline(void);
 
 #endif

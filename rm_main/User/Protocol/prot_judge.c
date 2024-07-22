@@ -13,6 +13,7 @@ typedef enum
 } color_e;
 
 UART_HandleTypeDef *judge_huart;
+uint8_t online = 0;
 
 //机器人接收的数据
 game_status_t                       game_status;                    //比赛状态数据，固定以1Hz频率发送
@@ -72,6 +73,7 @@ uint8_t judge_get_data(uint8_t *data)
     //判断帧头数据是否为0xA5
     if (frame_header.SOF == 0xA5) {
         //帧头CRC8校验
+        online = 1;
         if (crc8_verify_checksum(data, 5)) {
             //统计一帧数据长度,用于CRC16校验
             data_length = frame_header.data_length + 5 + 2 + 2;
@@ -135,4 +137,13 @@ void judge_send_data(uint8_t* message, int length)
         osDelay(1);
     }
     HAL_UART_Transmit_DMA(judge_huart, message, length);
+}
+uint8_t judge_check_offline(void)
+{
+    if (online == 0) {
+        return 1;
+    } else {
+        online = 0;
+        return 0;
+    }
 }

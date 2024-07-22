@@ -130,6 +130,7 @@ void gimbal_task(void const *argu)
     uint32_t thread_wake_time = osKernelSysTick();
     gimbal_init();
     for(;;) {
+        thread_wake_time = osKernelSysTick();
 //        taskENTER_CRITICAL();
         switch (ctrl_mode) {
             case PROTECT_MODE: {

@@ -891,19 +891,24 @@
               <FilePath>..\User\Task\comm_task.c</FilePath>
             </File>
             <File>
-              <FileName>chassis_task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Task\chassis_task.c</FilePath>
-            </File>
-            <File>
               <FileName>mode_switch_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Task\mode_switch_task.c</FilePath>
             </File>
             <File>
+              <FileName>status_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Task\status_task.c</FilePath>
+            </File>
+            <File>
               <FileName>gimbal_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Task\gimbal_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>chassis_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Task\chassis_task.c</FilePath>
             </File>
             <File>
               <FileName>shoot_task.c</FileName>
