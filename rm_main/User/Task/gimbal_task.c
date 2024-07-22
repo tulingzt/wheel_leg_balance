@@ -140,7 +140,7 @@ void gimbal_task(void const *argu)
                 break;
             }
             case REMOTER_MODE: {
-                if (rc_fsm_check(RC_LEFT_RU) || rc_fsm_check(RC_RIGHT_RU)) { //遥控器开启视觉
+                if (rc_fsm_check(RC_LEFT_LD) || rc_fsm_check(RC_RIGHT_LD)) { //遥控器开启视觉
                     gimbal_get_vision_data();
                 } else {
                     gimbal.pit_angle.ref -= rc.ch2 * gimbal_scale.angle_remote;

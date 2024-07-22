@@ -31,7 +31,7 @@ typedef struct
     float roll_offs, inertial_offs;//roll补偿 惯性力补偿
     float yaw_offset;//小陀螺偏置
     //期望限制系数
-    float K_ref;
+    float K_ref[2];
     //控制标志
     uint8_t jump_flag, jump_cnt, high_flag, prone_flag, ctrl_mode;
     //单侧控制参数

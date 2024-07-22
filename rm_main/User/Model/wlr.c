@@ -189,7 +189,7 @@ void wlr_init(void)
 	//卡尔曼滤波器初始化
 
 	//PID参数初始化
-	pid_init(&pid_roll, NONE, 500, 0, 3000, 0, 30);//与VMC的腿长控制协同  1000 0 3500
+	pid_init(&pid_roll, NONE, 400, 0, 3000, 0, 30);//与VMC的腿长控制协同  1000 0 3500
 }
 
 void wlr_protest(void)
@@ -273,33 +273,29 @@ void wlr_control(void)
 //			wlr.v_ref = data_fusion(wlr.v_ref, 0, fabs(wlr.v_fdb - wlr.v_ref)/0.9);
         wlr.high_set = LegLengthHigh;
     } else { //正常腿长
-        pid_leg_length[0].kp = pid_leg_length[1].kp = 500;
+        pid_leg_length[0].kp = pid_leg_length[1].kp = 400;
+        pid_leg_length[0].kd = pid_leg_length[1].kd = 8000;
         wlr.high_set = LegLengthNormal;
     }
     //上台阶
-    for (int i = 0; i < 2; i++) {
-        if (wlr.jump_flag == 1) {
-            wlr.high_set = jump_highset1;
-            wlr.v_ref = jump_vset;
-            lqr.X_ref[4] = lqr.X_ref[6] = jump_theta;
-            if (fabs(chassis_imu.pit) > jump_pitch){
-                wlr.jump_flag = 2;
-                lqr.X_ref[4]  = 0;
-                lqr.X_ref[6]  = 0;
-            }
-        } else if (wlr.jump_flag == 2) {
-            wlr.high_set = jump_highset2;
-            if (fabs(wlr.high_set - vmc[0].L_fdb) < 0.04f && fabs(wlr.high_set - vmc[1].L_fdb) < 0.04f)
-                wlr.jump_flag = 3;
-        } else if (wlr.jump_flag == 3) {
-            wlr.high_set = jump_highset3;
-            wlr.jump_cnt++;
-            if (wlr.jump_cnt > 200) {
-                wlr.jump_cnt = 0;
-                wlr.jump_flag = 4;
-            }				
-        }
+    if (wlr.jump_flag == 1) {
+        wlr.high_set = jump_highset1;
+        wlr.v_ref = jump_vset;
+        if (fabs(chassis_imu.pit) > jump_pitch)
+            wlr.jump_flag = 2;
+    } else if (wlr.jump_flag == 2) {
+        wlr.high_set = jump_highset2;
+        if (fabs(wlr.high_set - vmc[0].L_fdb) < 0.02f && fabs(wlr.high_set - vmc[1].L_fdb) < 0.02f)
+            wlr.jump_flag = 3;
+    } else if (wlr.jump_flag == 3) {
+        wlr.high_set = jump_highset3;
+        wlr.jump_cnt++;
+        if (wlr.jump_cnt > 200) {
+            wlr.jump_cnt = 0;
+            wlr.jump_flag = 4;
+        }				
     }
+
     //更新两腿模型
 	tlm_gnd_roll_calc(&tlm, -wlr.roll_fdb, vmc[0].L_fdb, vmc[1].L_fdb);//计算地形倾角
     if (wlr.jump_flag != 0 || (wlr.side[0].fly_flag && wlr.side[1].fly_flag))
@@ -338,14 +334,29 @@ void wlr_control(void)
         lqr.X_ref[0] = wlr.s_fdb;
         wlr.s_adapt = wlr.s_fdb;
     }
-	if (wlr.side[0].fly_flag || wlr.side[1].fly_flag) //腾空
-		wlr.v_ref = 0;
+//	if (wlr.side[0].fly_flag || wlr.side[1].fly_flag) //腾空
+//		wlr.v_ref = 0;
     lqr.X_ref[1] = wlr.v_ref;
     lqr.X_ref[2] = -wlr.yaw_ref;
     lqr.X_ref[3] = -wlr.wz_ref;
     //期望限制
-    wlr.K_ref = 0;
+//    wlr.K_ref = 0;
+//    for (int i = 0; i < 2; i++) {
+//        float K_temp;
+//        if (wlr.side[i].q1 > 3.6f)//电机初始位置改变
+//            K_temp = (wlr.side[i].q1 - 3.6f)/0.2f;
+//        if (K_temp > wlr.K_ref)
+//            wlr.K_ref = K_temp;
+//        if (wlr.side[i].q4 < -0.5f)
+//            K_temp = (-0.5f - wlr.side[i].q4)/0.2f;
+//        if (K_temp > wlr.K_ref)
+//            wlr.K_ref = K_temp;
+//    }
+//    for (int i = 0; i < 4; i++) {
+//        lqr.X_ref[i] = data_fusion(lqr.X_ref[i], lqr.X_fdb[i], wlr.K_ref);
+//    }
     for (int i = 0; i < 2; i++) {
+        wlr.K_ref[i] = 0;
         float K_temp;
         if (wlr.side[i].q1 > 3.6f)//电机初始位置改变
             K_temp = (wlr.side[i].q1 - 3.6f)/0.2f;
@@ -354,11 +365,12 @@ void wlr_control(void)
         if (wlr.side[i].q4 < -0.5f)
             K_temp = (-0.5f - wlr.side[i].q4)/0.2f;
         if (K_temp > wlr.K_ref)
-            wlr.K_ref = K_temp;
+            wlr.K_ref[i] = K_temp;
     }
     for (int i = 0; i < 4; i++) {
-        lqr.X_ref[i] = data_fusion(lqr.X_ref[i], lqr.X_fdb[i], wlr.K_ref);
+        lqr.X_ref[i] = data_fusion(lqr.X_ref[i], lqr.X_fdb[i], (wlr.K_ref[0] + wlr.K_ref[1])/2.0f);
     }
+    wlr.K_ref[i] = 0;
     aMartix_Add(1, lqr.X_ref, -1, lqr.X_fdb, lqr.X_diff, 10, 1);
     aMartix_Mul(lqr.K, lqr.X_diff, lqr.U_ref, 4, 10, 1);
     //预测下一个时刻的状态

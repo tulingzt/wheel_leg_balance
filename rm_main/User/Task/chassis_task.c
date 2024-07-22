@@ -253,18 +253,17 @@ static void chassis_data_input(void)
         case CHASSIS_MODE_REMOTER_ROTATE2: {
             chassis.input.vx = rc.ch4 * chassis_scale.remote; //目标速度
             chassis.input.vy = rc.ch3 * chassis_scale.remote;
-            if(rc.sw2 == RC_MI || rc.sw2 == RC_DN)
-                wlr.ctrl_mode = 2; //轮腿模式
-            else
-                wlr.ctrl_mode = 1; //锁腿开轮
+			wlr.ctrl_mode = 2; //轮腿模式
            //高度模式
            if (wlr.ctrl_mode == 2) {  //轮腿模式下才可控制腿长
-               if(rc.sw2 == RC_MI){
-				   wlr.jump_flag = 0;
+			   if (rc.sw2 == RC_UP) {
                    wlr.high_flag = 0;
-               }else if(rc.sw2 == RC_DN && wlr.jump_flag == 0)
+  				   wlr.jump_flag = 0;
+               } else if (rc.sw2 == RC_MI){
+				   wlr.jump_flag = 0;
+                   wlr.high_flag = 1;
+               } else if (rc.sw2 == RC_DN && wlr.jump_flag == 0)
                    wlr.jump_flag = 1;
-//				   wlr.high_flag = 1;
            } else {
                wlr.high_flag = 0;
            }

@@ -20,7 +20,7 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 4;
+uint8_t debug_wave = 7;
 
 void log_scope_data_pkg(void)
 {
@@ -77,10 +77,14 @@ void log_scope_data_pkg(void)
             log_scope_get_data(shoot.fric_spd[1].ref);
             break;
         } case 7: {
+              log_scope_get_data(wlr.side[0].wy * 0.065f);
+              log_scope_get_data(wlr.side[1].wy * 0.065f);
               log_scope_get_data(wlr.side[0].fly_flag);
               log_scope_get_data(wlr.side[1].fly_flag);
-              log_scope_get_data(wlr.v_ref);
-              log_scope_get_data(wlr.v_fdb);
+              log_scope_get_data(wlr.side[0].Tw);
+              log_scope_get_data(wlr.side[1].Tw);
+              log_scope_get_data(-lqr.U_ref[0]);
+              log_scope_get_data(-lqr.U_ref[1]);
             break;
         } case 8: {//腿部力
             log_scope_get_data(wlr.side[0].Fy);

@@ -120,7 +120,10 @@ void can_comm_init(void)
 
     dji_motor_init(&fric_motor[0], DJI_3508_MOTOR, CAN_CHANNEL_3, 0x201, 1.0f);
     dji_motor_init(&fric_motor[1], DJI_3508_MOTOR, CAN_CHANNEL_3, 0x202, 1.0f);
-    dji_motor_init(&trigger_motor, DJI_2006_MOTOR, CAN_CHANNEL_3, 0x203, 36.0f);
+//<<<<<<< Updated upstream
+//    dji_motor_init(&trigger_motor, DJI_2006_MOTOR, CAN_CHANNEL_3, 0x203, 36.0f);
+//=======
+//>>>>>>> Stashed changes
     dji_motor_init(&driver_motor[0], DJI_3508_MOTOR, CAN_CHANNEL_2, 0x204, 19.0f);
     dji_motor_init(&driver_motor[1], DJI_3508_MOTOR, CAN_CHANNEL_2, 0x203, 19.0f);
     dji_motor_init(&yaw_motor, DJI_6020_MOTOR, CAN_CHANNEL_2, 0x205, 1.0f);
