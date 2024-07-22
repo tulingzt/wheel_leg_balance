@@ -146,8 +146,12 @@ float ramp_calc(ramp_t *ramp, float target)
     ramp->target = target;
     if (ramp->out < ramp->target) {
         ramp->out += ramp->frame_period;
+        if (ramp->out > ramp->target)
+            ramp->out = target;
     } else if (ramp->out > ramp->target) {
         ramp->out -= ramp->frame_period;
+        if (ramp->out < ramp->target)
+            ramp->out = target;
     }
     data_limit(&(ramp->out), ramp->min, ramp->max); 
     return ramp->out;

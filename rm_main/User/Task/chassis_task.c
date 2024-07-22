@@ -487,7 +487,6 @@ void chassis_task(void const *argu)
         thread_wake_time = osKernelSysTick();
 //        taskENTER_CRITICAL();
         chassis_mode_switch();
-//        supercap_mode_update();
         supercap_control();
         chassis_data_input();
         wlr_control();

@@ -267,8 +267,8 @@ void wlr_control(void)
         pid_leg_length[0].kp = pid_leg_length[1].kp = 500;
         pid_leg_length[0].kd = pid_leg_length[1].kd = 10000;
 		data_limit(&wlr.v_ref,-1.1f,1.1f);
-		if (fabs(wlr.v_ref) > fabs(wlr.v_fdb))
-		data_limit(&wlr.v_ref,wlr.v_fdb-0.7f,wlr.v_fdb+0.7f);
+        if (fabs(wlr.v_ref) > fabs(wlr.v_fdb))
+            data_limit(&wlr.v_ref,wlr.v_fdb-0.7f,wlr.v_fdb+0.7f);
 //		if (fabs(wlr.v_fdb) > fabs(wlr.v_ref))//加强超速控制
 //			wlr.v_ref = data_fusion(wlr.v_ref, 0, fabs(wlr.v_fdb - wlr.v_ref)/0.9);
         wlr.high_set = LegLengthHigh;
