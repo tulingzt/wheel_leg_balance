@@ -1071,6 +1071,16 @@
               <FileType>1</FileType>
               <FilePath>..\User\UI\ui_default_group4_0.c</FilePath>
             </File>
+            <File>
+              <FileName>ui_default_group5_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\UI\ui_default_group5_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_default_group5_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\UI\ui_default_group5_1.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
