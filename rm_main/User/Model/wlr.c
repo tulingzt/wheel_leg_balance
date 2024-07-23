@@ -39,7 +39,7 @@ float jump_theta = 0.0f;
 float jump_pitch = 0.26f;
 float jump_highset1 = 0.30f;
 float jump_highset2 = 0.17f;
-float jump_highset3 = 0.20f;
+float jump_highset3 = 0.15f;
 
 float x3_balance_zero = 0.00f, x5_balance_zero = 0.00f;//腿摆角角度偏置 机体俯仰角度偏置
 float x3_fight_zero = -0.01f;
@@ -285,7 +285,7 @@ void wlr_control(void)
             wlr.jump_flag = 2;
     } else if (wlr.jump_flag == 2) {
         wlr.high_set = jump_highset2;
-        if (fabs(wlr.high_set - vmc[0].L_fdb) < 0.02f && fabs(wlr.high_set - vmc[1].L_fdb) < 0.02f)
+        if (fabs(wlr.high_set - vmc[0].L_fdb) < 0.01f && fabs(wlr.high_set - vmc[1].L_fdb) < 0.01f)
             wlr.jump_flag = 3;
     } else if (wlr.jump_flag == 3) {
         wlr.high_set = jump_highset3;
@@ -327,7 +327,7 @@ void wlr_control(void)
 	//全身运动控制
 	wlr.roll_offs = pid_calc(&pid_roll, 0, wlr.roll_fdb);
     wlr.inertial_offs = (mb/2) * wlr.high_set * lqr.X_fdb[3] * lqr.X_fdb[1] / (BodyWidth/2) / 2;//惯性力补偿
-    if(fabs(wlr.v_ref) < 1e-3 && wlr.jump_flag == 0)
+    if(fabs(wlr.v_ref) < 1e-3 && (wlr.jump_flag == 0 || wlr.jump_flag == 4))
     {
         lqr.X_ref[0] = wlr.s_adapt;
     } else {
@@ -360,17 +360,16 @@ void wlr_control(void)
         float K_temp;
         if (wlr.side[i].q1 > 3.6f)//电机初始位置改变
             K_temp = (wlr.side[i].q1 - 3.6f)/0.2f;
-        if (K_temp > wlr.K_ref)
-            wlr.K_ref = K_temp;
+        if (K_temp > wlr.K_ref[i])
+            wlr.K_ref[i] = K_temp;
         if (wlr.side[i].q4 < -0.5f)
             K_temp = (-0.5f - wlr.side[i].q4)/0.2f;
-        if (K_temp > wlr.K_ref)
+        if (K_temp > wlr.K_ref[i])
             wlr.K_ref[i] = K_temp;
     }
     for (int i = 0; i < 4; i++) {
         lqr.X_ref[i] = data_fusion(lqr.X_ref[i], lqr.X_fdb[i], (wlr.K_ref[0] + wlr.K_ref[1])/2.0f);
     }
-    wlr.K_ref[i] = 0;
     aMartix_Add(1, lqr.X_ref, -1, lqr.X_fdb, lqr.X_diff, 10, 1);
     aMartix_Mul(lqr.K, lqr.X_diff, lqr.U_ref, 4, 10, 1);
     //预测下一个时刻的状态
@@ -383,7 +382,7 @@ void wlr_control(void)
 		} else if (wlr.jump_flag == 2){
 			wlr.side[i].Fy = pid_calc(&pid_leg_length_fast[i], tlm.l_ref[i], vmc[i].L_fdb);
 		} else if (wlr.jump_flag == 3){
-			wlr.side[i].Fy = pid_calc(&pid_leg_length_fast[i], tlm.l_ref[i], vmc[i].L_fdb)
+			wlr.side[i].Fy = pid_calc(&pid_leg_length[i], tlm.l_ref[i], vmc[i].L_fdb)
                                  + mb*GRAVITY/2 + WLR_SIGN(i) * (wlr.roll_offs - wlr.inertial_offs);			
 		} else														                       //常态 跳跃压腿阶段 跳跃落地阶段
             wlr.side[i].Fy = pid_calc(&pid_leg_length[i], tlm.l_ref[i], vmc[i].L_fdb)\

@@ -36,8 +36,8 @@ static void gimbal_init(void)
     memset(&gimbal, 0, sizeof(gimbal_t));
     gimbal.yaw_angle_temp = 7;
     
-    pid_init(&gimbal.pit_angle.pid, NONE, 8, 0, 0, 0, 15);
-    pid_init(&gimbal.pit_spd.pid, NONE, -0.5f, -0.001f, 0, 0.7f, 2.2f);
+    pid_init(&gimbal.pit_angle.pid, NONE, 15, 0, 0, 0, 15);
+    pid_init(&gimbal.pit_spd.pid, NONE, -0.85f, -0.003f, 0, 0.7f, 2.2f);
     pid_init(&gimbal.yaw_angle.pid, NONE, 20, 0, 200, 0, 15);
     pid_init(&gimbal.yaw_spd.pid, NONE, 1.0f, 0.006f, 0, 0.6f, 2.2f);
     float yaw_feed_c[3] = {250, 0, 0};

@@ -52,6 +52,6 @@ void ui_task(void const* argument)
 //        } else {
             ui_update();
 //        }
-        osDelayUntil(&thread_wake_time, 1);
+        osDelayUntil(&thread_wake_time, 10);
     }
 }
