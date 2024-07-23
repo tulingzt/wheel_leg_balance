@@ -258,6 +258,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>shoot</ItemText>
         </Ww>
+        <Ww>
+          <count>22</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>start_up</ItemText>
+        </Ww>
       </WatchWindow1>
       <MemoryWindow1>
         <Mm>

@@ -72,6 +72,8 @@ static void gimbal_pid_calc(void)
     float temp = gimbal.yaw_angle.ref - gimbal.last_yaw_ref;
     //此yaw_err用于云台yaw环形控制
     yaw_err = circle_error(gimbal.yaw_angle.ref, gimbal.yaw_angle.fdb, 2*PI);
+    if (gimbal.start_up == 0 && yaw_err < 0.03f)
+        gimbal.start_up = 1;
     if (fabs(yaw_err) > 0.8)
         gimbal.yaw_angle.pid.out_max = gimbal.yaw_angle_temp;
     else
@@ -132,7 +134,9 @@ void gimbal_task(void const *argu)
 //        taskENTER_CRITICAL();
         switch (ctrl_mode) {
             case PROTECT_MODE: {
-                gimbal.yaw_angle.ref = gimbal_imu.yaw;
+                gimbal.start_up = 0;//保护模式下，起身标志位置零
+//                gimbal.yaw_angle.ref = gimbal_imu.yaw;
+                gimbal.yaw_angle.ref = gimbal_imu.yaw + (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI - (float)yaw_motor.ecd / 8192 * 2 * PI;//yaw轴反馈值+电机与前方灯条差值
                 gimbal.last_yaw_ref = gimbal.yaw_angle.ref;
                 gimbal.pit_angle.ref = 0;
                 gimbal.pit_output = 0;

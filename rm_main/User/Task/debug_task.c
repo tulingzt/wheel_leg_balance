@@ -26,8 +26,8 @@ void log_scope_data_pkg(void)
 {
     switch(debug_wave) {
         case 1: {//云台pid调试
-            log_scope_get_data(gimbal.yaw_spd.ref);
-            log_scope_get_data(gimbal.yaw_spd.fdb);
+//            log_scope_get_data(gimbal.yaw_spd.ref);
+//            log_scope_get_data(gimbal.yaw_spd.fdb);
             log_scope_get_data(gimbal.yaw_angle.ref);
             log_scope_get_data(gimbal.yaw_angle.fdb);
 //            log_scope_get_data(gimbal.yaw_output);
@@ -35,8 +35,8 @@ void log_scope_data_pkg(void)
             
 //            log_scope_get_data(gimbal.pit_spd.ref);
 //            log_scope_get_data(gimbal.pit_spd.fdb);
-//            log_scope_get_data(gimbal.pit_angle.ref);
-//            log_scope_get_data(gimbal.pit_angle.fdb);
+            log_scope_get_data(gimbal.pit_angle.ref);
+            log_scope_get_data(gimbal.pit_angle.fdb);
 //            log_scope_get_data(gimbal.pit_output);
 //            log_scope_get_data(pit_motor.tx_current);
             break;

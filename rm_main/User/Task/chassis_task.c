@@ -13,6 +13,7 @@
 #include "arm_math.h"
 #include "string.h"
 #include "cmsis_os.h"
+#include "gimbal_task.h"
 
 #define JOINT_MOTOR_RESET_TORQUE 1.5f
 #define JOINT_MOTOR_RESET_ERROR 0.005f
@@ -348,7 +349,10 @@ static void chassis_data_input(void)
         case CHASSIS_MODE_REMOTER_FOLLOW:
         case CHASSIS_MODE_KEYBOARD_FOLLOW:
         case CHASSIS_MODE_KEYBOARD_PRONE: {
-            wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI;
+            if (gimbal.start_up)//完成起身，前方灯条
+                wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI;
+            else//起身未完成，目标值等于反馈值
+                wlr.yaw_ref = (float)yaw_motor.ecd / 8192 * 2 * PI;                
             wlr.yaw_fdb = (float)yaw_motor.ecd / 8192 * 2 * PI;
             wlr.wz_ref = 0;
             //此yaw_err用于底盘前后都可跟随
