@@ -17,9 +17,12 @@ typedef struct
     float judge_max_power;                  //裁判系统反馈的底盘功率上限
     float min_buffer;                       //当缓存能量低于此值开始功率控制
     float limit_kp;                         //限制比例
+    float limit_power;                      //限制功率
 
     float give_power_wheel[2];
+    float scaled_pwoer_wheel[2];
     float total_power_wheel;
+    float power_scale;
     uint8_t online;
 } power_control_t;
 

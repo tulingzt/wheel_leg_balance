@@ -106,9 +106,10 @@ static void chassis_init()
     ramp_init(&chassis_x_ramp, 0.01f, -chassis_scale.keyboard, chassis_scale.keyboard);//0.02 0.1s达到最大
     ramp_init(&chassis_y_ramp, 0.01f, -chassis_scale.keyboard, chassis_scale.keyboard);
     wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI;
-    wlr.yaw_offset = 3.7f;
+    wlr.yaw_offset = 1.7f;
 }
 
+float spin_limit;
 static void chassis_mode_switch(void)
 {
     /* 系统历史状态 */
@@ -124,9 +125,11 @@ static void chassis_mode_switch(void)
     key_scan(KEY_CHASSIS_PRONE);
     key_scan(KEY_CHASSIS_UNFOLLOW);
     /* 底盘状态切换 */
+    spin_limit = circle_error((float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI, (float)yaw_motor.ecd / 8192 * 2 * PI, 2 * PI);
     switch (ctrl_mode) {
     case PROTECT_MODE: { //能量模式和保护模式下，底盘行为相同
         chassis.mode = CHASSIS_MODE_PROTECT;
+        wlr.prone_flag = 0;
         break;
     }
     case REMOTER_MODE: {
@@ -139,24 +142,26 @@ static void chassis_mode_switch(void)
             spin_flag = 1;
         }
         if (rc.ch3 == 660 && spin_flag == 1) {
-            spin_flag = 0;
-            if (chassis.mode == CHASSIS_MODE_REMOTER_ROTATE1 || chassis.mode == CHASSIS_MODE_REMOTER_ROTATE2) {
+            if ((chassis.mode == CHASSIS_MODE_REMOTER_ROTATE1 || chassis.mode == CHASSIS_MODE_REMOTER_ROTATE2)
+                 && 0 < spin_limit && spin_limit < 1.7) {
                 chassis.mode = CHASSIS_MODE_REMOTER_FOLLOW;
+                spin_flag = 0;
             } else if (chassis.mode == CHASSIS_MODE_REMOTER_FOLLOW) {
                 chassis.mode = CHASSIS_MODE_REMOTER_ROTATE1;
+                spin_flag = 0;
             }
         }
         if (rc.ch3 == -660 && spin_flag == 1) {
-            spin_flag = 0;
-            if (chassis.mode == CHASSIS_MODE_REMOTER_ROTATE1 || chassis.mode == CHASSIS_MODE_REMOTER_ROTATE2) {
+            if ((chassis.mode == CHASSIS_MODE_REMOTER_ROTATE1 || chassis.mode == CHASSIS_MODE_REMOTER_ROTATE2)
+                 && -1.7 < spin_limit && spin_limit < 0) {
                 chassis.mode = CHASSIS_MODE_REMOTER_FOLLOW;
+                spin_flag = 0;
             } else if (chassis.mode == CHASSIS_MODE_REMOTER_FOLLOW) {
                 chassis.mode = CHASSIS_MODE_REMOTER_ROTATE2;
+                spin_flag = 0;
             }
         }
-//        if (rc.ch5 == 660 && wlr.jump_flag == 0) {
-//            wlr.jump_flag = 1;
-//        }
+
         /* 遥控器注释底盘 */
         if (rc_fsm_check(RC_LEFT_RU) || rc_fsm_check(RC_RIGHT_RU)) { //遥控器注释底盘
             chassis.mode = CHASSIS_MODE_PROTECT;
@@ -179,7 +184,7 @@ static void chassis_mode_switch(void)
             break;
         }
         case CHASSIS_MODE_KEYBOARD_ROTATE: { //键盘陀螺模式下
-            if (!kb_status[KEY_CHASSIS_ROTATE]) { //恢复跟随模式
+            if ((!kb_status[KEY_CHASSIS_ROTATE]) && -1.7f < spin_limit && spin_limit < 0) { //恢复跟随模式
                 chassis.mode = CHASSIS_MODE_KEYBOARD_FOLLOW;
             } else if (kb_status[KEY_CHASSIS_FIGHT]) { //进入迎敌模式
                 chassis.mode = CHASSIS_MODE_KEYBOARD_FIGHT;
@@ -376,11 +381,11 @@ static void chassis_data_input(void)
             if (chassis.mode == CHASSIS_MODE_REMOTER_ROTATE1) {
                 wlr.yaw_ref += (float)CHASSIS_ROTATE_SPEED * 0.002f;
                 wlr.yaw_fdb = -chassis_imu.yaw;
-                wlr.wz_ref = CHASSIS_ROTATE_SPEED;
+                wlr.wz_ref = 0;
             } else {
                 wlr.yaw_ref -= (float)CHASSIS_ROTATE_SPEED * 0.002f;
                 wlr.yaw_fdb = -chassis_imu.yaw;
-                wlr.wz_ref = -CHASSIS_ROTATE_SPEED;
+                wlr.wz_ref = 0;
             }
             break;
         }
@@ -490,10 +495,10 @@ void chassis_task(void const *argu)
         thread_wake_time = osKernelSysTick();
 //        taskENTER_CRITICAL();
         chassis_mode_switch();
-        supercap_control();
         chassis_data_input();
         wlr_control();
         chassis_data_output();
+        supercap_control();
 //        taskEXIT_CRITICAL();
         osDelayUntil(&thread_wake_time, 2);
     }

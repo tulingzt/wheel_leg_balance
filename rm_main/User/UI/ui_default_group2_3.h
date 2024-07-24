@@ -9,8 +9,8 @@
 
 extern ui_interface_string_t *ui_default_group2_text4;
 
-void _ui_init_default_group2_3();
-void _ui_update_default_group2_3();
-void _ui_remove_default_group2_3();
+void _ui_init_default_group2_3(void);
+void _ui_update_default_group2_3(void);
+void _ui_remove_default_group2_3(void);
 
 #endif //UI_default_group2_3_H

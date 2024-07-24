@@ -19,7 +19,7 @@ ui_interface_line_t *ui_default_group1_borad5 = (ui_interface_line_t *)&(ui_defa
 ui_interface_rect_t *ui_default_group1_power1 = (ui_interface_rect_t *)&(ui_default_group1_0.data[5]);
 ui_interface_round_t *ui_default_group1_position1 = (ui_interface_round_t *)&(ui_default_group1_0.data[6]);
 
-void _ui_init_default_group1_0() {
+void _ui_init_default_group1_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group1_0.data[i].figure_name[0] = FRAME_ID;
         ui_default_group1_0.data[i].figure_name[1] = GROUP_ID;
@@ -97,7 +97,7 @@ void _ui_init_default_group1_0() {
     SEND_MESSAGE((uint8_t *) &ui_default_group1_0, sizeof(ui_default_group1_0));
 }
 
-void _ui_update_default_group1_0() {
+void _ui_update_default_group1_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group1_0.data[i].operate_tpyel = 2;
     }
@@ -106,7 +106,7 @@ void _ui_update_default_group1_0() {
     SEND_MESSAGE((uint8_t *) &ui_default_group1_0, sizeof(ui_default_group1_0));
 }
 
-void _ui_remove_default_group1_0() {
+void _ui_remove_default_group1_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group1_0.data[i].operate_tpyel = 3;
     }

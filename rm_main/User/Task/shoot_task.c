@@ -43,8 +43,8 @@ static uint8_t single_shoot_enable(void)
 static uint8_t series_shoot_enable(void)
 {
     return (
-        (      (ctrl_mode == REMOTER_MODE && vision.shoot_enable && (rc_fsm_check(RC_LEFT_RU) || rc_fsm_check(RC_RIGHT_RU))) //开启视觉连发
-            || (ctrl_mode == REMOTER_MODE && rc.sw2 == RC_DN && !(rc_fsm_check(RC_LEFT_RU) || rc_fsm_check(RC_RIGHT_RU))) //开启遥控连发
+        (      (ctrl_mode == REMOTER_MODE && vision.shoot_enable && (rc_fsm_check(RC_LEFT_LD) || rc_fsm_check(RC_RIGHT_LD))) //开启视觉连发
+            || (ctrl_mode == REMOTER_MODE && rc.sw2 == RC_DN && !(rc_fsm_check(RC_LEFT_LD) || rc_fsm_check(RC_RIGHT_LD))) //开启遥控连发
             || (ctrl_mode == KEYBOARD_MODE && rc.mouse.l && rc.mouse.r && vision.shoot_enable)
             || (ctrl_mode == KEYBOARD_MODE && rc.mouse.l && rc.mouse.r == 0)
         )

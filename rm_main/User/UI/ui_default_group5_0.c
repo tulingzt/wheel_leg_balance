@@ -26,7 +26,7 @@ ui_interface_line_t *ui_default_group5_VMC_cd2 = (ui_interface_line_t *)&(ui_def
 uint32_t x0 = 1600, y0 = 700;
 const float LegLength[5] = {75, 75, 135, 135, 75};
 
-void _ui_init_default_group5_0() {
+void _ui_init_default_group5_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group5_0.data[i].figure_name[0] = FRAME_ID;
         ui_default_group5_0.data[i].figure_name[1] = GROUP_ID;
@@ -39,64 +39,36 @@ void _ui_init_default_group5_0() {
 
     ui_default_group5_VMC_ae->figure_tpye = 0;
     ui_default_group5_VMC_ae->layer = 0;
-//    ui_default_group5_VMC_ae->start_x = 1453;
-//    ui_default_group5_VMC_ae->start_y = 780;
-//    ui_default_group5_VMC_ae->end_x = 1515;
-//    ui_default_group5_VMC_ae->end_y = 780;
     ui_default_group5_VMC_ae->color = 0;
     ui_default_group5_VMC_ae->width = 1;
 
     ui_default_group5_VMC_ab1->figure_tpye = 0;
     ui_default_group5_VMC_ab1->layer = 0;
-//    ui_default_group5_VMC_ab1->start_x = 1397;
-//    ui_default_group5_VMC_ab1->start_y = 730;
-//    ui_default_group5_VMC_ab1->end_x = 1447;
-//    ui_default_group5_VMC_ab1->end_y = 780;
     ui_default_group5_VMC_ab1->color = 0;
     ui_default_group5_VMC_ab1->width = 1;
 
     ui_default_group5_VMC_ab2->figure_tpye = 0;
     ui_default_group5_VMC_ab2->layer = 0;
-//    ui_default_group5_VMC_ab2->start_x = 1406;
-//    ui_default_group5_VMC_ab2->start_y = 729;
-//    ui_default_group5_VMC_ab2->end_x = 1456;
-//    ui_default_group5_VMC_ab2->end_y = 779;
     ui_default_group5_VMC_ab2->color = 1;
     ui_default_group5_VMC_ab2->width = 1;
 
     ui_default_group5_VMC_bc1->figure_tpye = 0;
     ui_default_group5_VMC_bc1->layer = 0;
-//    ui_default_group5_VMC_bc1->start_x = 1407;
-//    ui_default_group5_VMC_bc1->start_y = 678;
-//    ui_default_group5_VMC_bc1->end_x = 1457;
-//    ui_default_group5_VMC_bc1->end_y = 728;
     ui_default_group5_VMC_bc1->color = 0;
     ui_default_group5_VMC_bc1->width = 1;
 
     ui_default_group5_VMC_bc2->figure_tpye = 0;
     ui_default_group5_VMC_bc2->layer = 0;
-//    ui_default_group5_VMC_bc2->start_x = 1410;
-//    ui_default_group5_VMC_bc2->start_y = 670;
-//    ui_default_group5_VMC_bc2->end_x = 1460;
-//    ui_default_group5_VMC_bc2->end_y = 720;
     ui_default_group5_VMC_bc2->color = 1;
     ui_default_group5_VMC_bc2->width = 1;
 
     ui_default_group5_VMC_cd1->figure_tpye = 0;
     ui_default_group5_VMC_cd1->layer = 0;
-//    ui_default_group5_VMC_cd1->start_x = 1491;
-//    ui_default_group5_VMC_cd1->start_y = 674;
-//    ui_default_group5_VMC_cd1->end_x = 1541;
-//    ui_default_group5_VMC_cd1->end_y = 724;
     ui_default_group5_VMC_cd1->color = 0;
     ui_default_group5_VMC_cd1->width = 1;
 
     ui_default_group5_VMC_cd2->figure_tpye = 0;
     ui_default_group5_VMC_cd2->layer = 0;
-//    ui_default_group5_VMC_cd2->start_x = 1498;
-//    ui_default_group5_VMC_cd2->start_y = 671;
-//    ui_default_group5_VMC_cd2->end_x = 1548;
-//    ui_default_group5_VMC_cd2->end_y = 721;
     ui_default_group5_VMC_cd2->color = 1;
     ui_default_group5_VMC_cd2->width = 1;
     
@@ -140,7 +112,7 @@ void _ui_init_default_group5_0() {
     SEND_MESSAGE((uint8_t *) &ui_default_group5_0, sizeof(ui_default_group5_0));
 }
 
-void _ui_update_default_group5_0() {
+void _ui_update_default_group5_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group5_0.data[i].operate_tpyel = 2;
     }
@@ -185,7 +157,7 @@ void _ui_update_default_group5_0() {
     SEND_MESSAGE((uint8_t *) &ui_default_group5_0, sizeof(ui_default_group5_0));
 }
 
-void _ui_remove_default_group5_0() {
+void _ui_remove_default_group5_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group5_0.data[i].operate_tpyel = 3;
     }

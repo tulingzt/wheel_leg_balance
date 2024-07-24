@@ -17,7 +17,7 @@ ui_interface_number_t *ui_default_group4_time32 = (ui_interface_number_t *)&(ui_
 ui_interface_number_t *ui_default_group4_time42 = (ui_interface_number_t *)&(ui_default_group4_0.data[3]);
 ui_interface_number_t *ui_default_group4_time52 = (ui_interface_number_t *)&(ui_default_group4_0.data[4]);
 
-void _ui_init_default_group4_0() {
+void _ui_init_default_group4_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group4_0.data[i].figure_name[0] = FRAME_ID;
         ui_default_group4_0.data[i].figure_name[1] = GROUP_ID;
@@ -78,7 +78,7 @@ void _ui_init_default_group4_0() {
     SEND_MESSAGE((uint8_t *) &ui_default_group4_0, sizeof(ui_default_group4_0));
 }
 
-void _ui_update_default_group4_0() {
+void _ui_update_default_group4_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group4_0.data[i].operate_tpyel = 2;
     }
@@ -112,7 +112,7 @@ void _ui_update_default_group4_0() {
     SEND_MESSAGE((uint8_t *) &ui_default_group4_0, sizeof(ui_default_group4_0));
 }
 
-void _ui_remove_default_group4_0() {
+void _ui_remove_default_group4_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group4_0.data[i].operate_tpyel = 3;
     }

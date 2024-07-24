@@ -5,9 +5,10 @@
 #include "drv_dji_motor.h"
 #include "string.h"
 
-#define  K0 0
-#define	 R0 0
-#define  P0 0
+#define  TOQUE_COEFFICIENT      1.99688994e-6f
+#define  K0 1.453e-07f
+#define	 R0 1.23e-07f
+#define  P0 3.081f
 
 supercap_t supercap;
 power_control_t power_control;
@@ -20,10 +21,12 @@ void power_init(void)
     power_control.judge_max_power    = 55;
     power_control.min_buffer         = 30;
     power_control.limit_kp           = 0.4f;
+    power_control.limit_power        = 170.0f;//170 250
     supercap.max_volage              = 23.6f;
     supercap.min_volage              = 10.0f;
     supercap.volume_percent          = 0;
     supercap.volage                  = supercap.min_volage;
+    
 }
 
 void power_judge_update(void)
@@ -36,17 +39,53 @@ void power_judge_update(void)
 float motor_power_calcu(float current, float wheel_speed_fdb)
 {
     float power;
-    power = K0 * current * wheel_speed_fdb +
-            R0 * current * current + P0;
+    power = TOQUE_COEFFICIENT * current * wheel_speed_fdb +
+                (double)K0 * wheel_speed_fdb * wheel_speed_fdb +
+                (double)R0 * current * current 
+								+ P0;
+//    float power;
+//    power = K0 * current * wheel_speed_fdb +
+//            R0 * current * current + P0;
     return power;
 }
 
 void supercap_control(void)
 {
-    power_control.give_power_wheel[0] =  motor_power_calcu(driver_motor[0].tx_current, driver_motor[0].speed_rpm);
-    power_control.give_power_wheel[1] =  motor_power_calcu(driver_motor[1].tx_current, driver_motor[1].speed_rpm);
-    power_control.total_power_wheel = power_control.give_power_wheel[0] + power_control.give_power_wheel[1];
-    
+    power_judge_update();
+    power_control.total_power_wheel = 0;
+    for (int i = 0; i < 2; i++) {
+        power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
+        if (power_control.give_power_wheel[i] < 0)
+            continue;
+        power_control.total_power_wheel += power_control.give_power_wheel[i];
+    }
+    if (power_control.total_power_wheel >= power_control.limit_power) {//功率超限重分配
+        power_control.power_scale = power_control.limit_power / power_control.total_power_wheel;
+        for (int i = 0; i < 2; i++) {
+            power_control.scaled_pwoer_wheel[i] = power_control.power_scale * power_control.give_power_wheel[i];
+            if (power_control.scaled_pwoer_wheel[i] < 0)
+                continue;
+            float b = TOQUE_COEFFICIENT * driver_motor[i].speed_rpm;
+            float c = K0 * driver_motor[i].speed_rpm * driver_motor[i].speed_rpm - power_control.scaled_pwoer_wheel[i] + P0;
+            if(driver_motor[i].tx_current > 0) {
+                float temp = (-b + sqrtf(b * b - 4 * R0 * c)) / ( 2 * R0);
+                if (temp > 16000) {
+                    driver_motor[i].tx_current = 16000;
+                } else {
+                    driver_motor[i].tx_current = temp;
+                }
+            } else {
+                float temp = (-b - sqrtf(b * b - 4 * R0 * c)) / ( 2 * R0);
+                if (temp > 16000) {
+                    driver_motor[i].tx_current = 16000;
+                } else {
+                    driver_motor[i].tx_current = temp;
+                }
+            }
+        }
+    } else {
+        power_control.power_scale = 1.0f;
+    }
     if (power_control.judge_power_buffer < power_control.min_buffer) {//限制速度 后面再写
         
     }

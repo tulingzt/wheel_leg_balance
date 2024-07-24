@@ -18,14 +18,18 @@
 
 CAT(ui_, CAT(FRAME_OBJ_NUM, _frame_t)) ui_default_group3_0;
 ui_interface_line_t *ui_default_group3_power2 = (ui_interface_line_t *)&(ui_default_group3_0.data[0]);
-ui_interface_line_t *ui_default_group3_position2 = (ui_interface_line_t *)&(ui_default_group3_0.data[1]);
+ui_interface_arc_t *ui_default_group3_position2 = (ui_interface_arc_t *)&(ui_default_group3_0.data[1]);
 ui_interface_number_t *ui_default_group3_time11 = (ui_interface_number_t *)&(ui_default_group3_0.data[2]);
 ui_interface_number_t *ui_default_group3_time21 = (ui_interface_number_t *)&(ui_default_group3_0.data[3]);
 ui_interface_number_t *ui_default_group3_time31 = (ui_interface_number_t *)&(ui_default_group3_0.data[4]);
 ui_interface_number_t *ui_default_group3_time41 = (ui_interface_number_t *)&(ui_default_group3_0.data[5]);
 ui_interface_number_t *ui_default_group3_time51 = (ui_interface_number_t *)&(ui_default_group3_0.data[6]);
 
-void _ui_init_default_group3_0() {
+float armour_center;
+float start_angle;
+float end_angle;
+
+void _ui_init_default_group3_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group3_0.data[i].figure_name[0] = FRAME_ID;
         ui_default_group3_0.data[i].figure_name[1] = GROUP_ID;
@@ -44,15 +48,17 @@ void _ui_init_default_group3_0() {
     ui_default_group3_power2->end_y = 400;
     ui_default_group3_power2->color = 0;
     ui_default_group3_power2->width = 50;
-
-    ui_default_group3_position2->figure_tpye = 0;
+    
+    ui_default_group3_position2->figure_tpye = 4;
     ui_default_group3_position2->layer = 0;
-    ui_default_group3_position2->start_x = 1725;
-    ui_default_group3_position2->start_y = 600;
-    ui_default_group3_position2->end_x = 1725;
-    ui_default_group3_position2->end_y = 650;
+    ui_default_group3_position2->rx = 390;
+    ui_default_group3_position2->ry = 390;
+    ui_default_group3_position2->start_x = 957;
+    ui_default_group3_position2->start_y = 537;
     ui_default_group3_position2->color = 0;
-    ui_default_group3_position2->width = 5;
+    ui_default_group3_position2->width = 10;
+    ui_default_group3_position2->start_angle = 0;
+    ui_default_group3_position2->end_angle = 30;
 
     ui_default_group3_time11->figure_tpye = 6;
     ui_default_group3_time11->layer = 0;
@@ -104,16 +110,26 @@ void _ui_init_default_group3_0() {
     SEND_MESSAGE((uint8_t *) &ui_default_group3_0, sizeof(ui_default_group3_0));
 }
 
-void _ui_update_default_group3_0() {
+void _ui_update_default_group3_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group3_0.data[i].operate_tpyel = 2;
     }
     
     ui_default_group3_power2->end_y = 350 + supercap.volume_percent;
+ 
     float yaw_err;
     yaw_err = circle_error((float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI, (float)yaw_motor.ecd / 8192 * 2 * PI, 2 * PI);
-    ui_default_group3_position2->end_x = (uint32_t)(1725 - 50 * arm_sin_f32(yaw_err));
-    ui_default_group3_position2->end_y = (uint32_t)(600 + 50 * arm_cos_f32(yaw_err));
+    armour_center = yaw_err * 180.0f / 3.1415f + 180.0f;
+    ui_default_group3_position2->start_angle = armour_center - 15.0f; 
+    if(ui_default_group3_position2->start_angle < 0.0f)
+        ui_default_group3_position2->start_angle +=360.0f;
+    if(ui_default_group3_position2->start_angle > 360.0f)
+        ui_default_group3_position2->start_angle -=360.0f;
+    ui_default_group3_position2->end_angle = armour_center + 15.0f; 	
+    if(ui_default_group3_position2->end_angle < 0.0f)
+        ui_default_group3_position2->end_angle +=360.0f;
+    if(ui_default_group3_position2->end_angle > 360.0f)
+        ui_default_group3_position2->end_angle -=360.0f;	
     
     if (game_status.stage_remain_time > 360)
         ui_default_group3_time11->number = (game_status.stage_remain_time - 360)/60;
@@ -144,7 +160,7 @@ void _ui_update_default_group3_0() {
     SEND_MESSAGE((uint8_t *) &ui_default_group3_0, sizeof(ui_default_group3_0));
 }
 
-void _ui_remove_default_group3_0() {
+void _ui_remove_default_group3_0(void) {
     for (int i = 0; i < OBJ_NUM; i++) {
         ui_default_group3_0.data[i].operate_tpyel = 3;
     }
