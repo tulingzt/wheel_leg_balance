@@ -21,7 +21,7 @@ void power_init(void)
     power_control.judge_max_power    = 55;
     power_control.min_buffer         = 30;
     power_control.limit_kp           = 0.4f;
-    power_control.limit_power        = 170.0f;//170 250
+    power_control.limit_power        = 250.0f;//170 250
     supercap.max_volage              = 23.6f;
     supercap.min_volage              = 10.0f;
     supercap.volume_percent          = 0;
