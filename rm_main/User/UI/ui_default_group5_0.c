@@ -23,7 +23,7 @@ ui_interface_line_t *ui_default_group5_VMC_bc2 = (ui_interface_line_t *)&(ui_def
 ui_interface_line_t *ui_default_group5_VMC_cd1 = (ui_interface_line_t *)&(ui_default_group5_0.data[5]);
 ui_interface_line_t *ui_default_group5_VMC_cd2 = (ui_interface_line_t *)&(ui_default_group5_0.data[6]);
 
-uint32_t x0 = 1600, y0 = 700;
+uint32_t x0 = 1700, y0 = 600;
 const float LegLength[5] = {75, 75, 135, 135, 75};
 
 void _ui_init_default_group5_0(void) {

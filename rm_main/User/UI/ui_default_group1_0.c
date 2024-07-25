@@ -86,11 +86,11 @@ void _ui_init_default_group1_0(void) {
 
     ui_default_group1_position1->figure_tpye = 2;
     ui_default_group1_position1->layer = 0;
-    ui_default_group1_position1->r = 50;
-    ui_default_group1_position1->start_x = 1725;
-    ui_default_group1_position1->start_y = 600;
+    ui_default_group1_position1->r = 1;
+    ui_default_group1_position1->start_x = 0;
+    ui_default_group1_position1->start_y = 0;
     ui_default_group1_position1->color = 1;
-    ui_default_group1_position1->width = 5;
+    ui_default_group1_position1->width = 1;
 
 
     CAT(ui_proc_, CAT(FRAME_OBJ_NUM, _frame))(&ui_default_group1_0);

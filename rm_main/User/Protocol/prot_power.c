@@ -21,12 +21,11 @@ void power_init(void)
     power_control.judge_max_power    = 55;
     power_control.min_buffer         = 30;
     power_control.limit_kp           = 0.4f;
-    power_control.limit_power        = 250.0f;//170 250
+    power_control.limit_power        = 170.0f;//170 250
     supercap.max_volage              = 23.6f;
     supercap.min_volage              = 10.0f;
     supercap.volume_percent          = 0;
     supercap.volage                  = supercap.min_volage;
-    
 }
 
 void power_judge_update(void)
@@ -43,9 +42,6 @@ float motor_power_calcu(float current, float wheel_speed_fdb)
                 (double)K0 * wheel_speed_fdb * wheel_speed_fdb +
                 (double)R0 * current * current 
 								+ P0;
-//    float power;
-//    power = K0 * current * wheel_speed_fdb +
-//            R0 * current * current + P0;
     return power;
 }
 
@@ -53,6 +49,7 @@ void supercap_control(void)
 {
     power_judge_update();
     power_control.total_power_wheel = 0;
+    //未限功率前预测功率
     for (int i = 0; i < 2; i++) {
         power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
         if (power_control.give_power_wheel[i] < 0)
@@ -60,35 +57,32 @@ void supercap_control(void)
         power_control.total_power_wheel += power_control.give_power_wheel[i];
     }
     if (power_control.total_power_wheel >= power_control.limit_power) {//功率超限重分配
-        power_control.power_scale = power_control.limit_power / power_control.total_power_wheel;
+        float a = 0, b = 0, c = 2 * P0 - power_control.limit_power;
         for (int i = 0; i < 2; i++) {
-            power_control.scaled_pwoer_wheel[i] = power_control.power_scale * power_control.give_power_wheel[i];
-            if (power_control.scaled_pwoer_wheel[i] < 0)
-                continue;
-            float b = TOQUE_COEFFICIENT * driver_motor[i].speed_rpm;
-            float c = K0 * driver_motor[i].speed_rpm * driver_motor[i].speed_rpm - power_control.scaled_pwoer_wheel[i] + P0;
-            if(driver_motor[i].tx_current > 0) {
-                float temp = (-b + sqrtf(b * b - 4 * R0 * c)) / ( 2 * R0);
-                if (temp > 16000) {
-                    driver_motor[i].tx_current = 16000;
-                } else {
-                    driver_motor[i].tx_current = temp;
-                }
-            } else {
-                float temp = (-b - sqrtf(b * b - 4 * R0 * c)) / ( 2 * R0);
-                if (temp > 16000) {
-                    driver_motor[i].tx_current = 16000;
-                } else {
-                    driver_motor[i].tx_current = temp;
-                }
-            }
+            a += R0 * driver_motor[i].tx_current * driver_motor[i].tx_current;
+            b += TOQUE_COEFFICIENT * driver_motor[i].speed_rpm * driver_motor[i].tx_current;
+            c -= K0 * driver_motor[i].speed_rpm * driver_motor[i].speed_rpm;
+        }
+        if (b * b - 4 * a * c >= 0) {//有解
+            power_control.power_scale = (-b + sqrtf(b * b - 4 * a * c)) / (2 * a);
+        } else {
+            power_control.power_scale = -b / 2 / a;
         }
     } else {
         power_control.power_scale = 1.0f;
     }
-    if (power_control.judge_power_buffer < power_control.min_buffer) {//限制速度 后面再写
-        
+    //限制电流
+    driver_motor[0].tx_current = power_control.power_scale * driver_motor[0].tx_current;
+    driver_motor[1].tx_current = power_control.power_scale * driver_motor[1].tx_current;
+    //限功率后预测功率
+    power_control.total_power_wheel = 0;
+    for (int i = 0; i < 2; i++) {
+        power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
+        power_control.total_power_wheel += power_control.give_power_wheel[i];
     }
+//    if (power_control.judge_power_buffer < power_control.min_buffer) {//限制速度 后面再写
+//        
+//    }
 }
 
 void power_get_data(uint8_t *data)

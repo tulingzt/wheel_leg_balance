@@ -20,7 +20,7 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 12;
+uint8_t debug_wave = 10;
 
 void log_scope_data_pkg(void)
 {
@@ -124,17 +124,10 @@ void log_scope_data_pkg(void)
         } case 12: {//底盘功率模型
             log_scope_get_data(power_heat_data.chassis_power);
             log_scope_get_data(power_control.total_power_wheel);
+            log_scope_get_data(power_control.power_scale);
             log_scope_get_data(power_heat_data.buffer_energy);
             log_scope_get_data(supercap.volage);
             log_scope_get_data(power_control.power_scale);
-//            log_scope_get_data(driver_motor[0].speed_rpm * driver_motor[0].tx_current + 
-//                               driver_motor[1].speed_rpm * driver_motor[1].tx_current);
-//            log_scope_get_data(driver_motor[0].tx_current * driver_motor[0].tx_current + 
-//                               driver_motor[1].tx_current * driver_motor[1].tx_current);
-//            log_scope_get_data(driver_motor[0].tx_current);
-//            log_scope_get_data(driver_motor[0].speed_rpm);
-//            log_scope_get_data(driver_motor[1].tx_current);
-//            log_scope_get_data(driver_motor[1].speed_rpm);
         }
         default:break;
     }

@@ -42,7 +42,7 @@ float jump_highset2 = 0.17f;
 float jump_highset3 = 0.15f;
 
 float x3_balance_zero = 0.00f, x5_balance_zero = 0.00f;//腿摆角角度偏置 机体俯仰角度偏置
-float x3_fight_zero = -0.01f;
+float x3_fight_zero = -0.00f;
 
 //位移 速度 yaw wz 左腿摆角 左腿摆角速度 右腿摆角 右腿摆角速度 机体倾角 机体倾角速度 
 //左轮转矩 右轮转矩 左腿转矩 右腿转矩
@@ -149,7 +149,7 @@ static void k_array_fit(float K[4][10], float Ll_fdb, float Lr_fdb)
 //                    temp += (K_Fit_Array2[i * 10 + j][x][y] * powf(Ll_fdb, x) * powf(Lr_fdb, y));
 //            K[i][j] = temp;
 //        }	
-//}
+//}x
 
 static void p_array_fit(float P[2][8], float Ll_fdb, float Lr_fdb)
 {
@@ -170,7 +170,8 @@ static void state_predict(void)
         wlr.side[i].predict_wy = 0;
         wlr.side[i].predict_wy += (P_Array[i][0] * lqr.X_fdb[1] + P_Array[i][1] * lqr.X_fdb[3] + P_Array[i][2] * lqr.X_fdb[4] + P_Array[i][3] * lqr.X_fdb[6]);
         for (int j = 0; j < 4; j++) {
-            wlr.side[i].predict_wy += (P_Array[i][j + 4] * lqr.U_ref[j]);
+//            wlr.side[i].predict_wy += (P_Array[i][j + 4] * lqr.U_ref[j]);
+            wlr.side[i].predict_wy -= (P_Array[i][j + 4] * wlr.side[i].Tw);
         }
     }
 }
