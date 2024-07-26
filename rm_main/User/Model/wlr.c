@@ -36,7 +36,7 @@ const float LegLengthNormal = 0.15f;//正常
 //上台阶参数设定
 float jump_vset  = 2.0f;
 float jump_theta = 0.0f;
-float jump_pitch = 0.26f;
+float jump_pitch = 0.25f;
 float jump_highset1 = 0.30f;
 float jump_highset2 = 0.17f;
 float jump_highset3 = 0.15f;
@@ -296,10 +296,12 @@ void wlr_control(void)
             wlr.jump_flag = 2;
     } else if (wlr.jump_flag == 2) {
         wlr.high_set = jump_highset2;
-        if (fabs(wlr.high_set - vmc[0].L_fdb) < 0.01f && fabs(wlr.high_set - vmc[1].L_fdb) < 0.01f)
+        if (fabs(wlr.high_set - vmc[0].L_fdb) < 0.02f && fabs(wlr.high_set - vmc[1].L_fdb) < 0.02f)
             wlr.jump_flag = 3;
     } else if (wlr.jump_flag == 3) {
         wlr.high_set = jump_highset3;
+        pid_leg_length[0].kp = pid_leg_length[1].kp = 400;
+        pid_leg_length[0].kd = pid_leg_length[1].kd = 8000;
         wlr.jump_cnt++;
         if (wlr.jump_cnt > 200) {
             wlr.jump_cnt = 0;

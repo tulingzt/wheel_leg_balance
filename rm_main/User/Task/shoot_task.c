@@ -127,7 +127,7 @@ static void shoot_init(void)
     shoot.fric_mode     = FRIC_MODE_PROTECT;
     //枪管参数初始化
     shoot.trigger_period = TRIGGER_PERIOD;
-    shoot.fric_speed_set = 700;
+    shoot.fric_speed_set = 780;
     shoot.barrel.cooling_rate   = 10;
     shoot.barrel.heat_max       = 50;
     //历史射速反馈缓存区

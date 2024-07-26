@@ -72,14 +72,14 @@ void supercap_control(void)
         power_control.power_scale = 1.0f;
     }
     //限制电流
-    driver_motor[0].tx_current = power_control.power_scale * driver_motor[0].tx_current;
-    driver_motor[1].tx_current = power_control.power_scale * driver_motor[1].tx_current;
-    //限功率后预测功率
-    power_control.total_power_wheel = 0;
-    for (int i = 0; i < 2; i++) {
-        power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
-        power_control.total_power_wheel += power_control.give_power_wheel[i];
-    }
+//    driver_motor[0].tx_current = power_control.power_scale * driver_motor[0].tx_current;
+//    driver_motor[1].tx_current = power_control.power_scale * driver_motor[1].tx_current;
+//    //限功率后预测功率
+//    power_control.total_power_wheel = 0;
+//    for (int i = 0; i < 2; i++) {
+//        power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
+//        power_control.total_power_wheel += power_control.give_power_wheel[i];
+//    }
 //    if (power_control.judge_power_buffer < power_control.min_buffer) {//限制速度 后面再写
 //        
 //    }
