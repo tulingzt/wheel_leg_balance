@@ -45,36 +45,37 @@ float motor_power_calcu(float current, float wheel_speed_fdb)
     return power;
 }
 
-void supercap_control(void)
+void power_limit_current(void)
 {
-    power_judge_update();
-    power_control.total_power_wheel = 0;
-    //未限功率前预测功率
-    for (int i = 0; i < 2; i++) {
-        power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
-        if (power_control.give_power_wheel[i] < 0)
-            continue;
-        power_control.total_power_wheel += power_control.give_power_wheel[i];
-    }
-    if (power_control.total_power_wheel >= power_control.limit_power) {//功率超限重分配
-        float a = 0, b = 0, c = 2 * P0 - power_control.limit_power;
-        for (int i = 0; i < 2; i++) {
-            a += R0 * driver_motor[i].tx_current * driver_motor[i].tx_current;
-            b += TOQUE_COEFFICIENT * driver_motor[i].speed_rpm * driver_motor[i].tx_current;
-            c -= K0 * driver_motor[i].speed_rpm * driver_motor[i].speed_rpm;
-        }
-        if (b * b - 4 * a * c >= 0) {//有解
-            power_control.power_scale = (-b + sqrtf(b * b - 4 * a * c)) / (2 * a);
-        } else {
-            power_control.power_scale = -b / 2 / a;
-        }
-    } else {
-        power_control.power_scale = 1.0f;
-    }
-    //限制电流
+//    power_judge_update();
+//    power_control.total_power_wheel = 0;
+//    //未限功率前预测功率
+//    for (int i = 0; i < 2; i++) {
+//        power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
+//        if (power_control.give_power_wheel[i] < 0)
+//            continue;
+//        power_control.total_power_wheel += power_control.give_power_wheel[i];
+//    }
+//    //功率超限重分配 限电流方案
+//    if (power_control.total_power_wheel >= power_control.limit_power) {
+//        float a = 0, b = 0, c = 2 * P0 - power_control.limit_power;
+//        for (int i = 0; i < 2; i++) {
+//            a += R0 * driver_motor[i].tx_current * driver_motor[i].tx_current;
+//            b += TOQUE_COEFFICIENT * driver_motor[i].speed_rpm * driver_motor[i].tx_current;
+//            c += K0 * driver_motor[i].speed_rpm * driver_motor[i].speed_rpm;
+//        }
+//        if (b * b - 4 * a * c >= 0) {//有解
+//            power_control.power_scale = (-b + sqrtf(b * b - 4 * a * c)) / (2 * a);
+//        } else {
+//            power_control.power_scale = -b / 2 / a;
+//        }
+//    } else {
+//        power_control.power_scale = 1.0f;
+//    }
+//    //限制电流
 //    driver_motor[0].tx_current = power_control.power_scale * driver_motor[0].tx_current;
 //    driver_motor[1].tx_current = power_control.power_scale * driver_motor[1].tx_current;
-//    //限功率后预测功率
+//    //限电流功率后预测功率
 //    power_control.total_power_wheel = 0;
 //    for (int i = 0; i < 2; i++) {
 //        power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
@@ -85,8 +86,40 @@ void supercap_control(void)
 //    }
 }
 
+float power_limit_speed(void)
+{
+    power_judge_update();
+    power_control.total_power_wheel = 0;
+    //未限功率前预测功率
+    for (int i = 0; i < 2; i++) {
+        power_control.give_power_wheel[i] =  motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
+        if (power_control.give_power_wheel[i] < 0)
+            continue;
+        power_control.total_power_wheel += power_control.give_power_wheel[i];
+    }
+    //功率超限重分配 限速度方案
+    float a = 2 * K0;
+    float b = 0;
+    float c = 2 * P0 - power_control.limit_power;
+    for (int i = 0; i < 2; i++) {
+        if (driver_motor[i].tx_current > 0) {
+            b += 2 * TOQUE_COEFFICIENT * driver_motor[i].tx_current;
+        } else {
+            b -= 2 * TOQUE_COEFFICIENT * driver_motor[i].tx_current;
+        }
+        c += R0 * driver_motor[i].tx_current * driver_motor[i].tx_current;
+    }
+    if (b * b - 4 * a * c >= 0) {
+        power_control.power_scale = (-b + sqrtf(b * b - 4 * a * c)) / (2 * a);
+    } else {
+        power_control.power_scale = -b / 2 / a;
+    }
+    return power_control.power_scale;
+}
+
 void power_get_data(uint8_t *data)
 {
+    //0x100
     float cap_voltage_buf;
     float chassis_current_buf;
     
@@ -97,6 +130,19 @@ void power_get_data(uint8_t *data)
     supercap.volage = cap_voltage_buf;
     supercap.volume_percent = (supercap.volage - supercap.min_volage) / (supercap.max_volage - supercap.min_volage) * 100.0f;
     supercap.current = chassis_current_buf;
+    //0x101
+//    uint8_t cap_state_buf;
+//    memcpy(&cap_state_buf,data,1);
+//    supercap.state.cap_v_over = cap_state_buf  & 1;
+//    supercap.state.cap_v_low = cap_state_buf >> 1 & 1;
+//    supercap.state.bat_v_over = cap_state_buf >> 2 & 1;
+//    supercap.state.bat_v_low = cap_state_buf >> 3 & 1;
+//    supercap.state.cap_i_over = cap_state_buf >> 4 & 1;
+//    supercap.state.chassis_i_over = cap_state_buf >> 5 & 1;
+//    supercap.state.chassis_msg_miss = cap_state_buf >> 6 & 1;
+//    supercap.state.judge_msg_miss = cap_state_buf >> 7;
+//    memcpy(&supercap.POWER_MODE,data+1,sizeof(power_mode));
+
 }
 
 uint8_t power_check_offline(void)

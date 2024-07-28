@@ -7,7 +7,18 @@ typedef struct
 {
     float volage, current;          //接收的信息 电容电压 底盘电流
     float min_volage, max_volage;   //电容当前电压 最小电压 最大电压
-    uint8_t volume_percent;         //电容电压百分比 
+    uint8_t volume_percent;         //电容电压百分比
+    struct
+    {
+            uint8_t cap_v_over : 1;
+            uint8_t cap_v_low : 1;
+            uint8_t bat_v_over : 1;
+            uint8_t bat_v_low : 1;
+            uint8_t cap_i_over : 1;
+            uint8_t chassis_i_over : 1;
+            uint8_t chassis_msg_miss : 1;
+            uint8_t judge_msg_miss : 1;	
+    }state;
 } supercap_t;
 
 typedef struct
@@ -32,7 +43,8 @@ extern power_control_t power_control;
 void power_init(void);
 void power_judge_update(void);
 float motor_power_calcu(float current, float wheel_speed_fdb);
-void supercap_control(void);
+void power_limit_current(void);
+float power_limit_speed(void);
 void power_get_data(uint8_t *data);
 
 uint8_t power_check_offline(void);

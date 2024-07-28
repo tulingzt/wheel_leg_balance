@@ -57,6 +57,7 @@ void can_comm_init(void)
     can_filter.FilterType = FDCAN_FILTER_DUAL;//等于过滤
     can_filter.FilterID1 = 0x020;
     can_filter.FilterID2 = 0x100;
+//    can_filter.FilterID2 = 0x101;
     can_filter.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;//通过过滤后给邮箱0
     HAL_FDCAN_ConfigFilter(&hfdcan2, &can_filter);
     //底盘imu
@@ -140,7 +141,8 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 //            imu_get_data(&chassis_imu, rx_fifo0_message.Identifier, rx_fifo0_data);
         } else if (hfdcan->Instance == FDCAN2) {
 //            power_get_data(rx_fifo0_data);
-            if (rx_fifo0_message.Identifier == 0x20 || rx_fifo0_message.Identifier == 0x100 ) {
+            if (rx_fifo0_message.Identifier == 0x20 || rx_fifo0_message.Identifier == 0x100) {
+//              if (rx_fifo0_message.Identifier == 0x20 || rx_fifo0_message.Identifier == 0x101) {
                 power_get_data(rx_fifo0_data);
             } else {
                 imu_get_data(&chassis_imu, rx_fifo0_message.Identifier, rx_fifo0_data);

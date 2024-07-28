@@ -9,6 +9,7 @@
 #include "leg_vmc.h"
 #include "wheel_leg_model.h"
 #include "drv_dji_motor.h"
+#include "drv_ht_motor.h"
 #include "prot_judge.h"
 #include "prot_power.h"
 #include "prot_imu.h"
@@ -20,7 +21,7 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 12;
+uint8_t debug_wave = 14;
 
 void log_scope_data_pkg(void)
 {
@@ -128,7 +129,31 @@ void log_scope_data_pkg(void)
             log_scope_get_data(power_heat_data.buffer_energy);
             log_scope_get_data(supercap.volage);
             log_scope_get_data(power_control.power_scale);
-        }
+            break;
+        } case 13: {//超电调试
+//            log_scope_get_data(supercap.state.cap_v_over);
+//            log_scope_get_data(supercap.state.cap_v_low);
+//            log_scope_get_data(supercap.state.bat_v_over);
+//            log_scope_get_data(supercap.state.bat_v_low );
+//            log_scope_get_data(supercap.state.cap_i_over);
+//            log_scope_get_data(supercap.state.chassis_i_over);
+//            log_scope_get_data(supercap.state.chassis_msg_miss);
+//            log_scope_get_data(supercap.state.judge_msg_miss);
+            
+            log_scope_get_data(supercap.volage);
+            log_scope_get_data(supercap.current);
+            break;
+            } case 14: {//海泰电机力矩
+                log_scope_get_data(joint_motor[0].t);
+                log_scope_get_data(joint_motor[0].torque);
+                log_scope_get_data(joint_motor[1].t);
+                log_scope_get_data(joint_motor[1].torque);
+                log_scope_get_data(joint_motor[2].t);
+                log_scope_get_data(joint_motor[2].torque);
+                log_scope_get_data(joint_motor[3].t);
+                log_scope_get_data(joint_motor[3].torque);
+                break;
+            }
         default:break;
     }
 }

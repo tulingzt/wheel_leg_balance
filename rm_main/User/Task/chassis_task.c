@@ -143,7 +143,7 @@ static void chassis_mode_switch(void)
         }
         if (rc.ch3 == 660 && spin_flag == 1) {
             if ((chassis.mode == CHASSIS_MODE_REMOTER_ROTATE1 || chassis.mode == CHASSIS_MODE_REMOTER_ROTATE2)
-                 && 0 < spin_limit && spin_limit < 1.7) {
+                 && 0 < spin_limit && spin_limit < 1.7f) {
                 chassis.mode = CHASSIS_MODE_REMOTER_FOLLOW;
                 spin_flag = 0;
             } else if (chassis.mode == CHASSIS_MODE_REMOTER_FOLLOW) {
@@ -153,7 +153,7 @@ static void chassis_mode_switch(void)
         }
         if (rc.ch3 == -660 && spin_flag == 1) {
             if ((chassis.mode == CHASSIS_MODE_REMOTER_ROTATE1 || chassis.mode == CHASSIS_MODE_REMOTER_ROTATE2)
-                 && -1.7 < spin_limit && spin_limit < 0) {
+                 && -1.7f < spin_limit && spin_limit < 0) {
                 chassis.mode = CHASSIS_MODE_REMOTER_FOLLOW;
                 spin_flag = 0;
             } else if (chassis.mode == CHASSIS_MODE_REMOTER_FOLLOW) {
@@ -498,7 +498,7 @@ void chassis_task(void const *argu)
         chassis_data_input();
         wlr_control();
         chassis_data_output();
-        supercap_control();
+//        power_limit_current();
 //        taskEXIT_CRITICAL();
         osDelayUntil(&thread_wake_time, 2);
     }

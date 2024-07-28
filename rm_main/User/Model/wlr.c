@@ -3,6 +3,7 @@
 #include "leg_vmc.h"
 #include "wheel_leg_model.h"
 #include "prot_imu.h"
+#include "prot_power.h"
 #include "drv_dji_motor.h"
 #include "prot_dr16.h"
 #include "pid.h"
@@ -353,6 +354,8 @@ void wlr_control(void)
 //	if (wlr.side[0].fly_flag || wlr.side[1].fly_flag) //腾空
 //		wlr.v_ref = 0;
     lqr.X_ref[1] = wlr.v_ref;
+//    float limit_speed = power_limit_speed()/60*2*PI*WheelRadius;
+//    data_limit(&lqr.X_ref[1], -limit_speed, limit_speed);
     lqr.X_ref[2] = -wlr.yaw_ref;
     lqr.X_ref[3] = -wlr.wz_ref;
     //期望限制
