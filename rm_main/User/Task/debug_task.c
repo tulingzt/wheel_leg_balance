@@ -2,7 +2,7 @@
 #include "cmsis_os.h"
 #include "data_log.h"
 #include "stdint.h"
-
+#include "prot_vision.h"
 #include "gimbal_task.h"
 #include "shoot_task.h"
 #include "wlr.h"
@@ -21,23 +21,24 @@
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 14;
+//uint8_t debug_wave = 14;
+uint8_t debug_wave = 6;
 
 void log_scope_data_pkg(void)
 {
     switch(debug_wave) {
         case 1: {//云台pid调试
-//            log_scope_get_data(gimbal.yaw_spd.ref);
-//            log_scope_get_data(gimbal.yaw_spd.fdb);
+            log_scope_get_data(gimbal.yaw_spd.ref);
+            log_scope_get_data(gimbal.yaw_spd.fdb);
             log_scope_get_data(gimbal.yaw_angle.ref);
             log_scope_get_data(gimbal.yaw_angle.fdb);
-//            log_scope_get_data(gimbal.yaw_output);
+            log_scope_get_data(gimbal.test_count);
 //            log_scope_get_data(yaw_motor.tx_current);
             
 //            log_scope_get_data(gimbal.pit_spd.ref);
 //            log_scope_get_data(gimbal.pit_spd.fdb);
-            log_scope_get_data(gimbal.pit_angle.ref);
-            log_scope_get_data(gimbal.pit_angle.fdb);
+//            log_scope_get_data(gimbal.pit_angle.ref);
+//            log_scope_get_data(gimbal.pit_angle.fdb);
 //            log_scope_get_data(gimbal.pit_output);
 //            log_scope_get_data(pit_motor.tx_current);
             break;
@@ -124,8 +125,9 @@ void log_scope_data_pkg(void)
             break;
         } case 12: {//底盘功率模型
             log_scope_get_data(power_heat_data.chassis_power);
-            log_scope_get_data(power_control.total_power_wheel);
-            log_scope_get_data(power_control.power_scale);
+//            log_scope_get_data(power_control.total_power);
+//            log_scope_get_data(power_control.scaled_power);
+            log_scope_get_data(power_heat_data.chassis_voltage);
             log_scope_get_data(power_heat_data.buffer_energy);
             log_scope_get_data(supercap.volage);
             log_scope_get_data(power_control.power_scale);

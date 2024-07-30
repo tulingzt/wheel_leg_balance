@@ -72,7 +72,31 @@ void power_limit_current(void)
 //    } else {
 //        power_control.power_scale = 1.0f;
 //    }
-//    //限制电流
+    power_judge_update();
+    power_control.total_power_wheel = 0;
+    //未限功率前预测功率
+    for (int i = 0; i < 2; i++) {
+        power_control.give_power_wheel[i] = motor_power_calcu(driver_motor[i].tx_current, driver_motor[i].speed_rpm);
+        if (power_control.give_power_wheel[i] < 0)
+            continue;
+        power_control.total_power_wheel += power_control.give_power_wheel[i];
+    }
+    if (power_control.total_power_wheel >= power_control.limit_power) {//功率超限重分配
+        float a = 0, b = 0, c = 2 * P0 - power_control.limit_power;
+        for (int i = 0; i < 2; i++) {
+            a += R0 * driver_motor[i].tx_current * driver_motor[i].tx_current;
+            b += TOQUE_COEFFICIENT * driver_motor[i].speed_rpm * driver_motor[i].tx_current;
+            c -= K0 * driver_motor[i].speed_rpm * driver_motor[i].speed_rpm;
+        }
+        if (b * b - 4 * a * c >= 0) {//有解
+            power_control.power_scale = (-b + sqrtf(b * b - 4 * a * c)) / (2 * a);
+        } else {
+            power_control.power_scale = -b / 2 / a;
+        }
+    } else {
+        power_control.power_scale = 1.0f;
+    }
+    //限制电流
 //    driver_motor[0].tx_current = power_control.power_scale * driver_motor[0].tx_current;
 //    driver_motor[1].tx_current = power_control.power_scale * driver_motor[1].tx_current;
 //    //限电流功率后预测功率

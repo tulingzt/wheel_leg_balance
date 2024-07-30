@@ -325,6 +325,7 @@ static void chassis_data_input(void)
                     key_status_clear(KEY_CHASSIS_HEIGHT);
                 }
             } else if (wlr.high_flag == 2) {
+                chassis_scale.keyboard = 1.0f;
                 if (kb_status[KEY_CHASSIS_HEIGHT] == KEY_RUN && 
                     chassis.mode != CHASSIS_MODE_KEYBOARD_PRONE) {
                     wlr.high_flag = 1;

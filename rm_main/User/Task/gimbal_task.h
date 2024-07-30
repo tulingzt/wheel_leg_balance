@@ -25,6 +25,8 @@ typedef struct
     float last_yaw_ref;
     float yaw_angle_temp;
     float start_up;//起身标志位
+    float test_count;
+    float scalarA,scalarB;
 } gimbal_t;
 
 extern gimbal_t gimbal;

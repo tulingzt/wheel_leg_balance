@@ -11,12 +11,12 @@
 #include "string.h"
 #include "func_generator.h"
 
-float yaw_fc = 350;
+float yaw_fc = 300;
 
 FGT_agl_t yaw_test = {
-    .Td = 2,
+    .Td = 1,
     .time = 0,
-    .T1 = 200,
+    .T1 = 150,
     .T2 = 0,
     .T1_out = 0,
     .T2_out = 0.175,
@@ -36,10 +36,11 @@ static void gimbal_init(void)
     memset(&gimbal, 0, sizeof(gimbal_t));
     gimbal.yaw_angle_temp = 7;
     
-    pid_init(&gimbal.pit_angle.pid, NONE, 15, 0, 0, 0, 15);
-    pid_init(&gimbal.pit_spd.pid, NONE, -0.85f, -0.003f, 0, 0.7f, 2.2f);
+    pid_init(&gimbal.pit_angle.pid, NONE, 20, 0, 0, 0, 15);
+    pid_init(&gimbal.pit_spd.pid, NONE, -1.0f, -0.008f, 0, 0.7f, 2.2f);
     pid_init(&gimbal.yaw_angle.pid, NONE, 20, 0, 200, 0, 15);
-    pid_init(&gimbal.yaw_spd.pid, NONE, 1.0f, 0.006f, 0, 0.6f, 2.2f);
+    pid_init(&gimbal.yaw_spd.pid, NONE, 1.0f, 0.00f, 0, 1.0f, 2.2f);
+    gimbal.scalarA = gimbal.scalarB = 0.06;
     float yaw_feed_c[3] = {250, 0, 0};
     feed_forward_init(&gimbal.yaw_feedforward, 0.002f, 2, yaw_feed_c, 0);
 }
@@ -78,13 +79,25 @@ static void gimbal_pid_calc(void)
         gimbal.yaw_angle.pid.out_max = gimbal.yaw_angle_temp;
     else
         gimbal.yaw_angle.pid.out_max = 15;
+    if(temp<0.01f && temp>-0.01f && vision.aim_status == AIMING) {
+    gimbal.yaw_spd.pid.kp = 1.9;
+    gimbal.yaw_spd.pid.ki = 0.008;
+//    //变速积分
+//    if (gimbal.yaw_angle.pid.i_out * yaw_err > 0){
+//        if (fabs(yaw_err) <= gimbal.scalarB + gimbal.scalarA && fabs(yaw_err) >= gimbal.scalarB)
+//            gimbal.yaw_spd.pid.i_out *= (gimbal.scalarA - fabs(yaw_err) + gimbal.scalarB) / gimbal.scalarA;
+//        else if (fabs(yaw_err) >= gimbal.scalarB + gimbal.scalarA)
+//            gimbal.yaw_spd.pid.i_out = 0;
+//    }
+    gimbal.yaw_spd.ref = pid_calc(&gimbal.yaw_angle.pid, gimbal.yaw_angle.fdb + yaw_err, gimbal.yaw_angle.fdb) + temp*yaw_fc;
+    } else {
+    gimbal.yaw_spd.pid.kp = 1.0;
+    gimbal.yaw_spd.pid.ki = 0.0f;
+    gimbal.yaw_spd.pid.i_out = 0;
     gimbal.yaw_spd.ref = pid_calc(&gimbal.yaw_angle.pid, gimbal.yaw_angle.fdb + yaw_err, gimbal.yaw_angle.fdb);
+    }    
     gimbal.yaw_spd.fdb = gimbal_imu.wz + 0.4f * chassis_imu.wz;
-    if(temp<0.030f && temp>-0.030f && vision.aim_status==AIMING) {
-        gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb) + temp*yaw_fc;
-    } else
-        gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb);
-
+    gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb);
     gimbal.last_yaw_ref = gimbal.yaw_angle.ref;
 }
 

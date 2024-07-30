@@ -179,7 +179,7 @@ void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs)
  * @param[in] can_periph: can通道
  * @param[in] id        : 帧id
  * @param[in] data      : 数据指针
- * @retval    void
+ * @retval    v oid
  */
 void can_std_transmit(can_channel_e can_periph, uint32_t id, uint8_t *data)
 {

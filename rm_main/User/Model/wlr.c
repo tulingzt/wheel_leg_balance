@@ -40,7 +40,7 @@ float jump_theta = 0.0f;
 float jump_pitch = 0.25f;
 float jump_highset1 = 0.30f;
 float jump_highset2 = 0.17f;
-float jump_highset3 = 0.15f;
+float jump_highset3 = 0.12f;
 
 float x3_balance_zero = 0.00f, x5_balance_zero = 0.00f;//腿摆角角度偏置 机体俯仰角度偏置
 float x3_fight_zero = -0.00f;
@@ -195,7 +195,7 @@ void wlr_init(void)
         kal_fn[i].Q_data[0] = 1;
         kal_fn[i].R_data[0] = 100;
 		//PID参数初始化
-        pid_init(&pid_leg_length[i], NONE, 300, 0.0f, 60000, 25, 40);//500 0/2.5f 10000
+        pid_init(&pid_leg_length[i], NONE, 500, 0.0f, 60000, 25, 40);//500 0/2.5f 10000
         pid_init(&pid_leg_length_fast[i], NONE, 1000, 0, 10000, 0, 50);
 	}
 	//卡尔曼滤波器初始化
@@ -301,10 +301,10 @@ void wlr_control(void)
             wlr.jump_flag = 3;
     } else if (wlr.jump_flag == 3) {
         wlr.high_set = jump_highset3;
-        pid_leg_length[0].kp = pid_leg_length[1].kp = 400;
-        pid_leg_length[0].kd = pid_leg_length[1].kd = 8000;
+        pid_leg_length[0].kp = pid_leg_length[1].kp = 200;
+        pid_leg_length[0].kd = pid_leg_length[1].kd = 6000;
         wlr.jump_cnt++;
-        if (wlr.jump_cnt > 200) {
+        if (wlr.jump_cnt > 1200) {
             wlr.jump_cnt = 0;
             wlr.jump_flag = 4;
         }				
@@ -344,7 +344,7 @@ void wlr_control(void)
 	//全身运动控制
 	wlr.roll_offs = pid_calc(&pid_roll, 0, wlr.roll_fdb);
     wlr.inertial_offs = (mb/2) * wlr.high_set * lqr.X_fdb[3] * lqr.X_fdb[1] / (BodyWidth/2) / 2;//惯性力补偿
-    if(fabs(wlr.v_ref) < 1e-3 && (wlr.jump_flag == 0 || wlr.jump_flag == 4))
+    if(fabs(wlr.v_ref) < 1e-3 && (wlr.jump_flag == 0 || wlr.jump_flag == 3 || wlr.jump_flag == 4))
     {
         lqr.X_ref[0] = wlr.s_adapt;
     } else {
@@ -406,7 +406,6 @@ void wlr_control(void)
 		} else														                       //常态 跳跃压腿阶段 跳跃落地阶段
             wlr.side[i].Fy = pid_calc(&pid_leg_length[i], tlm.l_ref[i], vmc[i].L_fdb)\
                                  + mb*GRAVITY/2 + WLR_SIGN(i) * (wlr.roll_offs - wlr.inertial_offs);
-
 		wlr.side[i].T0 = -lqr.U_ref[2+i];
 		vmc_inverse_solution(&vmc[i], wlr.high_set, PI / 2 + x3_balance_zero, wlr.side[i].T0, wlr.side[i].Fy);
 	}
