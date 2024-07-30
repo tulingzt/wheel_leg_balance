@@ -434,7 +434,11 @@ static void chassis_data_input(void)
     wlr.side[0].t4 =  joint_motor[0].torque;
     wlr.side[0].t1 =  joint_motor[1].torque;
     wlr.side[0].qy = -driver_motor[0].position;
-    wlr.side[0].wy = -driver_motor[0].velocity;//可能需要加滤波
+    //wlr.side[0].wy = -driver_motor[0].velocity;//可能需要加滤波
+    
+    kal_3508_vel[0].measured_vector[0] = -driver_motor[0].velocity;
+    kalman_filter_update(&kal_3508_vel[0]);
+    wlr.side[0].wy = kal_3508_vel[0].filter_vector[0];
 
     wlr.side[1].q1 = -joint_motor[2].position + joint_motor[2].zero_point + PI;
     wlr.side[1].q4 = -joint_motor[3].position - joint_motor[3].zero_point;
@@ -443,7 +447,11 @@ static void chassis_data_input(void)
     wlr.side[1].t1 = -joint_motor[2].torque;
     wlr.side[1].t4 = -joint_motor[3].torque;
     wlr.side[1].qy =  driver_motor[1].position;
-    wlr.side[1].wy =  driver_motor[1].velocity;//可能需要加滤波
+    //wlr.side[1].wy =  driver_motor[1].velocity;//可能需要加滤波
+    
+    kal_3508_vel[1].measured_vector[0] = driver_motor[1].velocity;
+    kalman_filter_update(&kal_3508_vel[1]);
+    wlr.side[1].wy = kal_3508_vel[1].filter_vector[0];
 }
 
 static void chassis_data_output(void)

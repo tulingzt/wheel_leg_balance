@@ -22,7 +22,7 @@
 us_time_t test_time;
 kalman_filter_t test;
 //uint8_t debug_wave = 14;
-uint8_t debug_wave = 6;
+uint8_t debug_wave = 9;
 
 void log_scope_data_pkg(void)
 {
@@ -154,6 +154,12 @@ void log_scope_data_pkg(void)
                 log_scope_get_data(joint_motor[2].torque);
                 log_scope_get_data(joint_motor[3].t);
                 log_scope_get_data(joint_motor[3].torque);
+                break;
+            } case 15: {
+                log_scope_get_data(-driver_motor[0].velocity);
+                log_scope_get_data(wlr.side[0].wy);
+                log_scope_get_data(-driver_motor[1].velocity);
+                log_scope_get_data(wlr.side[1].wy);
                 break;
             }
         default:break;

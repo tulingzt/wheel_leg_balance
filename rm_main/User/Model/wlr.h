@@ -1,8 +1,9 @@
 #ifndef __WHEEL_LEG_ROBOT_H
 #define __WHEEL_LEG_ROBOT_H
 
-#include "pid.h"
 #include "stdint.h"
+#include "pid.h"
+#include "kalman_filter.h"
 
 typedef struct
 {
@@ -57,6 +58,10 @@ typedef struct
 
 extern wlr_t wlr;
 extern lqr_t lqr;
+extern kalman_filter_t kal_3508_vel[2];
+extern pid_t pid_leg_length[2];
+extern pid_t pid_leg_length_fast[2];
+extern pid_t pid_roll;
 
 void wlr_init(void);
 void wlr_protest(void);
