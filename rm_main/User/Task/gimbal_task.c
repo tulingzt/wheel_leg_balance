@@ -57,7 +57,8 @@ static void gimbal_pid_calc(void)
     data_limit(&gimbal.pit_angle.ref, pit_min, pit_max);
     gimbal.pit_angle.fdb = -gimbal_imu.pit;
     gimbal.pit_spd.ref = pid_calc(&gimbal.pit_angle.pid, gimbal.pit_angle.ref, gimbal.pit_angle.fdb);
-    gimbal.pit_spd.fdb = -gimbal_imu.wy - arm_cos_f32(yaw_err) * chassis_imu.wy;
+//    gimbal.pit_spd.fdb = -gimbal_imu.wy - arm_cos_f32(yaw_err) * chassis_imu.wy;
+    gimbal.pit_spd.fdb = -gimbal_imu.wy;
     gimbal.pit_output = pid_calc(&gimbal.pit_spd.pid, gimbal.pit_spd.ref, gimbal.pit_spd.fdb);
 
     if (gimbal.yaw_angle.ref < 0) {
@@ -96,7 +97,8 @@ static void gimbal_pid_calc(void)
     gimbal.yaw_spd.pid.i_out = 0;
     gimbal.yaw_spd.ref = pid_calc(&gimbal.yaw_angle.pid, gimbal.yaw_angle.fdb + yaw_err, gimbal.yaw_angle.fdb);
     }    
-    gimbal.yaw_spd.fdb = gimbal_imu.wz + 0.4f * chassis_imu.wz;
+//    gimbal.yaw_spd.fdb = gimbal_imu.wz + 0.4f * chassis_imu.wz;
+    gimbal.yaw_spd.fdb = gimbal_imu.wz;
     gimbal.yaw_output = pid_calc(&gimbal.yaw_spd.pid, gimbal.yaw_spd.ref, gimbal.yaw_spd.fdb);
     gimbal.last_yaw_ref = gimbal.yaw_angle.ref;
 }

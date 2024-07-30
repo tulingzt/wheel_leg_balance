@@ -10,6 +10,7 @@
 #include "prot_power.h"
 #include "pid.h"
 #include "math_lib.h"
+#include "kalman_filter.h"
 #include "arm_math.h"
 #include "string.h"
 #include "cmsis_os.h"
@@ -20,6 +21,8 @@
 
 ramp_t chassis_x_ramp;
 ramp_t chassis_y_ramp;
+
+kalman_filter_t kal_wy;
 
 chassis_t chassis;
 chassis_scale_t chassis_scale = {
@@ -107,6 +110,12 @@ static void chassis_init()
     ramp_init(&chassis_y_ramp, 0.01f, -chassis_scale.keyboard, chassis_scale.keyboard);
     wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI;
     wlr.yaw_offset = 1.7f;
+    
+    kalman_filter_init(&kal_wy, 1, 0, 1);
+    kal_wy.A_data[0] = 1;
+    kal_wy.H_data[0] = 1;
+    kal_wy.Q_data[0] = 1;
+    kal_wy.R_data[0] = 100;
 }
 
 float spin_limit;
@@ -423,7 +432,12 @@ static void chassis_data_input(void)
     //陀螺仪数据输入
     wlr.roll_fdb    = -chassis_imu.rol;
     wlr.pit_fdb     = -chassis_imu.pit;
-    wlr.wy_fdb      = -chassis_imu.wy;
+    
+    kal_wy.measured_vector[0] = -chassis_imu.wy;
+    kalman_filter_update(&kal_wy);
+    wlr.wy_fdb = kal_wy.filter_vector[0];
+    
+//    wlr.wy_fdb      = -chassis_imu.wy;//
     wlr.wz_fdb      = -chassis_imu.wz;
     wlr.az_fdb      =  chassis_imu.az;
     //电机数据输入

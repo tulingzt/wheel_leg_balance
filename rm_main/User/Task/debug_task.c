@@ -22,7 +22,7 @@
 us_time_t test_time;
 kalman_filter_t test;
 //uint8_t debug_wave = 14;
-uint8_t debug_wave = 11;
+uint8_t debug_wave = 12;
 
 void log_scope_data_pkg(void)
 {
@@ -125,6 +125,10 @@ void log_scope_data_pkg(void)
             
             log_scope_get_data(driver_motor[0].position);
             log_scope_get_data(driver_motor[1].position);
+            log_scope_get_data(joint_motor[0].position);
+            log_scope_get_data(joint_motor[1].position);
+            log_scope_get_data(joint_motor[2].position);
+            log_scope_get_data(joint_motor[3].position);
             break;
         } case 12: {//底盘功率模型
             log_scope_get_data(power_heat_data.chassis_power);
@@ -158,16 +162,29 @@ void log_scope_data_pkg(void)
 //                log_scope_get_data(joint_motor[3].t);
 //                log_scope_get_data(joint_motor[3].torque);
                 
-                log_scope_get_data(joint_motor[0].position);
-                log_scope_get_data(joint_motor[1].position);
-                log_scope_get_data(joint_motor[2].position);
-                log_scope_get_data(joint_motor[3].position);
+                log_scope_get_data(chassis_imu.rol);
+                log_scope_get_data(chassis_imu.pit);
+                log_scope_get_data(chassis_imu.yaw);
+                log_scope_get_data(chassis_imu.wy);
+                log_scope_get_data(-wlr.wy_fdb);
+                log_scope_get_data(chassis_imu.wz);
                 break;
             } case 15: {
-                log_scope_get_data(-driver_motor[0].velocity);
-                log_scope_get_data(wlr.side[0].wy);
-                log_scope_get_data(-driver_motor[1].velocity);
-                log_scope_get_data(wlr.side[1].wy);
+//                log_scope_get_data(-driver_motor[0].velocity);
+//                log_scope_get_data(wlr.side[0].wy);
+//                log_scope_get_data(-driver_motor[1].velocity);
+//                log_scope_get_data(wlr.side[1].wy);
+                
+                log_scope_get_data(vmc[0].L_ref);
+                log_scope_get_data(vmc[0].L_fdb);
+                
+                log_scope_get_data(pid_leg_length[0].p_out);
+                log_scope_get_data(pid_leg_length[0].i_out);
+                log_scope_get_data(pid_leg_length[0].d_out);
+                log_scope_get_data(pid_leg_length[0].output);
+//                log_scope_get_data(lqr.X_fdb[5]);
+//                log_scope_get_data(lqr.X_fdb[7]);
+//                log_scope_get_data(lqr.X_fdb[9]);
                 break;
             }
         default:break;

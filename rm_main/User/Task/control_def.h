@@ -32,7 +32,7 @@
 
 #define CHASSIS_YAW_OFFSET  8130
 #define CHASSIS_YAW_FIGHT   ((CHASSIS_YAW_OFFSET + 8192/4) % 8192)
-#define CHASSIS_ROTATE_SPEED 6.28f //rad/s
+#define CHASSIS_ROTATE_SPEED 8.5f //rad/s
 
 /*-----------------------------gimbal----------------------------*/
 

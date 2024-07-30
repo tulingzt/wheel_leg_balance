@@ -146,9 +146,9 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(ModeSwitchTask, mode_switch_task, osPriorityHigh, 0, 128);
   ModeSwitchTaskHandle = osThreadCreate(osThread(ModeSwitchTask), NULL);
   
-  osThreadDef(ChassisTask, chassis_task, osPriorityNormal, 0, 128);
+  osThreadDef(ChassisTask, chassis_task, osPriorityNormal, 0, 512);
   ChassisTaskHandle = osThreadCreate(osThread(ChassisTask), NULL);
-  osThreadDef(GimbalTask, gimbal_task, osPriorityNormal, 0, 128);
+  osThreadDef(GimbalTask, gimbal_task, osPriorityNormal, 0, 256);
   ChassisTaskHandle = osThreadCreate(osThread(GimbalTask), NULL);
   osThreadDef(ShootTask, shoot_task, osPriorityNormal, 0, 128);
   ChassisTaskHandle = osThreadCreate(osThread(ShootTask), NULL);
@@ -157,7 +157,7 @@ void MX_FREERTOS_Init(void) {
   DebugTaskHandle = osThreadCreate(osThread(DebugTask), NULL);
   osThreadDef(STATUSTask, status_task, osPriorityLow, 0, 128);
   StatusTaskHandle = osThreadCreate(osThread(STATUSTask), NULL);
-  osThreadDef(UITask, ui_task, osPriorityLow, 0, 128);
+  osThreadDef(UITask, ui_task, osPriorityLow, 0, 512);
   DebugTaskHandle = osThreadCreate(osThread(UITask), NULL);
   /* USER CODE END RTOS_THREADS */
 

@@ -12,6 +12,10 @@
 #include "ui_default_group5_0.h"
 #include "ui_default_group5_1.h"
 
+#include "us_time.h"
+
+us_time_t ui_time;
+
 void ui_init(void)
 {
     _ui_init_default_group1_0();
@@ -46,12 +50,14 @@ void ui_task(void const* argument)
     for(;;)
     {
         thread_wake_time = osKernelSysTick();
+        us_timer_interval_test_start(&ui_time);
 ////        ui_init();
 //        if (game_status.game_progress == 0 || game_status.game_progress == 1 || game_status.game_progress == 5) {
 //            ui_init();
 //        } else {
             ui_update();
 //        }
+        us_timer_interval_test_end(&ui_time);
         osDelayUntil(&thread_wake_time, 10);
     }
 }
