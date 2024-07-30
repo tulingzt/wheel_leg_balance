@@ -22,7 +22,7 @@
 us_time_t test_time;
 kalman_filter_t test;
 //uint8_t debug_wave = 14;
-uint8_t debug_wave = 9;
+uint8_t debug_wave = 11;
 
 void log_scope_data_pkg(void)
 {
@@ -118,10 +118,13 @@ void log_scope_data_pkg(void)
             log_scope_get_data(-wlr.side[1].wy);
             break;
         } case 11: {
-            log_scope_get_data(driver_motor[0].tx_current);
-            log_scope_get_data(driver_motor[0].rx_current);
-            log_scope_get_data(driver_motor[1].tx_current);
-            log_scope_get_data(driver_motor[1].rx_current);
+//            log_scope_get_data(driver_motor[0].tx_current);
+//            log_scope_get_data(driver_motor[0].rx_current);
+//            log_scope_get_data(driver_motor[1].tx_current);
+//            log_scope_get_data(driver_motor[1].rx_current);
+            
+            log_scope_get_data(driver_motor[0].position);
+            log_scope_get_data(driver_motor[1].position);
             break;
         } case 12: {//底盘功率模型
             log_scope_get_data(power_heat_data.chassis_power);
@@ -146,14 +149,19 @@ void log_scope_data_pkg(void)
             log_scope_get_data(supercap.current);
             break;
             } case 14: {//海泰电机力矩
-                log_scope_get_data(joint_motor[0].t);
-                log_scope_get_data(joint_motor[0].torque);
-                log_scope_get_data(joint_motor[1].t);
-                log_scope_get_data(joint_motor[1].torque);
-                log_scope_get_data(joint_motor[2].t);
-                log_scope_get_data(joint_motor[2].torque);
-                log_scope_get_data(joint_motor[3].t);
-                log_scope_get_data(joint_motor[3].torque);
+//                log_scope_get_data(joint_motor[0].t);
+//                log_scope_get_data(joint_motor[0].torque);
+//                log_scope_get_data(joint_motor[1].t);
+//                log_scope_get_data(joint_motor[1].torque);
+//                log_scope_get_data(joint_motor[2].t);
+//                log_scope_get_data(joint_motor[2].torque);
+//                log_scope_get_data(joint_motor[3].t);
+//                log_scope_get_data(joint_motor[3].torque);
+                
+                log_scope_get_data(joint_motor[0].position);
+                log_scope_get_data(joint_motor[1].position);
+                log_scope_get_data(joint_motor[2].position);
+                log_scope_get_data(joint_motor[3].position);
                 break;
             } case 15: {
                 log_scope_get_data(-driver_motor[0].velocity);

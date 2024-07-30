@@ -32,7 +32,7 @@ const float LegLengthHightFly = 0.25f;//长腿腿长腾空 0.28
 const float LegLengthFly = 0.20f;//正常腿长腾空
 const float LegLengthHigh2 = 0.30f;//超长腿
 const float LegLengthHigh = 0.20f;//长腿 0.23
-const float LegLengthNormal = 0.20f;//正常
+const float LegLengthNormal = 0.15f;//正常
 
 //上台阶参数设定
 float jump_vset  = 2.0f;
