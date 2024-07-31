@@ -6,8 +6,8 @@
 /*----------------------------- player preference ----------------------------- */
 #define KEY_CHASSIS_FIGHT       KB_F
 #define KEY_CHASSIS_ROTATE      KB_R
-#define KEY_CHASSIS_POWER       KB_SHIFT
-#define KEY_CHASSIS_MIDSPEED    KB_NULL
+#define KEY_CHASSIS_POWER       KB_NULL
+#define KEY_CHASSIS_MIDSPEED    KB_SHIFT
 #define KEY_CHASSIS_LOWSPEED    KB_V
 #define KEY_CHASSIS_UNFOLLOW    KB_G
 #define KEY_CHASSIS_PRONE       KB_Z

@@ -44,7 +44,7 @@ void normal_status(void)
         rgb_change(2,0);
     }
     
-    if (kb_status[KB_CTRL] == KEY_RUN) {
+    if (rc.kb.bit.SHIFT) {
         rgb_change(3,2);
     } else if (kb_status[KEY_CHASSIS_LOWSPEED] == KEY_RUN) {
         rgb_change(3,3);
