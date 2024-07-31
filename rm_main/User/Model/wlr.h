@@ -34,7 +34,7 @@ typedef struct
     //期望限制系数
     float K_ref[2];
     //控制标志
-    uint8_t jump_flag, jump_cnt, high_flag, prone_flag, ctrl_mode;
+    uint8_t jump_flag, jump_cnt, high_flag, power_flag, prone_flag, ctrl_mode;
     //单侧控制参数
     struct
     {

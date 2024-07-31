@@ -6,19 +6,20 @@
 /*----------------------------- player preference ----------------------------- */
 #define KEY_CHASSIS_FIGHT       KB_F
 #define KEY_CHASSIS_ROTATE      KB_R
-#define KEY_CHASSIS_POWER       KB_NULL
-#define KEY_CHASSIS_MIDSPEED    KB_SHIFT
-#define KEY_CHASSIS_LOWSPEED    KB_V
 #define KEY_CHASSIS_UNFOLLOW    KB_G
 #define KEY_CHASSIS_PRONE       KB_Z
 #define KEY_CHASSIS_HEIGHT      KB_C
 #define KEY_CHASSIS_HEIGHT2     KB_X
-#define KEY_CHASSIS_JUMP        KB_CTRL
 
 #define KEY_GIMBAL_TURN_R       KB_E
 #define KEY_GIMBAL_TURN_L       KB_Q
 
-#define KEY_VISION              KB_B
+#define KEY_PRESS_VISION1       rc.kb.bit.B //大符
+#define KEY_PRESS_VISION2       rc.kb.bit.V //小符
+#define KEY_PRESS_POWER         rc.kb.bit.SHIFT//高速
+#define KEY_PRESS_JUMP          rc.kb.bit.CTRL//跳跃
+
+//#define KEY_VISION              KB_B
 
 /*-----------------------------shoot-----------------------------*/
 //拨盘频率

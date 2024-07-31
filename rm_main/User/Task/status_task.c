@@ -20,7 +20,7 @@ status_t status;
 
 void normal_status(void)
 {
-    if (((rc.sw2 == RC_MI || rc.sw2 == RC_DN) && ctrl_mode == PROTECT_MODE) ||
+    if (((rc_fsm_check(RC_LEFT_LD) || rc_fsm_check(RC_RIGHT_LD)) && ctrl_mode == REMOTER_MODE) ||
         (rc.mouse.r == 1 && ctrl_mode == KEYBOARD_MODE)) {
         rgb_change(1,2);
     } else if (ctrl_mode == PROTECT_MODE) {
@@ -44,10 +44,8 @@ void normal_status(void)
         rgb_change(2,0);
     }
     
-    if (rc.kb.bit.SHIFT) {
+    if (wlr.power_flag) {
         rgb_change(3,2);
-    } else if (kb_status[KEY_CHASSIS_LOWSPEED] == KEY_RUN) {
-        rgb_change(3,3);
     } else {
         rgb_change(3,0);
     }

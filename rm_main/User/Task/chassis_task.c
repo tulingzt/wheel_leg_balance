@@ -125,9 +125,6 @@ static void chassis_mode_switch(void)
     static ctrl_mode_e last_ctrl_mode = PROTECT_MODE;
     /* 按键扫描 */
     key_scan(KEY_CHASSIS_ROTATE);
-    key_scan(KEY_CHASSIS_POWER);
-    key_scan(KEY_CHASSIS_MIDSPEED);
-    key_scan(KEY_CHASSIS_LOWSPEED);
     key_scan(KEY_CHASSIS_HEIGHT);
     key_scan(KEY_CHASSIS_HEIGHT2);
     key_scan(KEY_CHASSIS_FIGHT);
@@ -272,11 +269,13 @@ static void chassis_data_input(void)
            //高度模式
            if (wlr.ctrl_mode == 2) {  //轮腿模式下才可控制腿长
 			   if (rc.sw2 == RC_UP) {
+                   wlr.jump_flag = 0;
                    wlr.high_flag = 0;
-  				   wlr.jump_flag = 0;
-               } else if (rc.sw2 == RC_MI){
+                   wlr.power_flag = 1;
+               } else if (rc.sw2 == RC_MI) {
 				   wlr.jump_flag = 0;
                    wlr.high_flag = 1;
+                   wlr.power_flag = 1;
                } else if (rc.sw2 == RC_DN && wlr.jump_flag == 0)
                    wlr.jump_flag = 1;
            } else {
@@ -285,9 +284,9 @@ static void chassis_data_input(void)
             break;
         }
         case CHASSIS_MODE_KEYBOARD_FOLLOW:  //跟随模式可以跳跃  底盘键盘跟随/陀螺/迎敌模式
-            if (rc.kb.bit.CTRL && wlr.jump_flag == 0 && rc.kb.bit.SHIFT)
+            if (KEY_PRESS_JUMP && wlr.jump_flag == 0 && KEY_PRESS_POWER)
                 wlr.jump_flag = 1;
-            else if (!rc.kb.bit.CTRL)
+            else if (!KEY_PRESS_JUMP)
                 wlr.jump_flag = 0;
         case CHASSIS_MODE_KEYBOARD_ROTATE:
         case CHASSIS_MODE_KEYBOARD_FIGHT:
@@ -296,13 +295,12 @@ static void chassis_data_input(void)
             //速度选择
             if (chassis.mode == CHASSIS_MODE_KEYBOARD_FIGHT) {
                 chassis_scale.keyboard = 1.0f;  //迎敌模式下
-            } else if (rc.kb.bit.SHIFT) {
-                chassis_scale.keyboard = 2.5f;  //高速模式下
-                key_status_clear(KEY_CHASSIS_LOWSPEED);
-            } else if (kb_status[KEY_CHASSIS_LOWSPEED] == KEY_RUN) {
-                chassis_scale.keyboard = 1.4f;  //低速模式下
+            } else if (KEY_PRESS_POWER) {
+                wlr.power_flag = 1;
+                chassis_scale.keyboard = 2.0f;  //高速模式下
             } else {
-                chassis_scale.keyboard = 2.0f;  //普通模式下
+                wlr.power_flag = 0;
+                chassis_scale.keyboard = 1.4f;  //普通模式下
             }
             //速度输入
             chassis_ramp();

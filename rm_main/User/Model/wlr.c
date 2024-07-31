@@ -32,7 +32,7 @@ const float LegLengthHightFly = 0.25f;//长腿腿长腾空 0.28
 const float LegLengthFly = 0.20f;//正常腿长腾空
 const float LegLengthHigh2 = 0.30f;//超长腿
 const float LegLengthHigh = 0.20f;//长腿 0.23
-const float LegLengthNormal = 0.20f;//正常
+const float LegLengthNormal = 0.15f;//正常
 
 //上台阶参数设定
 float jump_vset  = 2.0f;
@@ -209,7 +209,7 @@ void wlr_init(void)
         kal_3508_vel[i].R_data[0] = 200;
         
 		//PID参数初始化
-        pid_init(&pid_leg_length[i], NONE, 800, 1.0f, 40000, 20, 50);//500 0/2.5f 10000
+        pid_init(&pid_leg_length[i], NONE, 1000, 1.0f, 40000, 20, 50);//500 0/2.5f 10000
         pid_init(&pid_leg_length_fast[i], NONE, 1000, 0, 10000, 0, 50);
 	}
 	//卡尔曼滤波器初始化
@@ -289,19 +289,20 @@ void wlr_control(void)
         }
     }
 	//高度选择
-	if (wlr.high_flag == 2) { //站高高
-        wlr.high_set = ramp_calc(&height_ramp, LegLengthHigh2);
-    } else if (wlr.high_flag == 1) { //低速上坡
-        wlr.high_set = ramp_calc(&height_ramp, LegLengthHigh);
-		data_limit(&wlr.v_ref,-1.4f,1.4f);
+    if (wlr.power_flag == 0) {
         if (fabs(wlr.v_ref) > fabs(wlr.v_fdb)) {
             data_limit(&wlr.v_ref,wlr.v_fdb-0.7f,wlr.v_fdb+0.7f);
         }
+    }
+	if (wlr.high_flag == 2) { //站高高
+        wlr.high_set = ramp_calc(&height_ramp, LegLengthHigh2);
+    } else if (wlr.high_flag == 1) { //低速上坡
+        wlr.high_set = ramp_calc(&height_ramp, LegLengthHigh);        
     } else { //正常腿长
         wlr.high_set = ramp_calc(&height_ramp, LegLengthNormal);
-        pid_leg_length[0].kp = pid_leg_length[1].kp = pid_p;
-        pid_leg_length[0].ki = pid_leg_length[1].ki = pid_i;
-        pid_leg_length[0].kd = pid_leg_length[1].kd = pid_d;
+//        pid_leg_length[0].kp = pid_leg_length[1].kp = pid_p;
+//        pid_leg_length[0].ki = pid_leg_length[1].ki = pid_i;
+//        pid_leg_length[0].kd = pid_leg_length[1].kd = pid_d;
     }
     //上台阶
     if (wlr.jump_flag == 1) {
@@ -337,9 +338,6 @@ void wlr_control(void)
             aMartix_Cover(lqr.K, (float*)K_Array_Prone, 4, 10);
         } else if (wlr.side[0].fly_flag && wlr.side[1].fly_flag) {//腾空
             aMartix_Cover(lqr.K, (float*)K_Array_Fly, 4, 10);
-//        } else if (wlr.high_flag == 0){
-//            k_array_fit(K_Array_Leg, vmc[0].L_fdb, vmc[1].L_fdb);
-//            aMartix_Cover(lqr.K, (float*)K_Array_Leg, 4, 10);
         } else if (wlr.jump_flag != 0) {
             k_array_fit(K_Array_Leg, vmc[0].L_fdb, vmc[1].L_fdb);
             aMartix_Cover(lqr.K, (float*)K_Array_Leg, 4, 10);	
@@ -373,23 +371,6 @@ void wlr_control(void)
     lqr.X_ref[1] = wlr.v_ref;
     lqr.X_ref[2] = -wlr.yaw_ref;
     lqr.X_ref[3] = -wlr.wz_ref;
-    //期望限制
-
-//    for (int i = 0; i < 2; i++) {
-//        wlr.K_ref[i] = 0;
-//        float K_temp;
-//        if (wlr.side[i].q1 > 3.6f)//电机初始位置改变
-//            K_temp = (wlr.side[i].q1 - 3.6f)/0.2f;
-//        if (K_temp > wlr.K_ref[i])
-//            wlr.K_ref[i] = K_temp;
-//        if (wlr.side[i].q4 < -0.5f)
-//            K_temp = (-0.5f - wlr.side[i].q4)/0.2f;
-//        if (K_temp > wlr.K_ref[i])
-//            wlr.K_ref[i] = K_temp;
-//    }
-//    for (int i = 0; i < 4; i++) {
-//        lqr.X_ref[i] = data_fusion(lqr.X_ref[i], lqr.X_fdb[i], (wlr.K_ref[0] + wlr.K_ref[1])/2.0f);
-//    }
     
     aMartix_Add(1, lqr.X_ref, -1, lqr.X_fdb, lqr.X_diff, 10, 1);
     data_limit(&lqr.X_diff[1], -2.0f, 2.0f); //<! 速度窗口

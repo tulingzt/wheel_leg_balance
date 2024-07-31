@@ -241,9 +241,9 @@ static void shoot_mode_switch(void)
                 shoot.fric_mode = FRIC_MODE_PROTECT;  //摩擦轮断电，软件保护，禁用摩擦轮
             }
             /* 视觉模式切换 */
-            if (rc.kb.bit.V) {
+            if (KEY_PRESS_VISION2) {
                 vision.tx.data.aiming_mode = 2;
-            } else if (rc.kb.bit.B) {
+            } else if (KEY_PRESS_VISION1) {
                 vision.tx.data.aiming_mode = 1;
             } else {
                 vision.tx.data.aiming_mode = 0;
