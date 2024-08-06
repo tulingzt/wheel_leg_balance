@@ -9,9 +9,9 @@
 #include "cmsis_os.h"
 
 #define SHOOT_SPEED_NUM 15
-#define ABS(x) ((x>0)? (x): (-(x)))
-#define TRIGGER_MOTOR_ECD_SINGLE   (32818.0f)  //拨盘一颗子弹转过的编码值 8191 * 36 / 8 = 36859.5f
-#define TRIGGER_MOTOR_ECD_SERIES   (32818.0f)  //拨盘一颗子弹转过的编码值 8191 * 36 / 8 = 36859.5f
+#define ABS(x) ((x>0)? (x): (-(x)))//32818
+#define TRIGGER_MOTOR_ECD_SINGLE   (32784.0f)  //拨盘一颗子弹转过的编码值 8191 * 36 / 8 = 36859.5f
+#define TRIGGER_MOTOR_ECD_SERIES   (32784.0f)  //拨盘一颗子弹转过的编码值 8191 * 36 / 8 = 36859.5f
 
 float MIN_HEAT = 40;        //热量控制裕量
 

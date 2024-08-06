@@ -44,7 +44,9 @@ void normal_status(void)
         rgb_change(2,0);
     }
     
-    if (wlr.power_flag) {
+    if (KEY_PRESS_POWER && kb_status[KEY_CHASSIS_POWER] == KEY_END) {
+        rgb_change(3,1);
+    } else if (KEY_PRESS_POWER && kb_status[KEY_CHASSIS_POWER] == KEY_RUN) {
         rgb_change(3,2);
     } else {
         rgb_change(3,0);
@@ -93,7 +95,7 @@ void status_task(void const* argument)
             status.all = 1;
         }
         
-        if (rc_fsm_check(RC_LEFT_LU) || status.remote) { //遥控器切换DEBUG灯板
+        if (rc_fsm_check(RC_LEFT_LU) || status.remote || ctrl_mode == PROTECT_MODE) { //遥控器切换DEBUG灯板
             rgb_change(1, status.remote);
             rgb_change(2, status.vision);
             rgb_change(3, status.judge);

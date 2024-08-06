@@ -3,7 +3,6 @@
 #include "data_log.h"
 #include "stdint.h"
 #include "prot_vision.h"
-#include "gimbal_task.h"
 #include "shoot_task.h"
 #include "wlr.h"
 #include "leg_vmc.h"
@@ -18,10 +17,11 @@
 #include "prot_dr16.h"
 #include "prot_judge.h"
 #include "us_time.h"
+#include "gimbal_task.h"
 
 us_time_t test_time;
 kalman_filter_t test;
-uint8_t debug_wave = 14;
+uint8_t debug_wave = 1;
 
 void log_scope_data_pkg(void)
 {
@@ -31,18 +31,13 @@ void log_scope_data_pkg(void)
 //            log_scope_get_data(gimbal.yaw_spd.fdb);
 //            log_scope_get_data(gimbal.yaw_angle.ref);
 //            log_scope_get_data(gimbal.yaw_angle.fdb);
-//            log_scope_get_data(gimbal.test_count);
 //            log_scope_get_data(yaw_motor.tx_current);
-            
-            
-            log_scope_get_data(-gimbal_imu.wy);
+
+            log_scope_get_data(gimbal.pit_spd.ref);
             log_scope_get_data(gimbal.pit_spd.fdb);
-//            log_scope_get_data(gimbal.pit_spd.ref);
-//            log_scope_get_data(gimbal.pit_spd.fdb);
-//            log_scope_get_data(gimbal.pit_angle.ref);
-//            log_scope_get_data(gimbal.pit_angle.fdb);
-//            log_scope_get_data(gimbal.pit_output);
-//            log_scope_get_data(pit_motor.tx_current);
+            log_scope_get_data(gimbal.pit_angle.ref);
+            log_scope_get_data(gimbal.pit_angle.fdb);
+            log_scope_get_data(pit_motor.tx_current);
             break;
         } case 2: {//拨盘pid调试
 //            log_scope_get_data(shoot.trigger_spd.ref);
@@ -212,17 +207,25 @@ void log_scope_data_pkg(void)
 //                log_scope_get_data(pid_roll.ref);
 //                log_scope_get_data(pid_roll.fdb * 180/PI);
                 //离地检测(wlr.side[i].fly_cnt
+                
+//                log_scope_get_data(wlr.v_ref);
+//                log_scope_get_data(wlr.v_fdb);
+            
                 log_scope_get_data(wlr.side[0].Fn_kal);
                 log_scope_get_data(wlr.side[1].Fn_kal);
                 
                 log_scope_get_data(wlr.side[0].fly_cnt);
                 log_scope_get_data(wlr.side[1].fly_cnt);
                 
-                log_scope_get_data(wlr.side[0].fly_flag && wlr.side[1].fly_flag);
+                log_scope_get_data(vmc[0].L_fdb);
+                log_scope_get_data(vmc[1].L_fdb);
+                
                 log_scope_get_data(wlr.side[0].fly_flag);
                 log_scope_get_data(wlr.side[1].fly_flag);
-                
-                
+                log_scope_get_data(wlr.side[0].fly_flag && wlr.side[1].fly_flag);
+                break;
+            } case 16: {
+
                 break;
             }
         default:break;

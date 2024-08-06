@@ -34,7 +34,8 @@ typedef struct
     //期望限制系数
     float K_ref[2];
     //控制标志
-    uint8_t jump_flag, jump_cnt, high_flag, power_flag, prone_flag, ctrl_mode;
+    uint8_t jump_flag, high_flag, power_flag, prone_flag, ctrl_mode;
+    uint16_t jump_cnt;
     //单侧控制参数
     struct
     {
@@ -58,7 +59,6 @@ typedef struct
 
 extern wlr_t wlr;
 extern lqr_t lqr;
-extern kalman_filter_t kal_3508_vel[2];
 extern pid_t pid_leg_length[2];
 extern pid_t pid_leg_length_fast[2];
 extern pid_t pid_roll;

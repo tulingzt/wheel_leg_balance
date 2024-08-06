@@ -10,6 +10,7 @@
 #define KEY_CHASSIS_PRONE       KB_Z
 #define KEY_CHASSIS_HEIGHT      KB_C
 #define KEY_CHASSIS_HEIGHT2     KB_X
+#define KEY_CHASSIS_POWER       KB_SHIFT
 
 #define KEY_GIMBAL_TURN_R       KB_E
 #define KEY_GIMBAL_TURN_L       KB_Q
@@ -24,7 +25,7 @@
 /*-----------------------------shoot-----------------------------*/
 //拨盘频率
 #define TRIGGER_PERIOD      90//ms 90->11Hz 40->25Hz 33->30Hz
-#define TRIGGER_PERIOD2     55//40 55->18Hz                   
+#define TRIGGER_PERIOD2     40//40 55->18Hz                   
 
 /*-----------------------------chassis---------------------------*/
 

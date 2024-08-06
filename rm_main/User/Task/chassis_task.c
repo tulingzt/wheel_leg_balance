@@ -21,13 +21,13 @@
 
 ramp_t chassis_x_ramp;
 ramp_t chassis_y_ramp;
-
+kalman_filter_t kal_3508_vel[2];
 kalman_filter_t kal_wy;
 
 chassis_t chassis;
 chassis_scale_t chassis_scale = {
     .remote = 1.0f/660*2.0f,
-    .keyboard = 2.0f
+    .keyboard = 2.5f
 };
 
 static void chassis_ramp(void)
@@ -111,6 +111,14 @@ static void chassis_init()
     wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI;
     wlr.yaw_offset = 1.7f;
     
+    for(int i = 0; i < 2; i++) {
+        kalman_filter_init(&kal_3508_vel[i], 1, 0, 1);
+        kal_3508_vel[i].A_data[0] = 1;
+        kal_3508_vel[i].H_data[0] = 1;
+        kal_3508_vel[i].Q_data[0] = 1;
+        kal_3508_vel[i].R_data[0] = 200;
+    }
+    
     kalman_filter_init(&kal_wy, 1, 0, 1);
     kal_wy.A_data[0] = 1;
     kal_wy.H_data[0] = 1;
@@ -130,6 +138,7 @@ static void chassis_mode_switch(void)
     key_scan(KEY_CHASSIS_FIGHT);
     key_scan(KEY_CHASSIS_PRONE);
     key_scan(KEY_CHASSIS_UNFOLLOW);
+    key_scan(KEY_CHASSIS_POWER);
     /* 底盘状态切换 */
     spin_limit = circle_error((float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI, (float)yaw_motor.ecd / 8192 * 2 * PI, 2 * PI);
     switch (ctrl_mode) {
@@ -293,14 +302,18 @@ static void chassis_data_input(void)
         case CHASSIS_MODE_KEYBOARD_UNFOLLOW:
         case CHASSIS_MODE_KEYBOARD_PRONE: {
             //速度选择
-            if (chassis.mode == CHASSIS_MODE_KEYBOARD_FIGHT) {
+            if (chassis.mode == CHASSIS_MODE_KEYBOARD_FIGHT ||
+                chassis.mode == CHASSIS_MODE_KEYBOARD_ROTATE ||
+                chassis.mode == CHASSIS_MODE_KEYBOARD_UNFOLLOW ||
+                wlr.high_flag == 2) {
+                wlr.power_flag = 0;
                 chassis_scale.keyboard = 1.0f;  //迎敌模式下
             } else if (KEY_PRESS_POWER) {
                 wlr.power_flag = 1;
-                chassis_scale.keyboard = 2.0f;  //高速模式下
+                chassis_scale.keyboard = 2.5f;  //高速模式下
             } else {
-                wlr.power_flag = 0;
-                chassis_scale.keyboard = 1.4f;  //普通模式下
+                wlr.power_flag = 1;
+                chassis_scale.keyboard = 2.0f;  //普通模式下
             }
             //速度输入
             chassis_ramp();
@@ -333,6 +346,7 @@ static void chassis_data_input(void)
                 }
             } else if (wlr.high_flag == 2) {
                 chassis_scale.keyboard = 1.0f;
+                wlr.power_flag = 0;
                 if (kb_status[KEY_CHASSIS_HEIGHT] == KEY_RUN && 
                     chassis.mode != CHASSIS_MODE_KEYBOARD_PRONE) {
                     wlr.high_flag = 1;
