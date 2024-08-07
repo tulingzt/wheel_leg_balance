@@ -19,25 +19,23 @@
 #include "us_time.h"
 #include "gimbal_task.h"
 
-us_time_t test_time;
-kalman_filter_t test;
 uint8_t debug_wave = 1;
 
 void log_scope_data_pkg(void)
 {
     switch(debug_wave) {
         case 1: {//云台pid调试
-//            log_scope_get_data(gimbal.yaw_spd.ref);
-//            log_scope_get_data(gimbal.yaw_spd.fdb);
-//            log_scope_get_data(gimbal.yaw_angle.ref);
-//            log_scope_get_data(gimbal.yaw_angle.fdb);
-//            log_scope_get_data(yaw_motor.tx_current);
+            log_scope_get_data(gimbal.yaw_spd.ref);
+            log_scope_get_data(gimbal.yaw_spd.fdb);
+            log_scope_get_data(gimbal.yaw_angle.ref);
+            log_scope_get_data(gimbal.yaw_angle.fdb);
+            log_scope_get_data(yaw_motor.tx_current);
 
-            log_scope_get_data(gimbal.pit_spd.ref);
-            log_scope_get_data(gimbal.pit_spd.fdb);
-            log_scope_get_data(gimbal.pit_angle.ref);
-            log_scope_get_data(gimbal.pit_angle.fdb);
-            log_scope_get_data(pit_motor.tx_current);
+//            log_scope_get_data(gimbal.pit_spd.ref);
+//            log_scope_get_data(gimbal.pit_spd.fdb);
+//            log_scope_get_data(gimbal.pit_angle.ref);
+//            log_scope_get_data(gimbal.pit_angle.fdb);
+//            log_scope_get_data(pit_motor.tx_current);
             break;
         } case 2: {//拨盘pid调试
 //            log_scope_get_data(shoot.trigger_spd.ref);

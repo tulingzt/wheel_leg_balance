@@ -9,7 +9,6 @@
 #include "cmsis_os.h"
 #include "arm_math.h"
 #include "string.h"
-#include "kalman_filter.h"
 #include "func_generator.h"
 #include "gimbal_task.h"
 
@@ -30,34 +29,18 @@ gimbal_scale_t gimbal_scale = {
     .angle_keyboard = 0.00006f
 };
 gimbal_t gimbal;
-kalman_filter_t kal_gimbal_wy;
-kalman_filter_t kal_gimbal_pit;
 
 static void gimbal_init(void)
 {
     memset(&gimbal, 0, sizeof(gimbal_t));
-    gimbal.yaw_angle_temp = 6;//6 7
 
-    //3 0 0    -1 -0.001 0
     pid_init(&gimbal.pit_angle.pid, NONE, 18, 0, 0, 0, 30);//20 0 0 有测速模块
     pid_init(&gimbal.pit_spd.pid, NONE, -1.2f, -0.006f, 0, 0.4f, 2.2f);//-1.0 -0.008
 
-    pid_init(&gimbal.yaw_angle.pid, NONE, 8, 0, 20, 0, 30);
+    pid_init(&gimbal.yaw_angle.pid, NONE, 6, 0, 0, 0, 30);
     pid_init(&gimbal.yaw_spd.pid, NONE, 4.50f, 0.04f, 0, 1.0f, 2.2f);
 //    pid_init(&gimbal.yaw_angle.pid, NONE, 40, 0, 600, 0, 15);
 //    pid_init(&gimbal.yaw_spd.pid, NONE, 1.2f, 0.00f, 0, 1.0f, 2.2f);
-    
-    kalman_filter_init(&kal_gimbal_wy, 1, 0, 1);
-    kal_gimbal_wy.A_data[0] = 1;
-    kal_gimbal_wy.H_data[0] = 1;
-    kal_gimbal_wy.Q_data[0] = 1;
-    kal_gimbal_wy.R_data[0] = 100;
-    
-    kalman_filter_init(&kal_gimbal_pit, 1, 0, 1);
-    kal_gimbal_pit.A_data[0] = 1;
-    kal_gimbal_pit.H_data[0] = 1;
-    kal_gimbal_pit.Q_data[0] = 1;
-    kal_gimbal_pit.R_data[0] = 100;
 }
 
 static void gimbal_pid_calc(void)
@@ -70,35 +53,27 @@ static void gimbal_pid_calc(void)
     pit_max = -arm_cos_f32(yaw_err) * chassis_imu.pit + 0.4f;
     pit_min = -arm_cos_f32(yaw_err) * chassis_imu.pit - 0.5f;
     data_limit(&gimbal.pit_angle.ref, pit_min, pit_max);
-
-//    kal_gimbal_pit.measured_vector[0] = -gimbal_imu.pit;
-//    kalman_filter_update(&kal_gimbal_pit);
-//    gimbal.pit_angle.fdb = kal_gimbal_pit.filter_vector[0];
-    
     gimbal.pit_angle.fdb = -gimbal_imu.pit;
     gimbal.pit_spd.ref = pid_calc(&gimbal.pit_angle.pid, gimbal.pit_angle.ref, gimbal.pit_angle.fdb);
 //    gimbal.pit_spd.fdb = -gimbal_imu.wy - arm_cos_f32(yaw_err) * chassis_imu.wy;
-//    kal_gimbal_wy.measured_vector[0] = -gimbal_imu.wy;
-//    kalman_filter_update(&kal_gimbal_wy);
-//    gimbal.pit_spd.fdb = kal_gimbal_wy.filter_vector[0];
     gimbal.pit_spd.fdb = -gimbal_imu.wy;
     gimbal.pit_output = pid_calc(&gimbal.pit_spd.pid, gimbal.pit_spd.ref, gimbal.pit_spd.fdb);
 
     //pid参数选择
-//    if (rc.mouse.r && vision.aim_status == AIMING) {
-//        gimbal.yaw_angle.pid.kp = 40;
-//        gimbal.yaw_angle.pid.kd = 600;
-//        gimbal.yaw_spd.pid.kp = 1.2f;
-//        gimbal.yaw_spd.pid.kd = 0.0f;
-//        gimbal.yaw_angle.pid.out_max = 15;
-//    } else {
-//        gimbal.yaw_angle.pid.kp = 8;
-//        gimbal.yaw_angle.pid.kd = 80;
-//        gimbal.yaw_spd.pid.kp = 4.5f;
-//        gimbal.yaw_spd.pid.kd = 0.04f;
-//        gimbal.yaw_angle.pid.out_max = 30;
-////        gimbal.yaw_angle.pid.out_max = gimbal.yaw_angle_temp;
-//    }
+    if ((rc.mouse.r || rc_fsm_check(RC_LEFT_LD) || rc_fsm_check(RC_RIGHT_LD)) && vision.aim_status == AIMING) {
+        gimbal.yaw_angle.pid.kp = 45;
+        gimbal.yaw_angle.pid.kd = 650;
+        gimbal.yaw_spd.pid.kp = 1.4f;
+        gimbal.yaw_spd.pid.ki = 0.0f;
+        gimbal.yaw_spd.pid.i_out = 0.0f;
+        gimbal.yaw_angle.pid.out_max = 15;
+    } else {
+        gimbal.yaw_angle.pid.kp = 6;
+        gimbal.yaw_angle.pid.kd = 0;
+        gimbal.yaw_spd.pid.kp = 4.5f;
+        gimbal.yaw_spd.pid.ki = 0.04f;
+        gimbal.yaw_angle.pid.out_max = 30;
+    }
     
     if (gimbal.yaw_angle.ref < 0) {
         gimbal.yaw_angle.ref += 2 * PI;

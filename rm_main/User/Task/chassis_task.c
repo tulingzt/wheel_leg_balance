@@ -16,7 +16,7 @@
 #include "cmsis_os.h"
 #include "gimbal_task.h"
 
-#define JOINT_MOTOR_RESET_TORQUE 1.5f
+#define JOINT_MOTOR_RESET_TORQUE 2.0f
 #define JOINT_MOTOR_RESET_ERROR 0.005f
 
 ramp_t chassis_x_ramp;

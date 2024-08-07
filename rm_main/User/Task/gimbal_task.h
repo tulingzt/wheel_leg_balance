@@ -22,7 +22,6 @@ typedef struct
     gimbal_pid_t pit_angle, pit_spd;
     feed_forward_t yaw_feedforward;
     float yaw_output, pit_output;
-    float yaw_angle_temp;
     float start_up;//起身标志位
 } gimbal_t;
 

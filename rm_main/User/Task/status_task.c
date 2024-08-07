@@ -13,8 +13,8 @@
 #include "prot_judge.h"
 #include "prot_power.h"
 #include "prot_vision.h"
-
 #include "drv_ws2812b.h"
+#include "iwdg.h"
 
 status_t status;
 
@@ -74,10 +74,14 @@ void normal_status(void)
     rgb_set_bright(6, supercap.volume_percent/20);
 }
 
+int iwdg_test = 1;
 void status_task(void const* argument)
 {
     for(;;)
     {
+        if (iwdg_test == 1) {
+            HAL_IWDG_Refresh(&hiwdg1);
+        }
         rc_fsm_init(rc.online);
         status.remote = rc_check_offline();
         status.vision = vision_check_offline();

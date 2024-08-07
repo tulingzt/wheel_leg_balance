@@ -1,5 +1,6 @@
 #include "mode_switch_task.h"
 #include "prot_dr16.h"
+#include "prot_judge.h"
 #include "cmsis_os.h"
 
 uint8_t lock_flag = 0;
@@ -47,7 +48,11 @@ void mode_switch_task(void const *argu)
     lock_flag = 0;
     for (;;) {
         if (!lock_flag) {
-            unlock_init();  //解锁操作
+            if (game_status.game_progress == 4) {//比赛中直接解锁
+                lock_flag = 1;
+            } else {
+                unlock_init();  //解锁操作
+            }
         }
         else {
             remote_reset();
