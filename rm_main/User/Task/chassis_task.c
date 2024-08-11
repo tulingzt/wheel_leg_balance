@@ -15,6 +15,7 @@
 #include "string.h"
 #include "cmsis_os.h"
 #include "gimbal_task.h"
+#include "status_task.h"
 
 #define JOINT_MOTOR_RESET_TORQUE 2.0f
 #define JOINT_MOTOR_RESET_ERROR 0.005f
@@ -64,8 +65,10 @@ static void joint_motor_reset(void)
 //        osDelayUntil(&thread_wake_time, 1);
     }
     //未解锁 等待
-    while (!lock_flag)
+    while (!lock_flag) {
+        status.task.chassis = 1;
         osDelayUntil(&thread_wake_time, 2);
+    }
     //开始复位
     while (!chassis.joint_motor_reset) {
         if (motor_reset[0].reset_flag == 1 && motor_reset[1].reset_flag == 1 && \
@@ -94,6 +97,7 @@ static void joint_motor_reset(void)
                 ht_motor_set_control_para(&joint_motor[i], 0, 0, 0, 0, 0);
             }
         }
+        status.task.chassis = 1;
         osDelayUntil(&thread_wake_time, 2);
     }
     reset_flag = 0;
@@ -124,6 +128,8 @@ static void chassis_init()
     kal_wy.H_data[0] = 1;
     kal_wy.Q_data[0] = 1;
     kal_wy.R_data[0] = 100;
+    
+    chassis.init = 1;
 }
 
 float spin_limit;
@@ -148,7 +154,7 @@ static void chassis_mode_switch(void)
         break;
     }
     case REMOTER_MODE: {
-        if (last_ctrl_mode != REMOTER_MODE) { //切入遥控模式，初始化底盘模式
+        if (last_ctrl_mode != REMOTER_MODE || chassis.mode == CHASSIS_MODE_PROTECT) { //切入遥控模式，初始化底盘模式
             chassis.mode = CHASSIS_MODE_REMOTER_FOLLOW;
         }
         /* 底盘小陀螺模式 */
@@ -523,16 +529,19 @@ static void chassis_data_output(void)
 void chassis_task(void const *argu)
 {
     uint32_t thread_wake_time = osKernelSysTick();
-    chassis_init();
     power_init();
     for(;;)
     {
+        if (chassis.init == 0) {
+            chassis_init();
+        }
         thread_wake_time = osKernelSysTick();
 //        taskENTER_CRITICAL();
         chassis_mode_switch();
         chassis_data_input();
         wlr_control();
         chassis_data_output();
+        status.task.chassis = 1;
 //        power_limit_current();
 //        taskEXIT_CRITICAL();
         osDelayUntil(&thread_wake_time, 2);

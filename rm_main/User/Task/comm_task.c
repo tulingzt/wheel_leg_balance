@@ -4,6 +4,7 @@
 #include "prot_power.h"
 #include "drv_dji_motor.h"
 #include "drv_ht_motor.h"
+#include "status_task.h"
 
 void comm_task(void const* argument)
 {
@@ -12,6 +13,7 @@ void comm_task(void const* argument)
     {
         thread_wake_time = osKernelSysTick();
         taskENTER_CRITICAL();
+        status.task.comm = 1;
         dji_motor_output_data();
         ht_motor_output_single_data(&joint_motor[0]);
         ht_motor_output_single_data(&joint_motor[1]);

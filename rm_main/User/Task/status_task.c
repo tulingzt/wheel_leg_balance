@@ -79,9 +79,19 @@ void status_task(void const* argument)
 {
     for(;;)
     {
-        if (iwdg_test == 1) {
+        if (status.task.comm == 1 &&
+            status.task.gimbal == 1 &&
+            status.task.chassis == 1 &&
+            status.task.shoot == 1 &&
+            status.task.mode_switch == 1) {
+            status.task.comm = 0;
+            status.task.gimbal = 0;
+            status.task.chassis = 0;
+            status.task.shoot = 0;
+            status.task.mode_switch = 0;
             HAL_IWDG_Refresh(&hiwdg1);
         }
+
         rc_fsm_init(rc.online);
         status.remote = rc_check_offline();
         status.vision = vision_check_offline();
@@ -97,6 +107,10 @@ void status_task(void const* argument)
             status.all = 0;
         } else {
             status.all = 1;
+        }
+        
+        if (status.ht_motor == 1) {
+            chassis.init = 0;
         }
         
         if (rc_fsm_check(RC_LEFT_LU) || status.remote || ctrl_mode == PROTECT_MODE) { //遥控器切换DEBUG灯板

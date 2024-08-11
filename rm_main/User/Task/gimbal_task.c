@@ -11,6 +11,7 @@
 #include "string.h"
 #include "func_generator.h"
 #include "gimbal_task.h"
+#include "status_task.h"
 
 FGT_agl_t yaw_test = {
     .Td = 1,
@@ -34,11 +35,11 @@ static void gimbal_init(void)
 {
     memset(&gimbal, 0, sizeof(gimbal_t));
 
-    pid_init(&gimbal.pit_angle.pid, NONE, 18, 0, 0, 0, 30);//20 0 0 有测速模块
+    pid_init(&gimbal.pit_angle.pid, NONE, 18, 0, 0, 0, 7);//20 0 0 有测速模块
     pid_init(&gimbal.pit_spd.pid, NONE, -1.2f, -0.006f, 0, 0.4f, 2.2f);//-1.0 -0.008
 
     pid_init(&gimbal.yaw_angle.pid, NONE, 6, 0, 0, 0, 30);
-    pid_init(&gimbal.yaw_spd.pid, NONE, 4.50f, 0.04f, 0, 1.0f, 2.2f);
+    pid_init(&gimbal.yaw_spd.pid, NONE, 3.0f, 0.02f, 0, 1.0f, 2.2f);
 //    pid_init(&gimbal.yaw_angle.pid, NONE, 40, 0, 600, 0, 15);
 //    pid_init(&gimbal.yaw_spd.pid, NONE, 1.2f, 0.00f, 0, 1.0f, 2.2f);
 }
@@ -50,8 +51,8 @@ static void gimbal_pid_calc(void)
     //速度环反馈 陀螺仪
     //此yaw_err用于云台pit限幅
     yaw_err = circle_error(CHASSIS_YAW_OFFSET / 8192.0f * 2 * PI, yaw_motor.ecd / 8192.0f * 2 * PI, 2 * PI);
-    pit_max = -arm_cos_f32(yaw_err) * chassis_imu.pit + 0.4f;
-    pit_min = -arm_cos_f32(yaw_err) * chassis_imu.pit - 0.5f;
+    pit_max = -arm_cos_f32(yaw_err) * chassis_imu.pit + 0.35f;
+    pit_min = -arm_cos_f32(yaw_err) * chassis_imu.pit - 0.55f;
     data_limit(&gimbal.pit_angle.ref, pit_min, pit_max);
     gimbal.pit_angle.fdb = -gimbal_imu.pit;
     gimbal.pit_spd.ref = pid_calc(&gimbal.pit_angle.pid, gimbal.pit_angle.ref, gimbal.pit_angle.fdb);
@@ -70,9 +71,9 @@ static void gimbal_pid_calc(void)
     } else {
         gimbal.yaw_angle.pid.kp = 6;
         gimbal.yaw_angle.pid.kd = 0;
-        gimbal.yaw_spd.pid.kp = 4.5f;
-        gimbal.yaw_spd.pid.ki = 0.04f;
-        gimbal.yaw_angle.pid.out_max = 30;
+        gimbal.yaw_spd.pid.kp = 3.0f;//4.5
+        gimbal.yaw_spd.pid.ki = 0.02f;//0.04
+        gimbal.yaw_angle.pid.out_max = 15;
     }
     
     if (gimbal.yaw_angle.ref < 0) {
@@ -178,6 +179,7 @@ void gimbal_task(void const *argu)
             default:break;
         }
         gimbal_data_output();
+        status.task.gimbal = 1;
 //        taskEXIT_CRITICAL();
         osDelayUntil(&thread_wake_time, 2);
     }

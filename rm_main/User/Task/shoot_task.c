@@ -7,6 +7,7 @@
 #include "prot_vision.h"
 #include "data_buffer.h"
 #include "cmsis_os.h"
+#include "status_task.h"
 
 #define SHOOT_SPEED_NUM 15
 #define ABS(x) ((x>0)? (x): (-(x)))//32818
@@ -275,6 +276,7 @@ void shoot_task(void const *argu)
         shoot_pid_calc();
         shoot_data_output();
         shoot_test();
+        status.task.shoot = 1;
 //        taskEXIT_CRITICAL();
         osDelayUntil(&thread_wake_time, 2);
     }

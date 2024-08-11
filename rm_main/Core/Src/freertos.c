@@ -136,11 +136,14 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of StartTask */
-  osThreadDef(StartTask, start_task, osPriorityNormal, 0, 128);
-  StartTaskHandle = osThreadCreate(osThread(StartTask), NULL);
+//  osThreadDef(StartTask, start_task, osPriorityLow, 0, 128);
+//  StartTaskHandle = osThreadCreate(osThread(StartTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  osThreadDef(STATUSTask, status_task, osPriorityLow, 0, 128);
+  StatusTaskHandle = osThreadCreate(osThread(STATUSTask), NULL);
+  
   osThreadDef(CommTask, comm_task, osPriorityHigh, 0, 256);
   CommTaskHandle = osThreadCreate(osThread(CommTask), NULL);
   osThreadDef(ModeSwitchTask, mode_switch_task, osPriorityHigh, 0, 128);
@@ -155,8 +158,6 @@ void MX_FREERTOS_Init(void) {
   
   osThreadDef(DebugTask, debug_task, osPriorityLow, 0, 128);
   DebugTaskHandle = osThreadCreate(osThread(DebugTask), NULL);
-  osThreadDef(STATUSTask, status_task, osPriorityLow, 0, 128);
-  StatusTaskHandle = osThreadCreate(osThread(STATUSTask), NULL);
   osThreadDef(UITask, ui_task, osPriorityLow, 0, 512);
   DebugTaskHandle = osThreadCreate(osThread(UITask), NULL);
   /* USER CODE END RTOS_THREADS */

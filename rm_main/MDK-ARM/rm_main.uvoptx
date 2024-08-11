@@ -135,7 +135,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>CMSIS_AGDI</Key>
-          <Name>-X"Any" -UAny -O206 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(6BA02477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC8000 -FN1 -FF0STM32H72x-73x_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32H723VGTx$CMSIS\Flash\STM32H72x-73x_1024.FLM)</Name>
+          <Name>-X"ATK-HSWL-CMSIS-DAP" -UATK 20190528 -O206 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(6BA02477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8000 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC8000 -FN1 -FF0STM32H72x-73x_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32H723VGTx$CMSIS\Flash\STM32H72x-73x_1024.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -158,104 +158,61 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>pid_roll</ItemText>
+          <ItemText>chassis,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>supercap</ItemText>
+          <ItemText>gimbal_imu</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>status</ItemText>
-        </Ww>
-        <Ww>
-          <count>4</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>yaw_motor,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>5</count>
-          <WinNumber>1</WinNumber>
           <ItemText>chassis_imu</ItemText>
         </Ww>
+      </WatchWindow1>
+      <WatchWindow2>
         <Ww>
-          <count>6</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>gimbal_imu</ItemText>
-        </Ww>
-        <Ww>
-          <count>7</count>
-          <WinNumber>1</WinNumber>
+          <count>0</count>
+          <WinNumber>2</WinNumber>
           <ItemText>fric_motor</ItemText>
         </Ww>
         <Ww>
-          <count>8</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>yaw_motor</ItemText>
-        </Ww>
-        <Ww>
-          <count>9</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>pit_motor</ItemText>
-        </Ww>
-        <Ww>
-          <count>10</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>status</ItemText>
-        </Ww>
-        <Ww>
-          <count>11</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>rc,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>12</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>kal_gimbal_wy</ItemText>
-        </Ww>
-        <Ww>
-          <count>13</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>joint_motor[4]</ItemText>
-        </Ww>
-        <Ww>
-          <count>14</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>joint_motor,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>15</count>
-          <WinNumber>1</WinNumber>
+          <count>1</count>
+          <WinNumber>2</WinNumber>
           <ItemText>driver_motor,0x0A</ItemText>
         </Ww>
         <Ww>
-          <count>16</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>rc,0x0A</ItemText>
+          <count>2</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>pit_motor</ItemText>
         </Ww>
         <Ww>
-          <count>17</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>status</ItemText>
+          <count>3</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>yaw_motor</ItemText>
         </Ww>
         <Ww>
-          <count>18</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>vision_check_offline</ItemText>
+          <count>4</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>trigger_motor</ItemText>
         </Ww>
         <Ww>
-          <count>19</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>vision,0x0A</ItemText>
+          <count>5</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>joint_motor,0x0A</ItemText>
         </Ww>
         <Ww>
-          <count>20</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>iwdg_test,0x0A</ItemText>
+          <count>6</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>chassis_imu</ItemText>
         </Ww>
-      </WatchWindow1>
+        <Ww>
+          <count>7</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>gimbal_imu</ItemText>
+        </Ww>
+      </WatchWindow2>
       <MemoryWindow1>
         <Mm>
           <WinNumber>1</WinNumber>

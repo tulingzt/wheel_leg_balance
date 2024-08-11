@@ -2,6 +2,7 @@
 #include "prot_dr16.h"
 #include "prot_judge.h"
 #include "cmsis_os.h"
+#include "status_task.h"
 
 uint8_t lock_flag = 0;
 uint8_t reset_flag = 0;
@@ -58,6 +59,7 @@ void mode_switch_task(void const *argu)
             remote_reset();
             sw1_mode_handler();  //根据左拨杆切换系统模式
         }
+        status.task.mode_switch = 1;
         osDelay(10);
     }
 }

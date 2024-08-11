@@ -37,6 +37,7 @@ typedef struct
 
 typedef struct
 {
+    uint8_t init;
     uint8_t joint_motor_reset;
     chassis_mode_e mode;
     float wheel_max;
