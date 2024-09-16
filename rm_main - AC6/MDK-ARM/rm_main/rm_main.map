@@ -8888,86 +8888,86 @@ Image Symbol Table
     [Anonymous Symbol]                       0x08014858   Section        0  wlr.o(.text.wlr_fn_calc)
     wlr_fn_calc                              0x08014859   Thumb Code   216  wlr.o(.text.wlr_fn_calc)
     [Anonymous Symbol]                       0x08014930   Section        0  wlr.o(.text.wlr_init)
-    [Anonymous Symbol]                       0x08014b00   Section        0  wlr.o(.text.wlr_protest)
-    [Anonymous Symbol]                       0x08014b30   Section        0  port.o(.text.xPortStartScheduler)
-    [Anonymous Symbol]                       0x08014c48   Section        0  queue.o(.text.xQueueGenericCreateStatic)
-    [Anonymous Symbol]                       0x08014ce0   Section        0  queue.o(.text.xQueueGenericReset)
-    [Anonymous Symbol]                       0x08014d50   Section        0  queue.o(.text.xQueueGenericSend)
-    [Anonymous Symbol]                       0x08014ec8   Section        0  queue.o(.text.xQueueGenericSendFromISR)
-    [Anonymous Symbol]                       0x08014f98   Section        0  queue.o(.text.xQueueReceive)
-    [Anonymous Symbol]                       0x080150f8   Section        0  tasks.o(.text.xTaskCheckForTimeOut)
-    [Anonymous Symbol]                       0x08015180   Section        0  tasks.o(.text.xTaskCreate)
-    [Anonymous Symbol]                       0x080151e0   Section        0  tasks.o(.text.xTaskCreateStatic)
-    [Anonymous Symbol]                       0x08015258   Section        0  tasks.o(.text.xTaskGetSchedulerState)
-    [Anonymous Symbol]                       0x08015280   Section        0  tasks.o(.text.xTaskGetTickCount)
-    [Anonymous Symbol]                       0x08015290   Section        0  tasks.o(.text.xTaskGetTickCountFromISR)
-    [Anonymous Symbol]                       0x080152a8   Section        0  tasks.o(.text.xTaskIncrementTick)
-    [Anonymous Symbol]                       0x080153b8   Section        0  tasks.o(.text.xTaskPriorityDisinherit)
-    [Anonymous Symbol]                       0x08015480   Section        0  tasks.o(.text.xTaskRemoveFromEventList)
-    [Anonymous Symbol]                       0x08015518   Section        0  tasks.o(.text.xTaskResumeAll)
-    [Anonymous Symbol]                       0x08015610   Section        0  timers.o(.text.xTimerCreateTimerTask)
-    [Anonymous Symbol]                       0x08015688   Section        0  timers.o(.text.xTimerGenericCommand)
-    i.__ARM_fpclassifyf                      0x080156f6   Section        0  fpclassifyf.o(i.__ARM_fpclassifyf)
-    i.__hardfp_acosf                         0x0801571c   Section        0  acosf.o(i.__hardfp_acosf)
-    i.__hardfp_atan2f                        0x08015834   Section        0  atan2f.o(i.__hardfp_atan2f)
-    i.__hardfp_atanf                         0x08015a84   Section        0  atanf.o(i.__hardfp_atanf)
-    i.__hardfp_cosf                          0x08015be4   Section        0  cosf.o(i.__hardfp_cosf)
-    i.__hardfp_fabs                          0x08015d34   Section        0  fabs.o(i.__hardfp_fabs)
-    i.__hardfp_fmodf                         0x08015d48   Section        0  fmodf.o(i.__hardfp_fmodf)
-    i.__hardfp_powf                          0x08015df8   Section        0  powf.o(i.__hardfp_powf)
-    i.__hardfp_sinf                          0x0801645c   Section        0  sinf.o(i.__hardfp_sinf)
-    i.__hardfp_sqrtf                         0x080165ec   Section        0  sqrtf.o(i.__hardfp_sqrtf)
-    i.__hardfp_tanf                          0x08016628   Section        0  tanf.o(i.__hardfp_tanf)
-    i.__mathlib_flt_divzero                  0x080167a4   Section        0  funder.o(i.__mathlib_flt_divzero)
-    i.__mathlib_flt_infnan                   0x080167b8   Section        0  funder.o(i.__mathlib_flt_infnan)
-    i.__mathlib_flt_infnan2                  0x080167be   Section        0  funder.o(i.__mathlib_flt_infnan2)
-    i.__mathlib_flt_invalid                  0x080167c4   Section        0  funder.o(i.__mathlib_flt_invalid)
-    i.__mathlib_flt_overflow                 0x080167d4   Section        0  funder.o(i.__mathlib_flt_overflow)
-    i.__mathlib_flt_underflow                0x080167e4   Section        0  funder.o(i.__mathlib_flt_underflow)
-    i.__mathlib_rredf2                       0x080167f4   Section        0  rredf.o(i.__mathlib_rredf2)
-    i.__scatterload_copy                     0x08016948   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x08016956   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x08016958   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.__set_errno                            0x08016968   Section        0  errno.o(i.__set_errno)
-    i.malloc                                 0x08016974   Section        0  malloc.o(i.malloc)
-    i.sqrtf                                  0x080169e0   Section        0  sqrtf.o(i.sqrtf)
-    .constdata                               0x08016a20   Section      320  powf.o(.constdata)
-    table                                    0x08016a20   Data         128  powf.o(.constdata)
-    powersof2to1over16top                    0x08016aa0   Data          64  powf.o(.constdata)
-    powersof2to1over16bot                    0x08016ae0   Data          64  powf.o(.constdata)
-    powersof2to1over16all                    0x08016b20   Data          64  powf.o(.constdata)
-    .constdata                               0x08016b60   Section       32  rredf.o(.constdata)
-    twooverpi                                0x08016b60   Data          32  rredf.o(.constdata)
-    [Anonymous Symbol]                       0x08016c90   Section        0  stm32h7xx_hal_fdcan.o(.rodata.HAL_FDCAN_Init.CvtEltSize)
-    HAL_FDCAN_Init.CvtEltSize                0x08016c90   Data          76  stm32h7xx_hal_fdcan.o(.rodata.HAL_FDCAN_Init.CvtEltSize)
-    [Anonymous Symbol]                       0x08017470   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ChassisTask)
-    MX_FREERTOS_Init.os_thread_def_ChassisTask 0x08017470   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ChassisTask)
-    [Anonymous Symbol]                       0x0801748c   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_CommTask)
-    MX_FREERTOS_Init.os_thread_def_CommTask  0x0801748c   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_CommTask)
-    [Anonymous Symbol]                       0x080174a8   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_DebugTask)
-    MX_FREERTOS_Init.os_thread_def_DebugTask 0x080174a8   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_DebugTask)
-    [Anonymous Symbol]                       0x080174c4   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_GimbalTask)
-    MX_FREERTOS_Init.os_thread_def_GimbalTask 0x080174c4   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_GimbalTask)
-    [Anonymous Symbol]                       0x080174e0   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ModeSwitchTask)
-    MX_FREERTOS_Init.os_thread_def_ModeSwitchTask 0x080174e0   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ModeSwitchTask)
-    [Anonymous Symbol]                       0x080174fc   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_STATUSTask)
-    MX_FREERTOS_Init.os_thread_def_STATUSTask 0x080174fc   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_STATUSTask)
-    [Anonymous Symbol]                       0x08017518   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ShootTask)
-    MX_FREERTOS_Init.os_thread_def_ShootTask 0x08017518   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ShootTask)
-    [Anonymous Symbol]                       0x08017534   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_UITask)
-    MX_FREERTOS_Init.os_thread_def_UITask    0x08017534   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_UITask)
-    DLCtoBytes                               0x080178aa   Data          16  stm32h7xx_hal_fdcan.o(.rodata.cst16)
-    [Anonymous Symbol]                       0x080178bc   Section        0  drv_dji_motor.o(.rodata.motor_para_table)
-    motor_para_table                         0x080178bc   Data          48  drv_dji_motor.o(.rodata.motor_para_table)
-    [Anonymous Symbol]                       0x080180f0   Section        0  freertos.o(.rodata.str1.1)
-    .L.str.7                                 0x080180f0   Data           7  freertos.o(.rodata.str1.1)
-    .L.str                                   0x080180f7   Data          11  freertos.o(.rodata.str1.1)
-    .L.str.6                                 0x08018102   Data          10  freertos.o(.rodata.str1.1)
-    .L.str.2                                 0x0801810c   Data          15  freertos.o(.rodata.str1.1)
-    .L.str.4                                 0x0801811b   Data          11  freertos.o(.rodata.str1.1)
-    .L.str.1                                 0x08018126   Data           9  freertos.o(.rodata.str1.1)
-    .L.str.3                                 0x0801812f   Data          12  freertos.o(.rodata.str1.1)
-    .L.str.5                                 0x0801813b   Data          10  freertos.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08014b18   Section        0  wlr.o(.text.wlr_protest)
+    [Anonymous Symbol]                       0x08014b48   Section        0  port.o(.text.xPortStartScheduler)
+    [Anonymous Symbol]                       0x08014c60   Section        0  queue.o(.text.xQueueGenericCreateStatic)
+    [Anonymous Symbol]                       0x08014cf8   Section        0  queue.o(.text.xQueueGenericReset)
+    [Anonymous Symbol]                       0x08014d68   Section        0  queue.o(.text.xQueueGenericSend)
+    [Anonymous Symbol]                       0x08014ee0   Section        0  queue.o(.text.xQueueGenericSendFromISR)
+    [Anonymous Symbol]                       0x08014fb0   Section        0  queue.o(.text.xQueueReceive)
+    [Anonymous Symbol]                       0x08015110   Section        0  tasks.o(.text.xTaskCheckForTimeOut)
+    [Anonymous Symbol]                       0x08015198   Section        0  tasks.o(.text.xTaskCreate)
+    [Anonymous Symbol]                       0x080151f8   Section        0  tasks.o(.text.xTaskCreateStatic)
+    [Anonymous Symbol]                       0x08015270   Section        0  tasks.o(.text.xTaskGetSchedulerState)
+    [Anonymous Symbol]                       0x08015298   Section        0  tasks.o(.text.xTaskGetTickCount)
+    [Anonymous Symbol]                       0x080152a8   Section        0  tasks.o(.text.xTaskGetTickCountFromISR)
+    [Anonymous Symbol]                       0x080152c0   Section        0  tasks.o(.text.xTaskIncrementTick)
+    [Anonymous Symbol]                       0x080153d0   Section        0  tasks.o(.text.xTaskPriorityDisinherit)
+    [Anonymous Symbol]                       0x08015498   Section        0  tasks.o(.text.xTaskRemoveFromEventList)
+    [Anonymous Symbol]                       0x08015530   Section        0  tasks.o(.text.xTaskResumeAll)
+    [Anonymous Symbol]                       0x08015628   Section        0  timers.o(.text.xTimerCreateTimerTask)
+    [Anonymous Symbol]                       0x080156a0   Section        0  timers.o(.text.xTimerGenericCommand)
+    i.__ARM_fpclassifyf                      0x0801570e   Section        0  fpclassifyf.o(i.__ARM_fpclassifyf)
+    i.__hardfp_acosf                         0x08015734   Section        0  acosf.o(i.__hardfp_acosf)
+    i.__hardfp_atan2f                        0x0801584c   Section        0  atan2f.o(i.__hardfp_atan2f)
+    i.__hardfp_atanf                         0x08015a9c   Section        0  atanf.o(i.__hardfp_atanf)
+    i.__hardfp_cosf                          0x08015bfc   Section        0  cosf.o(i.__hardfp_cosf)
+    i.__hardfp_fabs                          0x08015d4c   Section        0  fabs.o(i.__hardfp_fabs)
+    i.__hardfp_fmodf                         0x08015d60   Section        0  fmodf.o(i.__hardfp_fmodf)
+    i.__hardfp_powf                          0x08015e10   Section        0  powf.o(i.__hardfp_powf)
+    i.__hardfp_sinf                          0x08016474   Section        0  sinf.o(i.__hardfp_sinf)
+    i.__hardfp_sqrtf                         0x08016604   Section        0  sqrtf.o(i.__hardfp_sqrtf)
+    i.__hardfp_tanf                          0x08016640   Section        0  tanf.o(i.__hardfp_tanf)
+    i.__mathlib_flt_divzero                  0x080167bc   Section        0  funder.o(i.__mathlib_flt_divzero)
+    i.__mathlib_flt_infnan                   0x080167d0   Section        0  funder.o(i.__mathlib_flt_infnan)
+    i.__mathlib_flt_infnan2                  0x080167d6   Section        0  funder.o(i.__mathlib_flt_infnan2)
+    i.__mathlib_flt_invalid                  0x080167dc   Section        0  funder.o(i.__mathlib_flt_invalid)
+    i.__mathlib_flt_overflow                 0x080167ec   Section        0  funder.o(i.__mathlib_flt_overflow)
+    i.__mathlib_flt_underflow                0x080167fc   Section        0  funder.o(i.__mathlib_flt_underflow)
+    i.__mathlib_rredf2                       0x0801680c   Section        0  rredf.o(i.__mathlib_rredf2)
+    i.__scatterload_copy                     0x08016960   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0801696e   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x08016970   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.__set_errno                            0x08016980   Section        0  errno.o(i.__set_errno)
+    i.malloc                                 0x0801698c   Section        0  malloc.o(i.malloc)
+    i.sqrtf                                  0x080169f8   Section        0  sqrtf.o(i.sqrtf)
+    .constdata                               0x08016a38   Section      320  powf.o(.constdata)
+    table                                    0x08016a38   Data         128  powf.o(.constdata)
+    powersof2to1over16top                    0x08016ab8   Data          64  powf.o(.constdata)
+    powersof2to1over16bot                    0x08016af8   Data          64  powf.o(.constdata)
+    powersof2to1over16all                    0x08016b38   Data          64  powf.o(.constdata)
+    .constdata                               0x08016b78   Section       32  rredf.o(.constdata)
+    twooverpi                                0x08016b78   Data          32  rredf.o(.constdata)
+    [Anonymous Symbol]                       0x08016ca8   Section        0  stm32h7xx_hal_fdcan.o(.rodata.HAL_FDCAN_Init.CvtEltSize)
+    HAL_FDCAN_Init.CvtEltSize                0x08016ca8   Data          76  stm32h7xx_hal_fdcan.o(.rodata.HAL_FDCAN_Init.CvtEltSize)
+    [Anonymous Symbol]                       0x08017488   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ChassisTask)
+    MX_FREERTOS_Init.os_thread_def_ChassisTask 0x08017488   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ChassisTask)
+    [Anonymous Symbol]                       0x080174a4   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_CommTask)
+    MX_FREERTOS_Init.os_thread_def_CommTask  0x080174a4   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_CommTask)
+    [Anonymous Symbol]                       0x080174c0   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_DebugTask)
+    MX_FREERTOS_Init.os_thread_def_DebugTask 0x080174c0   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_DebugTask)
+    [Anonymous Symbol]                       0x080174dc   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_GimbalTask)
+    MX_FREERTOS_Init.os_thread_def_GimbalTask 0x080174dc   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_GimbalTask)
+    [Anonymous Symbol]                       0x080174f8   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ModeSwitchTask)
+    MX_FREERTOS_Init.os_thread_def_ModeSwitchTask 0x080174f8   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ModeSwitchTask)
+    [Anonymous Symbol]                       0x08017514   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_STATUSTask)
+    MX_FREERTOS_Init.os_thread_def_STATUSTask 0x08017514   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_STATUSTask)
+    [Anonymous Symbol]                       0x08017530   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ShootTask)
+    MX_FREERTOS_Init.os_thread_def_ShootTask 0x08017530   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_ShootTask)
+    [Anonymous Symbol]                       0x0801754c   Section        0  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_UITask)
+    MX_FREERTOS_Init.os_thread_def_UITask    0x0801754c   Data          28  freertos.o(.rodata.MX_FREERTOS_Init.os_thread_def_UITask)
+    DLCtoBytes                               0x080178c2   Data          16  stm32h7xx_hal_fdcan.o(.rodata.cst16)
+    [Anonymous Symbol]                       0x080178d4   Section        0  drv_dji_motor.o(.rodata.motor_para_table)
+    motor_para_table                         0x080178d4   Data          48  drv_dji_motor.o(.rodata.motor_para_table)
+    [Anonymous Symbol]                       0x08018108   Section        0  freertos.o(.rodata.str1.1)
+    .L.str.7                                 0x08018108   Data           7  freertos.o(.rodata.str1.1)
+    .L.str                                   0x0801810f   Data          11  freertos.o(.rodata.str1.1)
+    .L.str.6                                 0x0801811a   Data          10  freertos.o(.rodata.str1.1)
+    .L.str.2                                 0x08018124   Data          15  freertos.o(.rodata.str1.1)
+    .L.str.4                                 0x08018133   Data          11  freertos.o(.rodata.str1.1)
+    .L.str.1                                 0x0801813e   Data           9  freertos.o(.rodata.str1.1)
+    .L.str.3                                 0x08018147   Data          12  freertos.o(.rodata.str1.1)
+    .L.str.5                                 0x08018153   Data          10  freertos.o(.rodata.str1.1)
     .data                                    0x24000000   Section        4  mvars.o(.data)
     .data                                    0x24000004   Section        4  mvars.o(.data)
     .data                                    0x24000008   Section        4  errno.o(.data)
@@ -9686,66 +9686,66 @@ Image Symbol Table
     vmc_init                                 0x08013ac9   Thumb Code    52  leg_vmc.o(.text.vmc_init)
     vmc_inverse_solution                     0x08013b01   Thumb Code  1144  leg_vmc.o(.text.vmc_inverse_solution)
     wlr_control                              0x08013f79   Thumb Code  2272  wlr.o(.text.wlr_control)
-    wlr_init                                 0x08014931   Thumb Code   464  wlr.o(.text.wlr_init)
-    wlr_protest                              0x08014b01   Thumb Code    48  wlr.o(.text.wlr_protest)
-    xPortStartScheduler                      0x08014b31   Thumb Code   274  port.o(.text.xPortStartScheduler)
-    xQueueGenericCreateStatic                0x08014c49   Thumb Code   146  queue.o(.text.xQueueGenericCreateStatic)
-    xQueueGenericReset                       0x08014ce1   Thumb Code   110  queue.o(.text.xQueueGenericReset)
-    xQueueGenericSend                        0x08014d51   Thumb Code   370  queue.o(.text.xQueueGenericSend)
-    xQueueGenericSendFromISR                 0x08014ec9   Thumb Code   204  queue.o(.text.xQueueGenericSendFromISR)
-    xQueueReceive                            0x08014f99   Thumb Code   350  queue.o(.text.xQueueReceive)
-    xTaskCheckForTimeOut                     0x080150f9   Thumb Code   136  tasks.o(.text.xTaskCheckForTimeOut)
-    xTaskCreate                              0x08015181   Thumb Code    94  tasks.o(.text.xTaskCreate)
-    xTaskCreateStatic                        0x080151e1   Thumb Code   118  tasks.o(.text.xTaskCreateStatic)
-    xTaskGetSchedulerState                   0x08015259   Thumb Code    40  tasks.o(.text.xTaskGetSchedulerState)
-    xTaskGetTickCount                        0x08015281   Thumb Code    12  tasks.o(.text.xTaskGetTickCount)
-    xTaskGetTickCountFromISR                 0x08015291   Thumb Code    18  tasks.o(.text.xTaskGetTickCountFromISR)
-    xTaskIncrementTick                       0x080152a9   Thumb Code   266  tasks.o(.text.xTaskIncrementTick)
-    xTaskPriorityDisinherit                  0x080153b9   Thumb Code   198  tasks.o(.text.xTaskPriorityDisinherit)
-    xTaskRemoveFromEventList                 0x08015481   Thumb Code   150  tasks.o(.text.xTaskRemoveFromEventList)
-    xTaskResumeAll                           0x08015519   Thumb Code   246  tasks.o(.text.xTaskResumeAll)
-    xTimerCreateTimerTask                    0x08015611   Thumb Code   116  timers.o(.text.xTimerCreateTimerTask)
-    xTimerGenericCommand                     0x08015689   Thumb Code   110  timers.o(.text.xTimerGenericCommand)
-    __ARM_fpclassifyf                        0x080156f7   Thumb Code    38  fpclassifyf.o(i.__ARM_fpclassifyf)
-    __hardfp_acosf                           0x0801571d   Thumb Code   234  acosf.o(i.__hardfp_acosf)
-    __hardfp_atan2f                          0x08015835   Thumb Code   502  atan2f.o(i.__hardfp_atan2f)
-    __hardfp_atanf                           0x08015a85   Thumb Code   296  atanf.o(i.__hardfp_atanf)
-    __hardfp_cosf                            0x08015be5   Thumb Code   280  cosf.o(i.__hardfp_cosf)
-    __hardfp_fabs                            0x08015d35   Thumb Code    20  fabs.o(i.__hardfp_fabs)
-    __hardfp_fmodf                           0x08015d49   Thumb Code   176  fmodf.o(i.__hardfp_fmodf)
-    __hardfp_powf                            0x08015df9   Thumb Code  1606  powf.o(i.__hardfp_powf)
-    __mathlib_powf                           0x08015df9   Thumb Code     0  powf.o(i.__hardfp_powf)
-    __hardfp_sinf                            0x0801645d   Thumb Code   344  sinf.o(i.__hardfp_sinf)
-    __hardfp_sqrtf                           0x080165ed   Thumb Code    58  sqrtf.o(i.__hardfp_sqrtf)
-    __hardfp_tanf                            0x08016629   Thumb Code   322  tanf.o(i.__hardfp_tanf)
-    __mathlib_flt_divzero                    0x080167a5   Thumb Code    14  funder.o(i.__mathlib_flt_divzero)
-    __mathlib_flt_infnan                     0x080167b9   Thumb Code     6  funder.o(i.__mathlib_flt_infnan)
-    __mathlib_flt_infnan2                    0x080167bf   Thumb Code     6  funder.o(i.__mathlib_flt_infnan2)
-    __mathlib_flt_invalid                    0x080167c5   Thumb Code    10  funder.o(i.__mathlib_flt_invalid)
-    __mathlib_flt_overflow                   0x080167d5   Thumb Code    10  funder.o(i.__mathlib_flt_overflow)
-    __mathlib_flt_underflow                  0x080167e5   Thumb Code    10  funder.o(i.__mathlib_flt_underflow)
-    __mathlib_rredf2                         0x080167f5   Thumb Code   316  rredf.o(i.__mathlib_rredf2)
-    __scatterload_copy                       0x08016949   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x08016957   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x08016959   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    __set_errno                              0x08016969   Thumb Code     6  errno.o(i.__set_errno)
-    malloc                                   0x08016975   Thumb Code    92  malloc.o(i.malloc)
-    sqrtf                                    0x080169e1   Thumb Code    62  sqrtf.o(i.sqrtf)
-    CRC8_TAB                                 0x08016b80   Data         256  ui_interface.o(.rodata.CRC8_TAB)
-    D1CorePrescTable                         0x08016c80   Data          16  system_stm32h7xx.o(.rodata.D1CorePrescTable)
-    K_Array_Fly                              0x08016cdc   Data         160  wlr.o(.rodata.K_Array_Fly)
-    K_Array_Prone                            0x08016d7c   Data         160  wlr.o(.rodata.K_Array_Prone)
-    K_Array_Wheel                            0x08016e1c   Data         160  wlr.o(.rodata.K_Array_Wheel)
-    K_Fit_Array                              0x08016ebc   Data        1440  wlr.o(.rodata.K_Fit_Array)
-    LegLengthParam                           0x0801745c   Data          20  wlr.o(.rodata.LegLengthParam)
-    P_Fit_Array                              0x08017550   Data         576  wlr.o(.rodata.P_Fit_Array)
-    UARTPrescTable                           0x08017790   Data          24  stm32h7xx_hal_uart.o(.rodata.UARTPrescTable)
-    code                                     0x080177a8   Data           2  drv_ws2812b.o(.rodata.code)
-    crc8_table                               0x080177aa   Data         256  crc.o(.rodata.crc8_table)
-    sinTable_f32                             0x080178ec   Data        2052  arm_common_tables.o(.rodata.sinTable_f32)
-    wCRC_Table                               0x08018146   Data         512  ui_interface.o(.rodata.wCRC_Table)
-    Region$$Table$$Base                      0x08018348   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08018368   Number         0  anon$$obj.o(Region$$Table)
+    wlr_init                                 0x08014931   Thumb Code   484  wlr.o(.text.wlr_init)
+    wlr_protest                              0x08014b19   Thumb Code    48  wlr.o(.text.wlr_protest)
+    xPortStartScheduler                      0x08014b49   Thumb Code   274  port.o(.text.xPortStartScheduler)
+    xQueueGenericCreateStatic                0x08014c61   Thumb Code   146  queue.o(.text.xQueueGenericCreateStatic)
+    xQueueGenericReset                       0x08014cf9   Thumb Code   110  queue.o(.text.xQueueGenericReset)
+    xQueueGenericSend                        0x08014d69   Thumb Code   370  queue.o(.text.xQueueGenericSend)
+    xQueueGenericSendFromISR                 0x08014ee1   Thumb Code   204  queue.o(.text.xQueueGenericSendFromISR)
+    xQueueReceive                            0x08014fb1   Thumb Code   350  queue.o(.text.xQueueReceive)
+    xTaskCheckForTimeOut                     0x08015111   Thumb Code   136  tasks.o(.text.xTaskCheckForTimeOut)
+    xTaskCreate                              0x08015199   Thumb Code    94  tasks.o(.text.xTaskCreate)
+    xTaskCreateStatic                        0x080151f9   Thumb Code   118  tasks.o(.text.xTaskCreateStatic)
+    xTaskGetSchedulerState                   0x08015271   Thumb Code    40  tasks.o(.text.xTaskGetSchedulerState)
+    xTaskGetTickCount                        0x08015299   Thumb Code    12  tasks.o(.text.xTaskGetTickCount)
+    xTaskGetTickCountFromISR                 0x080152a9   Thumb Code    18  tasks.o(.text.xTaskGetTickCountFromISR)
+    xTaskIncrementTick                       0x080152c1   Thumb Code   266  tasks.o(.text.xTaskIncrementTick)
+    xTaskPriorityDisinherit                  0x080153d1   Thumb Code   198  tasks.o(.text.xTaskPriorityDisinherit)
+    xTaskRemoveFromEventList                 0x08015499   Thumb Code   150  tasks.o(.text.xTaskRemoveFromEventList)
+    xTaskResumeAll                           0x08015531   Thumb Code   246  tasks.o(.text.xTaskResumeAll)
+    xTimerCreateTimerTask                    0x08015629   Thumb Code   116  timers.o(.text.xTimerCreateTimerTask)
+    xTimerGenericCommand                     0x080156a1   Thumb Code   110  timers.o(.text.xTimerGenericCommand)
+    __ARM_fpclassifyf                        0x0801570f   Thumb Code    38  fpclassifyf.o(i.__ARM_fpclassifyf)
+    __hardfp_acosf                           0x08015735   Thumb Code   234  acosf.o(i.__hardfp_acosf)
+    __hardfp_atan2f                          0x0801584d   Thumb Code   502  atan2f.o(i.__hardfp_atan2f)
+    __hardfp_atanf                           0x08015a9d   Thumb Code   296  atanf.o(i.__hardfp_atanf)
+    __hardfp_cosf                            0x08015bfd   Thumb Code   280  cosf.o(i.__hardfp_cosf)
+    __hardfp_fabs                            0x08015d4d   Thumb Code    20  fabs.o(i.__hardfp_fabs)
+    __hardfp_fmodf                           0x08015d61   Thumb Code   176  fmodf.o(i.__hardfp_fmodf)
+    __hardfp_powf                            0x08015e11   Thumb Code  1606  powf.o(i.__hardfp_powf)
+    __mathlib_powf                           0x08015e11   Thumb Code     0  powf.o(i.__hardfp_powf)
+    __hardfp_sinf                            0x08016475   Thumb Code   344  sinf.o(i.__hardfp_sinf)
+    __hardfp_sqrtf                           0x08016605   Thumb Code    58  sqrtf.o(i.__hardfp_sqrtf)
+    __hardfp_tanf                            0x08016641   Thumb Code   322  tanf.o(i.__hardfp_tanf)
+    __mathlib_flt_divzero                    0x080167bd   Thumb Code    14  funder.o(i.__mathlib_flt_divzero)
+    __mathlib_flt_infnan                     0x080167d1   Thumb Code     6  funder.o(i.__mathlib_flt_infnan)
+    __mathlib_flt_infnan2                    0x080167d7   Thumb Code     6  funder.o(i.__mathlib_flt_infnan2)
+    __mathlib_flt_invalid                    0x080167dd   Thumb Code    10  funder.o(i.__mathlib_flt_invalid)
+    __mathlib_flt_overflow                   0x080167ed   Thumb Code    10  funder.o(i.__mathlib_flt_overflow)
+    __mathlib_flt_underflow                  0x080167fd   Thumb Code    10  funder.o(i.__mathlib_flt_underflow)
+    __mathlib_rredf2                         0x0801680d   Thumb Code   316  rredf.o(i.__mathlib_rredf2)
+    __scatterload_copy                       0x08016961   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0801696f   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x08016971   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    __set_errno                              0x08016981   Thumb Code     6  errno.o(i.__set_errno)
+    malloc                                   0x0801698d   Thumb Code    92  malloc.o(i.malloc)
+    sqrtf                                    0x080169f9   Thumb Code    62  sqrtf.o(i.sqrtf)
+    CRC8_TAB                                 0x08016b98   Data         256  ui_interface.o(.rodata.CRC8_TAB)
+    D1CorePrescTable                         0x08016c98   Data          16  system_stm32h7xx.o(.rodata.D1CorePrescTable)
+    K_Array_Fly                              0x08016cf4   Data         160  wlr.o(.rodata.K_Array_Fly)
+    K_Array_Prone                            0x08016d94   Data         160  wlr.o(.rodata.K_Array_Prone)
+    K_Array_Wheel                            0x08016e34   Data         160  wlr.o(.rodata.K_Array_Wheel)
+    K_Fit_Array                              0x08016ed4   Data        1440  wlr.o(.rodata.K_Fit_Array)
+    LegLengthParam                           0x08017474   Data          20  wlr.o(.rodata.LegLengthParam)
+    P_Fit_Array                              0x08017568   Data         576  wlr.o(.rodata.P_Fit_Array)
+    UARTPrescTable                           0x080177a8   Data          24  stm32h7xx_hal_uart.o(.rodata.UARTPrescTable)
+    code                                     0x080177c0   Data           2  drv_ws2812b.o(.rodata.code)
+    crc8_table                               0x080177c2   Data         256  crc.o(.rodata.crc8_table)
+    sinTable_f32                             0x08017904   Data        2052  arm_common_tables.o(.rodata.sinTable_f32)
+    wCRC_Table                               0x0801815e   Data         512  ui_interface.o(.rodata.wCRC_Table)
+    Region$$Table$$Base                      0x08018360   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08018380   Number         0  anon$$obj.o(Region$$Table)
     __microlib_freelist                      0x24000000   Data           4  mvars.o(.data)
     __microlib_freelist_initialised          0x24000004   Data           4  mvars.o(.data)
     K_Array_Leg                              0x2400000c   Data         160  wlr.o(.data.K_Array_Leg)
@@ -9940,9 +9940,9 @@ Memory Map of the image
 
   Image Entry point : 0x080002cd
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000195b0, Max: 0x00100000, ABSOLUTE, COMPRESSED[0x00018d70])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000195c8, Max: 0x00100000, ABSOLUTE, COMPRESSED[0x00018d88])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00018368, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00018380, Max: 0x00100000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -10862,107 +10862,108 @@ Memory Map of the image
     0x08013b00   0x08013b00   0x00000478   Code   RO         1432    .text.vmc_inverse_solution  leg_vmc.o
     0x08013f78   0x08013f78   0x000008e0   Code   RO         1478    .text.wlr_control   wlr.o
     0x08014858   0x08014858   0x000000d8   Code   RO         1480    .text.wlr_fn_calc   wlr.o
-    0x08014930   0x08014930   0x000001d0   Code   RO         1474    .text.wlr_init      wlr.o
-    0x08014b00   0x08014b00   0x00000030   Code   RO         1476    .text.wlr_protest   wlr.o
-    0x08014b30   0x08014b30   0x00000112   Code   RO         4430    .text.xPortStartScheduler  port.o
-    0x08014c42   0x08014c42   0x00000006   PAD
-    0x08014c48   0x08014c48   0x00000092   Code   RO         3932    .text.xQueueGenericCreateStatic  queue.o
-    0x08014cda   0x08014cda   0x00000006   PAD
-    0x08014ce0   0x08014ce0   0x0000006e   Code   RO         3930    .text.xQueueGenericReset  queue.o
-    0x08014d4e   0x08014d4e   0x00000002   PAD
-    0x08014d50   0x08014d50   0x00000172   Code   RO         3944    .text.xQueueGenericSend  queue.o
-    0x08014ec2   0x08014ec2   0x00000006   PAD
-    0x08014ec8   0x08014ec8   0x000000cc   Code   RO         3952    .text.xQueueGenericSendFromISR  queue.o
-    0x08014f94   0x08014f94   0x00000004   PAD
-    0x08014f98   0x08014f98   0x0000015e   Code   RO         3956    .text.xQueueReceive  queue.o
-    0x080150f6   0x080150f6   0x00000002   PAD
-    0x080150f8   0x080150f8   0x00000088   Code   RO         4131    .text.xTaskCheckForTimeOut  tasks.o
-    0x08015180   0x08015180   0x0000005e   Code   RO         4065    .text.xTaskCreate   tasks.o
-    0x080151de   0x080151de   0x00000002   PAD
-    0x080151e0   0x080151e0   0x00000076   Code   RO         4059    .text.xTaskCreateStatic  tasks.o
-    0x08015256   0x08015256   0x00000002   PAD
-    0x08015258   0x08015258   0x00000028   Code   RO         4137    .text.xTaskGetSchedulerState  tasks.o
-    0x08015280   0x08015280   0x0000000c   Code   RO         4107    .text.xTaskGetTickCount  tasks.o
-    0x0801528c   0x0801528c   0x00000004   PAD
-    0x08015290   0x08015290   0x00000012   Code   RO         4109    .text.xTaskGetTickCountFromISR  tasks.o
-    0x080152a2   0x080152a2   0x00000006   PAD
-    0x080152a8   0x080152a8   0x0000010a   Code   RO         4105    .text.xTaskIncrementTick  tasks.o
-    0x080153b2   0x080153b2   0x00000006   PAD
-    0x080153b8   0x080153b8   0x000000c6   Code   RO         4141    .text.xTaskPriorityDisinherit  tasks.o
-    0x0801547e   0x0801547e   0x00000002   PAD
-    0x08015480   0x08015480   0x00000096   Code   RO         4123    .text.xTaskRemoveFromEventList  tasks.o
-    0x08015516   0x08015516   0x00000002   PAD
-    0x08015518   0x08015518   0x000000f6   Code   RO         4079    .text.xTaskResumeAll  tasks.o
-    0x0801560e   0x0801560e   0x00000002   PAD
-    0x08015610   0x08015610   0x00000074   Code   RO         4199    .text.xTimerCreateTimerTask  timers.o
-    0x08015684   0x08015684   0x00000004   PAD
-    0x08015688   0x08015688   0x0000006e   Code   RO         4211    .text.xTimerGenericCommand  timers.o
-    0x080156f6   0x080156f6   0x00000026   Code   RO         5285    i.__ARM_fpclassifyf  m_wv.l(fpclassifyf.o)
-    0x0801571c   0x0801571c   0x00000118   Code   RO         4801    i.__hardfp_acosf    m_wv.l(acosf.o)
-    0x08015834   0x08015834   0x00000250   Code   RO         4813    i.__hardfp_atan2f   m_wv.l(atan2f.o)
-    0x08015a84   0x08015a84   0x00000160   Code   RO         4825    i.__hardfp_atanf    m_wv.l(atanf.o)
-    0x08015be4   0x08015be4   0x00000150   Code   RO         4849    i.__hardfp_cosf     m_wv.l(cosf.o)
-    0x08015d34   0x08015d34   0x00000014   Code   RO         4861    i.__hardfp_fabs     m_wv.l(fabs.o)
-    0x08015d48   0x08015d48   0x000000b0   Code   RO         4867    i.__hardfp_fmodf    m_wv.l(fmodf.o)
-    0x08015df8   0x08015df8   0x00000664   Code   RO         4893    i.__hardfp_powf     m_wv.l(powf.o)
-    0x0801645c   0x0801645c   0x00000190   Code   RO         4907    i.__hardfp_sinf     m_wv.l(sinf.o)
-    0x080165ec   0x080165ec   0x0000003a   Code   RO         4931    i.__hardfp_sqrtf    m_wv.l(sqrtf.o)
-    0x08016626   0x08016626   0x00000002   PAD
-    0x08016628   0x08016628   0x0000017c   Code   RO         4943    i.__hardfp_tanf     m_wv.l(tanf.o)
-    0x080167a4   0x080167a4   0x00000014   Code   RO         5287    i.__mathlib_flt_divzero  m_wv.l(funder.o)
-    0x080167b8   0x080167b8   0x00000006   Code   RO         5288    i.__mathlib_flt_infnan  m_wv.l(funder.o)
-    0x080167be   0x080167be   0x00000006   Code   RO         5289    i.__mathlib_flt_infnan2  m_wv.l(funder.o)
-    0x080167c4   0x080167c4   0x00000010   Code   RO         5290    i.__mathlib_flt_invalid  m_wv.l(funder.o)
-    0x080167d4   0x080167d4   0x00000010   Code   RO         5291    i.__mathlib_flt_overflow  m_wv.l(funder.o)
-    0x080167e4   0x080167e4   0x00000010   Code   RO         5293    i.__mathlib_flt_underflow  m_wv.l(funder.o)
-    0x080167f4   0x080167f4   0x00000154   Code   RO         5306    i.__mathlib_rredf2  m_wv.l(rredf.o)
-    0x08016948   0x08016948   0x0000000e   Code   RO         5373    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x08016956   0x08016956   0x00000002   Code   RO         5374    i.__scatterload_null  mc_w.l(handlers.o)
-    0x08016958   0x08016958   0x0000000e   Code   RO         5375    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x08016966   0x08016966   0x00000002   PAD
-    0x08016968   0x08016968   0x0000000c   Code   RO         5339    i.__set_errno       mc_w.l(errno.o)
-    0x08016974   0x08016974   0x0000006c   Code   RO         5239    i.malloc            mc_w.l(malloc.o)
-    0x080169e0   0x080169e0   0x0000003e   Code   RO         4933    i.sqrtf             m_wv.l(sqrtf.o)
-    0x08016a1e   0x08016a1e   0x00000002   PAD
-    0x08016a20   0x08016a20   0x00000140   Data   RO         4896    .constdata          m_wv.l(powf.o)
-    0x08016b60   0x08016b60   0x00000020   Data   RO         5307    .constdata          m_wv.l(rredf.o)
-    0x08016b80   0x08016b80   0x00000100   Data   RO         1193    .rodata.CRC8_TAB    ui_interface.o
-    0x08016c80   0x08016c80   0x00000010   Data   RO         1720    .rodata.D1CorePrescTable  system_stm32h7xx.o
-    0x08016c90   0x08016c90   0x0000004c   Data   RO         3105    .rodata.HAL_FDCAN_Init.CvtEltSize  stm32h7xx_hal_fdcan.o
-    0x08016cdc   0x08016cdc   0x000000a0   Data   RO         1515    .rodata.K_Array_Fly  wlr.o
-    0x08016d7c   0x08016d7c   0x000000a0   Data   RO         1516    .rodata.K_Array_Prone  wlr.o
-    0x08016e1c   0x08016e1c   0x000000a0   Data   RO         1514    .rodata.K_Array_Wheel  wlr.o
-    0x08016ebc   0x08016ebc   0x000005a0   Data   RO         1520    .rodata.K_Fit_Array  wlr.o
-    0x0801745c   0x0801745c   0x00000014   Data   RO         1488    .rodata.LegLengthParam  wlr.o
-    0x08017470   0x08017470   0x0000001c   Data   RO           67    .rodata.MX_FREERTOS_Init.os_thread_def_ChassisTask  freertos.o
-    0x0801748c   0x0801748c   0x0000001c   Data   RO           63    .rodata.MX_FREERTOS_Init.os_thread_def_CommTask  freertos.o
-    0x080174a8   0x080174a8   0x0000001c   Data   RO           71    .rodata.MX_FREERTOS_Init.os_thread_def_DebugTask  freertos.o
-    0x080174c4   0x080174c4   0x0000001c   Data   RO           69    .rodata.MX_FREERTOS_Init.os_thread_def_GimbalTask  freertos.o
-    0x080174e0   0x080174e0   0x0000001c   Data   RO           65    .rodata.MX_FREERTOS_Init.os_thread_def_ModeSwitchTask  freertos.o
-    0x080174fc   0x080174fc   0x0000001c   Data   RO           60    .rodata.MX_FREERTOS_Init.os_thread_def_STATUSTask  freertos.o
-    0x08017518   0x08017518   0x0000001c   Data   RO           70    .rodata.MX_FREERTOS_Init.os_thread_def_ShootTask  freertos.o
-    0x08017534   0x08017534   0x0000001c   Data   RO           73    .rodata.MX_FREERTOS_Init.os_thread_def_UITask  freertos.o
-    0x08017550   0x08017550   0x00000240   Data   RO         1523    .rodata.P_Fit_Array  wlr.o
-    0x08017790   0x08017790   0x00000018   Data   RO         3811    .rodata.UARTPrescTable  stm32h7xx_hal_uart.o
-    0x080177a8   0x080177a8   0x00000002   Data   RO          818    .rodata.code        drv_ws2812b.o
-    0x080177aa   0x080177aa   0x00000100   Data   RO          986    .rodata.crc8_table  crc.o
-    0x080178aa   0x080178aa   0x00000010   Data   RO         3106    .rodata.cst16       stm32h7xx_hal_fdcan.o
-    0x080178ba   0x080178ba   0x00000002   PAD
-    0x080178bc   0x080178bc   0x00000030   Data   RO          750    .rodata.motor_para_table  drv_dji_motor.o
-    0x080178ec   0x080178ec   0x00000804   Data   RO         4793    .rodata.sinTable_f32  arm_cortexM7lfdp_math.lib(arm_common_tables.o)
-    0x080180f0   0x080180f0   0x00000055   Data   RO           61    .rodata.str1.1      freertos.o
-    0x08018145   0x08018145   0x00000001   PAD
-    0x08018146   0x08018146   0x00000200   Data   RO         1194    .rodata.wCRC_Table  ui_interface.o
-    0x08018346   0x08018346   0x00000002   PAD
-    0x08018348   0x08018348   0x00000020   Data   RO         5371    Region$$Table       anon$$obj.o
+    0x08014930   0x08014930   0x000001e4   Code   RO         1474    .text.wlr_init      wlr.o
+    0x08014b14   0x08014b14   0x00000004   PAD
+    0x08014b18   0x08014b18   0x00000030   Code   RO         1476    .text.wlr_protest   wlr.o
+    0x08014b48   0x08014b48   0x00000112   Code   RO         4430    .text.xPortStartScheduler  port.o
+    0x08014c5a   0x08014c5a   0x00000006   PAD
+    0x08014c60   0x08014c60   0x00000092   Code   RO         3932    .text.xQueueGenericCreateStatic  queue.o
+    0x08014cf2   0x08014cf2   0x00000006   PAD
+    0x08014cf8   0x08014cf8   0x0000006e   Code   RO         3930    .text.xQueueGenericReset  queue.o
+    0x08014d66   0x08014d66   0x00000002   PAD
+    0x08014d68   0x08014d68   0x00000172   Code   RO         3944    .text.xQueueGenericSend  queue.o
+    0x08014eda   0x08014eda   0x00000006   PAD
+    0x08014ee0   0x08014ee0   0x000000cc   Code   RO         3952    .text.xQueueGenericSendFromISR  queue.o
+    0x08014fac   0x08014fac   0x00000004   PAD
+    0x08014fb0   0x08014fb0   0x0000015e   Code   RO         3956    .text.xQueueReceive  queue.o
+    0x0801510e   0x0801510e   0x00000002   PAD
+    0x08015110   0x08015110   0x00000088   Code   RO         4131    .text.xTaskCheckForTimeOut  tasks.o
+    0x08015198   0x08015198   0x0000005e   Code   RO         4065    .text.xTaskCreate   tasks.o
+    0x080151f6   0x080151f6   0x00000002   PAD
+    0x080151f8   0x080151f8   0x00000076   Code   RO         4059    .text.xTaskCreateStatic  tasks.o
+    0x0801526e   0x0801526e   0x00000002   PAD
+    0x08015270   0x08015270   0x00000028   Code   RO         4137    .text.xTaskGetSchedulerState  tasks.o
+    0x08015298   0x08015298   0x0000000c   Code   RO         4107    .text.xTaskGetTickCount  tasks.o
+    0x080152a4   0x080152a4   0x00000004   PAD
+    0x080152a8   0x080152a8   0x00000012   Code   RO         4109    .text.xTaskGetTickCountFromISR  tasks.o
+    0x080152ba   0x080152ba   0x00000006   PAD
+    0x080152c0   0x080152c0   0x0000010a   Code   RO         4105    .text.xTaskIncrementTick  tasks.o
+    0x080153ca   0x080153ca   0x00000006   PAD
+    0x080153d0   0x080153d0   0x000000c6   Code   RO         4141    .text.xTaskPriorityDisinherit  tasks.o
+    0x08015496   0x08015496   0x00000002   PAD
+    0x08015498   0x08015498   0x00000096   Code   RO         4123    .text.xTaskRemoveFromEventList  tasks.o
+    0x0801552e   0x0801552e   0x00000002   PAD
+    0x08015530   0x08015530   0x000000f6   Code   RO         4079    .text.xTaskResumeAll  tasks.o
+    0x08015626   0x08015626   0x00000002   PAD
+    0x08015628   0x08015628   0x00000074   Code   RO         4199    .text.xTimerCreateTimerTask  timers.o
+    0x0801569c   0x0801569c   0x00000004   PAD
+    0x080156a0   0x080156a0   0x0000006e   Code   RO         4211    .text.xTimerGenericCommand  timers.o
+    0x0801570e   0x0801570e   0x00000026   Code   RO         5285    i.__ARM_fpclassifyf  m_wv.l(fpclassifyf.o)
+    0x08015734   0x08015734   0x00000118   Code   RO         4801    i.__hardfp_acosf    m_wv.l(acosf.o)
+    0x0801584c   0x0801584c   0x00000250   Code   RO         4813    i.__hardfp_atan2f   m_wv.l(atan2f.o)
+    0x08015a9c   0x08015a9c   0x00000160   Code   RO         4825    i.__hardfp_atanf    m_wv.l(atanf.o)
+    0x08015bfc   0x08015bfc   0x00000150   Code   RO         4849    i.__hardfp_cosf     m_wv.l(cosf.o)
+    0x08015d4c   0x08015d4c   0x00000014   Code   RO         4861    i.__hardfp_fabs     m_wv.l(fabs.o)
+    0x08015d60   0x08015d60   0x000000b0   Code   RO         4867    i.__hardfp_fmodf    m_wv.l(fmodf.o)
+    0x08015e10   0x08015e10   0x00000664   Code   RO         4893    i.__hardfp_powf     m_wv.l(powf.o)
+    0x08016474   0x08016474   0x00000190   Code   RO         4907    i.__hardfp_sinf     m_wv.l(sinf.o)
+    0x08016604   0x08016604   0x0000003a   Code   RO         4931    i.__hardfp_sqrtf    m_wv.l(sqrtf.o)
+    0x0801663e   0x0801663e   0x00000002   PAD
+    0x08016640   0x08016640   0x0000017c   Code   RO         4943    i.__hardfp_tanf     m_wv.l(tanf.o)
+    0x080167bc   0x080167bc   0x00000014   Code   RO         5287    i.__mathlib_flt_divzero  m_wv.l(funder.o)
+    0x080167d0   0x080167d0   0x00000006   Code   RO         5288    i.__mathlib_flt_infnan  m_wv.l(funder.o)
+    0x080167d6   0x080167d6   0x00000006   Code   RO         5289    i.__mathlib_flt_infnan2  m_wv.l(funder.o)
+    0x080167dc   0x080167dc   0x00000010   Code   RO         5290    i.__mathlib_flt_invalid  m_wv.l(funder.o)
+    0x080167ec   0x080167ec   0x00000010   Code   RO         5291    i.__mathlib_flt_overflow  m_wv.l(funder.o)
+    0x080167fc   0x080167fc   0x00000010   Code   RO         5293    i.__mathlib_flt_underflow  m_wv.l(funder.o)
+    0x0801680c   0x0801680c   0x00000154   Code   RO         5306    i.__mathlib_rredf2  m_wv.l(rredf.o)
+    0x08016960   0x08016960   0x0000000e   Code   RO         5373    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0801696e   0x0801696e   0x00000002   Code   RO         5374    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08016970   0x08016970   0x0000000e   Code   RO         5375    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0801697e   0x0801697e   0x00000002   PAD
+    0x08016980   0x08016980   0x0000000c   Code   RO         5339    i.__set_errno       mc_w.l(errno.o)
+    0x0801698c   0x0801698c   0x0000006c   Code   RO         5239    i.malloc            mc_w.l(malloc.o)
+    0x080169f8   0x080169f8   0x0000003e   Code   RO         4933    i.sqrtf             m_wv.l(sqrtf.o)
+    0x08016a36   0x08016a36   0x00000002   PAD
+    0x08016a38   0x08016a38   0x00000140   Data   RO         4896    .constdata          m_wv.l(powf.o)
+    0x08016b78   0x08016b78   0x00000020   Data   RO         5307    .constdata          m_wv.l(rredf.o)
+    0x08016b98   0x08016b98   0x00000100   Data   RO         1193    .rodata.CRC8_TAB    ui_interface.o
+    0x08016c98   0x08016c98   0x00000010   Data   RO         1720    .rodata.D1CorePrescTable  system_stm32h7xx.o
+    0x08016ca8   0x08016ca8   0x0000004c   Data   RO         3105    .rodata.HAL_FDCAN_Init.CvtEltSize  stm32h7xx_hal_fdcan.o
+    0x08016cf4   0x08016cf4   0x000000a0   Data   RO         1515    .rodata.K_Array_Fly  wlr.o
+    0x08016d94   0x08016d94   0x000000a0   Data   RO         1516    .rodata.K_Array_Prone  wlr.o
+    0x08016e34   0x08016e34   0x000000a0   Data   RO         1514    .rodata.K_Array_Wheel  wlr.o
+    0x08016ed4   0x08016ed4   0x000005a0   Data   RO         1520    .rodata.K_Fit_Array  wlr.o
+    0x08017474   0x08017474   0x00000014   Data   RO         1488    .rodata.LegLengthParam  wlr.o
+    0x08017488   0x08017488   0x0000001c   Data   RO           67    .rodata.MX_FREERTOS_Init.os_thread_def_ChassisTask  freertos.o
+    0x080174a4   0x080174a4   0x0000001c   Data   RO           63    .rodata.MX_FREERTOS_Init.os_thread_def_CommTask  freertos.o
+    0x080174c0   0x080174c0   0x0000001c   Data   RO           71    .rodata.MX_FREERTOS_Init.os_thread_def_DebugTask  freertos.o
+    0x080174dc   0x080174dc   0x0000001c   Data   RO           69    .rodata.MX_FREERTOS_Init.os_thread_def_GimbalTask  freertos.o
+    0x080174f8   0x080174f8   0x0000001c   Data   RO           65    .rodata.MX_FREERTOS_Init.os_thread_def_ModeSwitchTask  freertos.o
+    0x08017514   0x08017514   0x0000001c   Data   RO           60    .rodata.MX_FREERTOS_Init.os_thread_def_STATUSTask  freertos.o
+    0x08017530   0x08017530   0x0000001c   Data   RO           70    .rodata.MX_FREERTOS_Init.os_thread_def_ShootTask  freertos.o
+    0x0801754c   0x0801754c   0x0000001c   Data   RO           73    .rodata.MX_FREERTOS_Init.os_thread_def_UITask  freertos.o
+    0x08017568   0x08017568   0x00000240   Data   RO         1523    .rodata.P_Fit_Array  wlr.o
+    0x080177a8   0x080177a8   0x00000018   Data   RO         3811    .rodata.UARTPrescTable  stm32h7xx_hal_uart.o
+    0x080177c0   0x080177c0   0x00000002   Data   RO          818    .rodata.code        drv_ws2812b.o
+    0x080177c2   0x080177c2   0x00000100   Data   RO          986    .rodata.crc8_table  crc.o
+    0x080178c2   0x080178c2   0x00000010   Data   RO         3106    .rodata.cst16       stm32h7xx_hal_fdcan.o
+    0x080178d2   0x080178d2   0x00000002   PAD
+    0x080178d4   0x080178d4   0x00000030   Data   RO          750    .rodata.motor_para_table  drv_dji_motor.o
+    0x08017904   0x08017904   0x00000804   Data   RO         4793    .rodata.sinTable_f32  arm_cortexM7lfdp_math.lib(arm_common_tables.o)
+    0x08018108   0x08018108   0x00000055   Data   RO           61    .rodata.str1.1      freertos.o
+    0x0801815d   0x0801815d   0x00000001   PAD
+    0x0801815e   0x0801815e   0x00000200   Data   RO         1194    .rodata.wCRC_Table  ui_interface.o
+    0x0801835e   0x0801835e   0x00000002   PAD
+    0x08018360   0x08018360   0x00000020   Data   RO         5371    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08018368, Size: 0x00000000, Max: 0x00020000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08018380, Size: 0x00000000, Max: 0x00020000, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x24000000, Load base: 0x08018368, Size: 0x0000b9d0, Max: 0x00050000, ABSOLUTE, COMPRESSED[0x00000a08])
+    Execution Region RW_IRAM2 (Exec base: 0x24000000, Load base: 0x08018380, Size: 0x0000b9d0, Max: 0x00050000, ABSOLUTE, COMPRESSED[0x00000a08])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -11332,12 +11333,12 @@ Image component sizes
       1342         32          0          0          1       8533   usbd_ctlreq.o
        102          0          0          0          0       4790   usbd_ioreq.o
        540          8          0          0        988       5521   wheel_leg_model.o
-      3534        140       2516        564       1644      11043   wlr.o
+      3554        152       2516        564       1644      11048   wlr.o
 
     ----------------------------------------------------------------------
-     84614       1494       4784       4668      42888     717578   Object Totals
+     84638       1510       4784       4668      42888     717583   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-      1698        104          5          5         52          0   (incl. Padding)
+      1702        108          5          5         52          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -11413,15 +11414,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     91988       2084       7188       4680      42888     737638   Grand Totals
-     91988       2084       7188       2568      42888     737638   ELF Image Totals (compressed)
-     91988       2084       7188       2568          0          0   ROM Totals
+     92012       2100       7188       4680      42888     737643   Grand Totals
+     92012       2100       7188       2568      42888     737643   ELF Image Totals (compressed)
+     92012       2100       7188       2568          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                99176 (  96.85kB)
+    Total RO  Size (Code + RO Data)                99200 (  96.88kB)
     Total RW  Size (RW Data + ZI Data)             47568 (  46.45kB)
-    Total ROM Size (Code + RO Data + RW Data)     101744 (  99.36kB)
+    Total ROM Size (Code + RO Data + RW Data)     101768 (  99.38kB)
 
 ==============================================================================
 

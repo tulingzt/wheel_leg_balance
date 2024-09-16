@@ -137,13 +137,13 @@ float K_Array_Leg[4][10] =
 //  5.54002, -17.8171, -3.52179}}; //不怕踩
 
  float K_Array_Leg_020[4][10] =
-{{-1.92978, -4.40657, -3.0432, -0.685167, -14.8387, -2.83033, \
--7.43643, -1.37532, -4.56169, -1.485}, {-1.92978, -4.40657, 3.0432, 
-  0.685167, -7.43643, -1.37532, -14.8387, -2.83033, -4.56169, \
--1.485}, {3.19493, 6.80263, -5.09034, -1.26151, 37.7088, 
-  6.8788, -7.27114, -0.882961, -16.417, -3.34998}, {3.19493, 6.80263, 
-  5.09034, 1.26151, -7.27114, -0.882961, 37.7088, 
-  6.8788, -16.417, -3.34998}};
+{{-1.87217, -4.10177, -3.26863, -0.862163, -12.0747, -2.00547, \
+-7.33564, -1.31043, -5.5946, -1.5454}, {-1.87217, -4.10177, 3.26863, 
+  0.862163, -7.33564, -1.31043, -12.0747, -2.00547, -5.5946, \
+-1.5454}, {5.46805, 11.2356, -6.02667, -1.64378, 52.2473, 
+  7.68457, -8.73536, -0.316438, -31.0053, -4.84195}, {5.46805, 
+  11.2356, 6.02667, 1.64378, -8.73536, -0.316438, 52.2473, 
+  7.68457, -31.0053, -4.84195}};
 
 // 0805 : 4000, 2000, 5000, 200, 20000, 500, 20000, 500, 20000, 800
 float K_Array_Leg_030[4][10] = 
@@ -253,9 +253,9 @@ void wlr_init(void)
         kal_fn[i].R_data[0] = 100;
         
 		//PID参数初始化
-        pid_init(&pid_leg_length[i], NONE, 1000, 1.0f,  10000, 20, 50);//500 0/2.5f 10000
-        pid_init(&pid_leg_length_fast[i], NONE, 1000, 0,5000, 0, 50);
-        pid_init(&pid_leg_vy[i], NONE, 50, 0, 0, 0, 100);
+        pid_init(&pid_leg_length[i], NONE, 1000, 1.0f,  40000.0f, 20, 50);//500 0/2.5f 10000
+        pid_init(&pid_leg_length_fast[i], NONE, 500, 0,30000, 0, 50);
+        pid_init(&pid_leg_vy[i], NONE, 100, 0, 0, 0, 200);
 	}
 	//卡尔曼滤波器初始化
 
@@ -327,8 +327,8 @@ void wlr_control(void)
                 wlr.side[i].fly_cnt++;
             else if(wlr.side[i].fly_cnt > 0)
                 wlr.side[i].fly_cnt-=2;
-            if(wlr.side[i].fly_cnt > 100) {
-                wlr.side[i].fly_cnt = 100;
+            if(wlr.side[i].fly_cnt > 80) {
+                wlr.side[i].fly_cnt = 80;
                 wlr.side[i].fly_flag = 1;
             } else if(wlr.side[i].fly_cnt == 0)
                 wlr.side[i].fly_flag = 0;
@@ -339,7 +339,7 @@ void wlr_control(void)
             
              if(wlr.side[i].fly_adapt == 1)//增益落地500ms
               {
-               wlr.side[i].fly_flag_cnt = 50; 
+               wlr.side[i].fly_flag_cnt = 100; 
              }
              else if(wlr.side[i].fly_adapt == 0 && wlr.side[i].fly_flag_cnt>0)
                 wlr.side[i].fly_flag_cnt--;    
@@ -494,8 +494,11 @@ void wlr_control(void)
 		}  else	{													                       //常态 跳跃压腿阶段 跳跃落地阶段
           
             if(wlr.side[0].fly_flag_cnt && wlr.side[1].fly_flag_cnt)
+						{
             wlr.side[i].Fy = pid_calc(&pid_leg_length[i], tlm.l_ref[i], vmc[i].L_fdb)\
                                  + 24.0f + WLR_SIGN(i) * (wlr.roll_offs - wlr.inertial_offs)+pid_calc(&pid_leg_vy[i], 0.0f, vmc[i].V_fdb.e.vy0_fdb) ;
+						}
+
             else
                wlr.side[i].Fy = pid_calc(&pid_leg_length[i], tlm.l_ref[i], vmc[i].L_fdb)\
                                  + 24.0f + WLR_SIGN(i) * (wlr.roll_offs - wlr.inertial_offs);  
