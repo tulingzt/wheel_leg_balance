@@ -1,0 +1,10 @@
+rm_main\knn.o: ..\User\Math\KNN.c
+rm_main\knn.o: B:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
+rm_main\knn.o: ../User/Math/DSP/Include/arm_math.h
+rm_main\knn.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+rm_main\knn.o: B:\Keil5\ARM\ARMCC\Bin\..\include\stdint.h
+rm_main\knn.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+rm_main\knn.o: B:\Keil5\ARM\ARMCC\Bin\..\include\string.h
+rm_main\knn.o: B:\Keil5\ARM\ARMCC\Bin\..\include\math.h
+rm_main\knn.o: B:\Keil5\ARM\ARMCC\Bin\..\include\float.h
+rm_main\knn.o: ..\User\Math\KNN.h
