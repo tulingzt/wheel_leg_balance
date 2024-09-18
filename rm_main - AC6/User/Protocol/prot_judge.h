@@ -4,6 +4,12 @@
 #include "usart.h"
 #include "stdint.h"
 
+//#pragma pack(push) 
+
+//#pragma pack(1) 
+
+//#pragma pack(pop)
+
 //帧头
 typedef __PACKED_STRUCT
 {
@@ -76,7 +82,7 @@ typedef enum
     LEN_sentry_info                 = 4,
     LEN_radar_info                  = 1,
 
-    LEN_robot_interaction_data      = 128,
+    LEN_robot_interaction_data      = 119,
     LEN_custom_robot_data           = 30,
     LEN_map_command                 = 12,//手册有矛盾 有15和12
     LEN_remote_control              = 12,
@@ -268,13 +274,14 @@ typedef __PACKED_STRUCT
     uint8_t data[30];
 } custom_robot_data_t;
 
+
 typedef __PACKED_STRUCT
 {
-    float target_position_x;
-    float target_position_y;
-    uint8_t cmd_keyboard;
-    uint8_t target_robot_id;
-    uint8_t cmd_source;
+	float target_position_x; 
+	float target_position_y; 
+	uint8_t cmd_keyboard; 
+	uint8_t target_robot_id; 
+	uint16_t cmd_source;
 } map_command_t;
 
 typedef __PACKED_STRUCT

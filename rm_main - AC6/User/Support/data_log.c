@@ -46,7 +46,8 @@ void log_printf(const char *format, ...)
     {
     osDelay(1);
     }
-    len = vsnprintf((char*)log_str, sizeof(log_str)+1, (char*)format, args);
+//    len = vsnprintf((char*)log_str, sizeof(log_str)+1, (char*)format, args);
+		len = vsnprintf((char*)log_str, sizeof(log_str), (char*)format, args);
     va_end(args);
     HAL_UART_Transmit_DMA(log_huart, (uint8_t*)log_str, len);
 }

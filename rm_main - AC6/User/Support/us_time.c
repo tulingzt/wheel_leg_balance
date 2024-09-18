@@ -107,7 +107,7 @@ void us_timer_delay(float us)
     else
         prv_us_time.predict_tim_cnt = (US_TIME_TYPE)(us / US_TIME_PRECISION + prv_us_time.tim_cnt);
     //多次溢出计算次数和最后计数值
-    while(us / US_TIME_PRECISION > US_TIME_PERIOD)
+    while(us / US_TIME_PRECISION > (float)US_TIME_PERIOD)
     {
         us -= ((US_TIME_TYPE)US_TIME_PERIOD + 1) * US_TIME_PRECISION;
         prv_us_time.predict_overflow_cnt++;

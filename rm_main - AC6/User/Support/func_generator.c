@@ -167,7 +167,7 @@ float FGT_random_generate(float min, float max)
     uint32_t temp_32_rng;
 //    while (__HAL_RNG_GET_FLAG(&hrng, RNG_FLAG_DRDY) == RESET);
     HAL_RNG_GenerateRandomNumber(&hrng, &temp_32_rng);
-    return (float)temp_32_rng / 0xffffffff * (max - min) + min;
+    return (float)temp_32_rng /(float)0xffffffff * (max - min) + min;
 }
 
 /*
@@ -182,8 +182,13 @@ float FGT_gauss_generate(float mu, float sigma)
     //产生两个均匀分布的0~1的随机序列 两种实现方式：硬件实现和软件实现
     //两个实现方式的结果差不多，但软件实现会比硬件实现少2us，因为硬件需要等待寄存器更新
     //软件实现需要2.7到3.8us，硬件实现需要4.2到5.2us
-    t1 = (float)rand() / (RAND_MAX);
-    t2 = (float)rand() / (RAND_MAX);
+//    t1 = (float)rand() / (RAND_MAX);
+//    t2 = (float)rand() / (RAND_MAX);
+	
+	   t1 = rand() / (float)RAND_MAX;
+    t2 = rand() / (float)RAND_MAX;
+	
+
 //    t1 = FGT_RandomGenerate(0, 1);
 //    t2 = FGT_RandomGenerate(0, 1);
     //极坐标的两个随机变量分布序列

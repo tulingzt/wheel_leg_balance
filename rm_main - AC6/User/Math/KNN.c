@@ -1,9 +1,11 @@
 #include "stdio.h"
 #include "arm_math.h"
 #include "KNN.h"
+#include "math.h"
 
 
-
+//#define KNN_INFINITY 0x3f3f3f3f
+#define CUSTOM_INFINITY 1.0e+308
 #define N 75  // 训练数据点的数量
 #define M 12    // 特征数量
 #define K 8    // 选择最近邻的数量
@@ -167,7 +169,7 @@ int knn_classify(float *input_data, int k) {
     int i;
     // 初始化距离为最大值
     for (i = 0; i < K; i++) {
-        neighbors[i].distance = INFINITY;
+        neighbors[i].distance = CUSTOM_INFINITY;
         neighbors[i].label = -1;
     }
 
