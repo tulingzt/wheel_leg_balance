@@ -8,17 +8,17 @@ UART_HandleTypeDef *log_huart;
 /* printf重定向使用的为HAL_UART_Transmit */
 /* 取消ARM的半主机工作模式 */
 //#pragma import(__use_no_semihosting)
-__asm (".global __use_no_semihosting\n\t");
-struct __FILE
-{
-    int handle;
-};
+//__asm (".global __use_no_semihosting\n\t");
+//struct __FILE
+//{
+//    int handle;
+//};
 
-FILE __stdout;          
-void _sys_exit(int x) 
-{ 
-    x = x;
-}
+//FILE __stdout;          
+//void _sys_exit(int x) 
+//{ 
+//    x = x;
+//}
 
 int fputc(int ch, FILE *f)
 {

@@ -120,7 +120,7 @@ void status_task(void const* argument)
             rgb_change(4, status.power);
             rgb_change(5, status.imu);
             rgb_change(6, status.all);
-        } else if (rc_fsm_check(RC_RIGHT_LU)) { //遥控器切换DEBUG灯板
+        } else if (rc_fsm_check(RC_RIGHT_RU)) { //遥控器切换DEBUG灯板
             rgb_change(1, status.dji_motor);
             rgb_change(2, status.ht_motor);
             rgb_change(3, 0);

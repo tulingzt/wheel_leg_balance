@@ -43,8 +43,7 @@ static void gimbal_init(void)
     
     pid_init(&gimbal.yaw_angle.pid, NONE, 6, 0, 0, 0, 30);
     pid_init(&gimbal.yaw_spd.pid, NONE, 3.0f, 0.02f, 0, 1.0f, 2.2f);
-//    pid_init(&gimbal.yaw_angle.pid, NONE, 40, 0, 600, 0, 15);
-//    pid_init(&gimbal.yaw_spd.pid, NONE, 1.2f, 0.00f, 0, 1.0f, 2.2f);
+
 }
 
 static void gimbal_pid_calc(void)

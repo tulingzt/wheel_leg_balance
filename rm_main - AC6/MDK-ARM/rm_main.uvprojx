@@ -315,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -339,9 +339,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>-D__weak="__attribute__((weak))" -D__packed="__attribute__((__packed__))"  -D__NOINLINE="__attribute__ ( (noinline) )"  -Wno-error=armcc-pragma-import -Wno-error=armcc-pragma-arm</MiscControls>
-              <Define>USE_HAL_DRIVER,STM32H723xx,ARM_MATH_CM4,__TARGET_FPU_VFP</Define>
+              <Define>USE_HAL_DRIVER,STM32H723xx,ARM_MATH_CM4,__TARGET_FPU_VFP,OSQP_EMBEDDED_MODE = 1</Define>
               <Undefine></Undefine>
-              <IncludePath>../Drivers/CMSIS/Include;../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../User/Communication;../User/Drivers;../User/Protocol;../User/Math/DSP/Include;../User/Math;../User/Model;../User/Support;../User/Middle;../User/Task;../User/UI</IncludePath>
+              <IncludePath>../Drivers/CMSIS/Include;../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../User/Communication;../User/Drivers;../User/Protocol;../User/Math/DSP/Include;../User/Math;../User/Model;../User/Support;../User/Middle;../User/Task;../User/UI;..\User\Math\OSQP\include\public;..\User\Math\OSQP\configure;..\User\Math\OSQP\algebra;..\User\Math\OSQP\algebra\_common;..\User\Math\OSQP\algebra\builtin;..\User\Math\OSQP\algebra\cuda\include;..\User\Math\OSQP\algebra\mkl;..\User\Math\OSQP\include\private</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1093,6 +1093,16 @@
               <FileName>KNN.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Math\KNN.c</FilePath>
+            </File>
+            <File>
+              <FileName>OSQP_C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Math\OSQP_C.c</FilePath>
+            </File>
+            <File>
+              <FileName>OSQP_C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\Math\OSQP_C.h</FilePath>
             </File>
           </Files>
         </Group>

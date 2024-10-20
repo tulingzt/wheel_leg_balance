@@ -29,7 +29,7 @@ kalman_filter_t kal_wy;
 FGT_sin_t FGT_sin_chassis;
 chassis_t chassis;
 chassis_scale_t chassis_scale = {
-    .remote = 1.0f/660*2.0f,
+    .remote = 1.0f/660*2.5f,
     .keyboard = 2.5f
 };
 
@@ -389,10 +389,11 @@ static void chassis_data_input(void)
         case CHASSIS_MODE_KEYBOARD_FOLLOW:
         case CHASSIS_MODE_KEYBOARD_PRONE: {
             if (gimbal.start_up)//完成起身，前方灯条
-                wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI;
+                wlr.yaw_ref = (float)CHASSIS_YAW_OFFSET / 8192 * 2 * PI - PI;
             else//起身未完成，目标值等于反馈值
-                wlr.yaw_ref = (float)yaw_motor.ecd / 8192 * 2 * PI;                
-            wlr.yaw_fdb = (float)yaw_motor.ecd / 8192 * 2 * PI;
+                wlr.yaw_ref = (float)yaw_motor.ecd / 8192 * 2  * PI;     
+						
+            wlr.yaw_fdb = (float)yaw_motor.ecd / 8192 * 2 *PI;
             wlr.wz_ref = 0;
             //此yaw_err用于底盘前后都可跟随
 //            wlr.yaw_err = circle_error(wlr.yaw_ref, wlr.yaw_fdb, 2 * PI);
@@ -544,6 +545,7 @@ void chassis_task(void const *argu)
     power_init();
     for(;;)
     {
+	
         if (chassis.init == 0) {
             chassis_init();
         }

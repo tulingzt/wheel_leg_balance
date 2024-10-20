@@ -92,10 +92,14 @@ int main(void)
 
   /* Configure the system clock */
   SystemClock_Config();
-
+	
+	HAL_Delay(300);
+	
 /* Configure the peripherals common clocks */
   PeriphCommonClock_Config();
 
+	 HAL_Delay(300);
+	
   /* USER CODE BEGIN SysInit */
 //	USB_Reset();//USB复位，让电脑重新识别
   /* USER CODE END SysInit */
@@ -118,19 +122,21 @@ int main(void)
   MX_SPI1_Init();
 //  MX_IWDG1_Init();
   /* USER CODE BEGIN 2 */
-  HAL_Delay(300);
-  HAL_IWDG_Refresh(&hiwdg1);
-  HAL_Delay(300);
-  HAL_IWDG_Refresh(&hiwdg1);
-  HAL_Delay(300);
-  HAL_IWDG_Refresh(&hiwdg1);
-  HAL_Delay(300);
-  HAL_IWDG_Refresh(&hiwdg1);
-  HAL_Delay(300);
-  HAL_IWDG_Refresh(&hiwdg1);
+//  HAL_Delay(300);
+//  HAL_IWDG_Refresh(&hiwdg1);
+//  HAL_Delay(300);
+//  HAL_IWDG_Refresh(&hiwdg1);
+//  HAL_Delay(300);
+//  HAL_IWDG_Refresh(&hiwdg1);
+//  HAL_Delay(300);
+//  HAL_IWDG_Refresh(&hiwdg1);
+//  HAL_Delay(300);
+//  HAL_IWDG_Refresh(&hiwdg1);
+   HAL_Delay(300);
   us_timer_start();
   usart_comm_init();
   can_comm_init();
+	 HAL_Delay(300);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -311,7 +317,7 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-    log_printf("[%s,%d]assert_failed!\r\n", file, line);
+//    log_printf("[%s,%d]assert_failed!\r\n", file, line);
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
